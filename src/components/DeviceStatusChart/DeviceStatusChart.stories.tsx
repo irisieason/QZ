@@ -50,7 +50,7 @@ const meta = {
     },
     // 扩展属性
     data: {
-      control: false,
+      control: 'object',
       description: '图表数据数组 - 扩展属性，用于接入真实数据。每个数据项包含 label 和各状态的设备数量。',
       table: {
         category: '扩展属性',
@@ -73,7 +73,7 @@ const meta = {
       },
     },
     legends: {
-      control: false,
+      control: 'object',
       description: '图例配置数组 - 扩展属性，定义每种状态的颜色和标签。',
       table: {
         category: '扩展属性',

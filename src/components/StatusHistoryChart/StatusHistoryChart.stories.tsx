@@ -25,7 +25,7 @@ const meta = {
     },
     // 扩展属性
     dataSeries: {
-      control: false,
+      control: 'object',
       description: '数据系列数组 - 扩展属性，用于接入真实数据。每个数据系列包含 id、name、type 和 data 数组。',
       table: {
         category: '扩展属性',
@@ -50,7 +50,7 @@ const meta = {
       },
     },
     xAxisLabels: {
-      control: false,
+      control: 'object',
       description: 'X轴标签数组 - 扩展属性',
       table: {
         category: '扩展属性',

@@ -1,0 +1,204 @@
+/* Import design tokens */
+@import '../../tokens/tokens.css';
+
+.status-history-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  width: 674px;
+  height: 332px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 标题栏 */
+.status-history-chart__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.status-history-chart__title {
+  flex: 1 0 0;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.43;
+  letter-spacing: 0.168px;
+  color: var(--color-std-text, white);
+}
+
+.status-history-chart__buttons {
+  display: flex;
+  gap: 0;
+}
+
+/* 图表区域 */
+.status-history-chart__chart {
+  display: flex;
+  gap: 4px;
+  flex: 1 0 0;
+  min-height: 1px;
+  width: 100%;
+}
+
+/* Y轴刻度 */
+.status-history-chart__y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  padding: 9px 0;
+  flex-shrink: 0;
+}
+
+.status-history-chart__y-tick {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 0;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms--1, 12px);
+  line-height: 1.5;
+  letter-spacing: 0.144px;
+  color: var(--color-std-text, white);
+  text-align: right;
+}
+
+/* 图表画布 */
+.status-history-chart__canvas {
+  flex: 1 0 0;
+  min-width: 1px;
+  position: relative;
+  padding: 9px 0;
+}
+
+.status-history-chart__svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 网格线 */
+.status-history-chart__grid-line {
+  stroke: var(--chart-grid-lines, rgba(255, 255, 255, 0.1));
+  stroke-width: 1;
+}
+
+.status-history-chart__grid-line--bold {
+  stroke: var(--chart-axes, rgba(255, 255, 255, 0.3));
+}
+
+/* Y轴刻度标记 */
+.status-history-chart__y-tick-mark {
+  fill: var(--chart-ticks, rgba(255, 255, 255, 0.35));
+}
+
+/* X轴刻度标记 */
+.status-history-chart__x-tick-mark {
+  fill: var(--chart-ticks, rgba(255, 255, 255, 0.35));
+}
+
+/* 数据线 */
+.status-history-chart__line {
+  stroke-width: 2;
+  fill: none;
+}
+
+.status-history-chart__line--maintenance {
+  stroke: var(--color-warning, #ffd732);
+}
+
+.status-history-chart__line--errors {
+  stroke: var(--color-alarm, #ff2640);
+}
+
+.status-history-chart__line--offline {
+  stroke: var(--color-neutral, #b9b9b6);
+}
+
+/* 数据点 */
+.status-history-chart__point {
+  fill: currentColor;
+}
+
+.status-history-chart__point--maintenance {
+  fill: var(--color-warning, #ffd732);
+}
+
+.status-history-chart__point--errors {
+  fill: var(--color-alarm, #ff2640);
+}
+
+.status-history-chart__point--offline {
+  fill: var(--color-neutral, #b9b9b6);
+}
+
+/* X轴刻度 */
+.status-history-chart__x-axis {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.status-history-chart__x-tick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms--1, 12px);
+  line-height: 1.5;
+  letter-spacing: 0.144px;
+  color: var(--color-std-text, white);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* 图例 */
+.status-history-chart__legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.status-history-chart__legend-item {
+  display: flex;
+  gap: 8px;
+  height: 18px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.status-history-chart__legend-color {
+  width: 24px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.status-history-chart__legend-color--maintenance {
+  background-color: var(--color-warning, #ffd732);
+}
+
+.status-history-chart__legend-color--errors {
+  background-color: var(--color-alarm, #ff2640);
+}
+
+.status-history-chart__legend-color--offline {
+  background-color: var(--color-neutral, #b9b9b6);
+}
+
+.status-history-chart__legend-label {
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms--1, 12px);
+  line-height: 1.5;
+  letter-spacing: 0.144px;
+  color: var(--color-std-text, white);
+  flex-shrink: 0;
+}

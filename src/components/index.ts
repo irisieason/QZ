@@ -10,6 +10,7 @@ export { Cardcontainer } from './Cardcontainer';
 export { DeviceStatusChart } from './DeviceStatusChart';
 export { EventItemContent } from './EventItemContent';
 export { EventListItem } from './EventListItem';
+export { StatusHistoryChart } from './StatusHistoryChart';
 export type { ButtonProps, ButtonVariant, ButtonState } from './Button';
 export type { IconButtonProps, IconButtonType, IconButtonState, IconButtonSize } from './IconButton';
 export type { AvatarButtonMenuProps, AvatarButtonMenuState } from './AvatarButtonMenu';
@@ -19,3 +20,4 @@ export type { CardcontainerProps, CardcontainerState, CardcontainerVariant } fro
 export type { DeviceStatusChartProps, ChartDataItem, LegendItem } from './DeviceStatusChart';
 export type { EventItemContentProps } from './EventItemContent';
 export type { EventListItemProps, EventListItemState, SeverityColor } from './EventListItem';
+export type { StatusHistoryChartProps, DataPoint, DataSeries } from './StatusHistoryChart';

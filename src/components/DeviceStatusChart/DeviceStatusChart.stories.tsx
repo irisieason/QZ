@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { DeviceStatusChart } from './DeviceStatusChart';
 import { addIcons } from '@irisieason/ix-icons';
@@ -19,62 +20,99 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
+    // Figma 属性
     chartTitle: {
       control: 'text',
-      description: '图表标题',
+      description: '图表标题（Figma 属性）',
       table: {
+        category: 'Figma 属性',
         type: { summary: 'string' },
-        defaultValue: { summary: '"Device status"' },
+        defaultValue: { summary: 'Device status' },
       },
     },
     yAxisLabel: {
       control: 'text',
-      description: 'Y轴标签',
+      description: 'Y轴标签（Figma 属性）',
       table: {
+        category: 'Figma 属性',
         type: { summary: 'string' },
-        defaultValue: { summary: '"IP Range"' },
+        defaultValue: { summary: 'IP Range' },
       },
     },
     xAxisLabel: {
       control: 'text',
-      description: 'X轴标签',
+      description: 'X轴标签（Figma 属性）',
       table: {
+        category: 'Figma 属性',
         type: { summary: 'string' },
-        defaultValue: { summary: '"Device"' },
+        defaultValue: { summary: 'Device' },
       },
     },
+    // 扩展属性
     data: {
-      control: 'object',
-      description: '图表数据',
+      control: false,
+      description: '图表数据数组 - 扩展属性，用于接入真实数据。每个数据项包含 label 和各状态的设备数量。',
       table: {
-        type: { summary: 'ChartDataItem[]' },
+        category: '扩展属性',
+        type: { 
+          summary: 'ChartDataItem[]',
+          detail: `[
+  {
+    label: string,      // IP 范围标签
+    green: number,      // 正常设备数
+    yellow: number,     // 警告设备数
+    red: number,        // 错误设备数
+    critical: number    // 严重错误设备数
+  }
+]`
+        },
+        defaultValue: { 
+          summary: '3行数据',
+          detail: '10.x、192.x、172.x 三个 IP 范围的设备状态'
+        },
       },
     },
     legends: {
-      control: 'object',
-      description: '图例配置',
+      control: false,
+      description: '图例配置数组 - 扩展属性，定义每种状态的颜色和标签。',
       table: {
-        type: { summary: 'LegendItem[]' },
+        category: '扩展属性',
+        type: { 
+          summary: 'LegendItem[]',
+          detail: `[
+  {
+    color: 'green' | 'yellow' | 'red' | 'critical',
+    label: string
+  }
+]`
+        },
+        defaultValue: { 
+          summary: '4个图例',
+          detail: 'green、yellow、red、critical 四种状态'
+        },
       },
     },
     onPrevClick: {
       action: 'prev-clicked',
-      description: '左箭头点击事件',
+      description: '左箭头点击事件 - 扩展属性',
       table: {
+        category: '扩展属性',
         type: { summary: '() => void' },
       },
     },
     onNextClick: {
       action: 'next-clicked',
-      description: '右箭头点击事件',
+      description: '右箭头点击事件 - 扩展属性',
       table: {
+        category: '扩展属性',
         type: { summary: '() => void' },
       },
     },
     className: {
       control: 'text',
-      description: '自定义类名',
+      description: '自定义类名 - 扩展属性',
       table: {
+        category: '扩展属性',
         type: { summary: 'string' },
       },
     },
@@ -107,6 +145,34 @@ export const Default: Story = {
     data: defaultData,
     legends: defaultLegends,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+默认示例展示了三个 IP 范围的设备状态分布：
+- **10.x**: 2台正常设备
+- **192.x**: 12台正常、1台错误、1台严重错误
+- **172.x**: 15台正常、2台警告
+
+数据格式：
+\`\`\`typescript
+data: [
+  { label: '10.x', green: 2, yellow: 0, red: 0, critical: 0 },
+  { label: '192.x', green: 12, yellow: 0, red: 1, critical: 1 },
+  { label: '172.x', green: 15, yellow: 2, red: 0, critical: 0 },
+]
+
+legends: [
+  { color: 'green', label: 'Label' },
+  { color: 'yellow', label: 'Label' },
+  { color: 'red', label: 'Label' },
+  { color: 'critical', label: 'Label' },
+]
+\`\`\`
+        `,
+      },
+    },
+  },
 };
 
 // 自定义标题
@@ -117,6 +183,13 @@ export const CustomTitle: Story = {
     xAxisLabel: 'Device Count',
     data: defaultData,
     legends: defaultLegends,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '自定义图表标题和轴标签的示例。',
+      },
+    },
   },
 };
 
@@ -133,6 +206,13 @@ export const CustomLegends: Story = {
       { color: 'red' as const, label: 'Offline' },
       { color: 'critical' as const, label: 'Critical' },
     ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '自定义图例标签的示例，将默认的 "Label" 替换为更有意义的状态名称。',
+      },
+    },
   },
 };
 
@@ -155,6 +235,13 @@ export const MoreData: Story = {
       { color: 'critical' as const, label: 'Critical' },
     ],
   },
+  parameters: {
+    docs: {
+      description: {
+        story: '展示更多数据行的示例（4个 IP 范围）。注意：如果数据超过3行，建议使用分页功能。',
+      },
+    },
+  },
 };
 
 // 单一状态
@@ -174,6 +261,13 @@ export const SingleStatus: Story = {
       { color: 'red' as const, label: 'Offline' },
       { color: 'critical' as const, label: 'Critical' },
     ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '所有设备都处于正常状态的示例，展示单一状态的可视化效果。',
+      },
+    },
   },
 };
 
@@ -195,6 +289,13 @@ export const MixedStatus: Story = {
       { color: 'critical' as const, label: 'Critical' },
     ],
   },
+  parameters: {
+    docs: {
+      description: {
+        story: '混合状态示例，每个 IP 范围都包含多种状态的设备，展示复杂场景下的可视化效果。',
+      },
+    },
+  },
 };
 
 // 交互示例
@@ -205,6 +306,13 @@ export const WithInteraction: Story = {
     xAxisLabel: 'Device',
     data: defaultData,
     legends: defaultLegends,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '带分页交互的示例，点击左右箭头可以切换不同页面的数据。适用于数据量较大需要分页展示的场景。',
+      },
+    },
   },
   render: (args) => {
     const [currentPage, setCurrentPage] = React.useState(0);

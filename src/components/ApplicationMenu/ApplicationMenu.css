@@ -79,10 +79,15 @@
   padding-left: 6px;
 }
 
-/* 收起状态：AvatarButtonMenu 居中（40px 在 52px 容器中，左右各 6px） */
+/* 收起状态：AvatarButtonMenu 左侧 6px */
 .application-menu--collapsed .application-menu__avatar-section {
   padding-left: 6px;
   padding-right: 6px;
+}
+
+/* 禁用 AvatarButtonMenu 的宽度和 padding 过渡动画 */
+.application-menu__avatar-section > * {
+  transition: background-color 0.2s ease !important;
 }
 
 /* 菜单项列表 */

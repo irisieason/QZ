@@ -1,0 +1,210 @@
+/* Import design tokens */
+@import '../../tokens/tokens.css';
+
+.event-item-content {
+  display: flex;
+  gap: 4px;
+  height: 84px;
+  align-items: center;
+  padding: 4px 8px 4px 4px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Disabled 状态 */
+.event-item-content--disabled {
+  color: var(--color-weak-text);
+}
+
+.event-item-content--disabled .event-item-content__icon-column ix-icon,
+.event-item-content--disabled .event-item-content__action-button ix-icon {
+  opacity: 0.45;
+}
+
+/* 图标列 */
+.event-item-content__icon-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-start;
+  padding: 6px 4px;
+  flex-shrink: 0;
+  color: var(--color-std-text);
+}
+
+/* 内容列 */
+.event-item-content__content-column {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-start;
+  min-height: 1px;
+  min-width: 1px;
+  padding: 8px 0 4px 0;
+  gap: 0;
+}
+
+.event-item-content__header {
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.429;
+  color: var(--color-std-text);
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.event-item-content__subheader {
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.429;
+  color: var(--color-std-text);
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.event-item-content__subinfo {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 1px;
+  min-width: 1px;
+  overflow: hidden;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-normal, 400);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.429;
+  color: var(--color-soft-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  margin: 0;
+}
+
+/* Disabled 状态下的文本颜色 */
+.event-item-content--disabled .event-item-content__header,
+.event-item-content--disabled .event-item-content__subheader,
+.event-item-content--disabled .event-item-content__subinfo {
+  color: var(--color-weak-text);
+}
+
+/* 附加列 */
+.event-item-content__additional-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.event-item-content__action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-std-text);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.event-item-content__action-button:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.event-item-content__action-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.event-item-content__timestamp {
+  display: flex;
+  flex: 1 0 0;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 1px;
+  min-width: 1px;
+  padding-bottom: 4px;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-normal, 400);
+  font-size: var(--font-size-ms--1, 12px);
+  line-height: 1.5;
+  color: var(--color-soft-text);
+  text-align: right;
+  white-space: pre-line;
+  flex-shrink: 0;
+}
+
+.event-item-content--disabled .event-item-content__timestamp {
+  color: var(--color-weak-text);
+}
+
+/* 按钮列 */
+.event-item-content__button-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.event-item-content__button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  min-width: 80px;
+  white-space: nowrap;
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.event-item-content__button:hover:not(:disabled) {
+  background-color: var(--color-secondary--hover);
+}
+
+.event-item-content__button:active:not(:disabled) {
+  background-color: var(--color-secondary--active);
+}
+
+.event-item-content__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.event-item-content__button-label {
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.429;
+  color: var(--color-primary);
+  text-align: center;
+  padding: 2px 0;
+}
+
+.event-item-content__button:disabled .event-item-content__button-label {
+  color: var(--color-primary--disabled);
+}

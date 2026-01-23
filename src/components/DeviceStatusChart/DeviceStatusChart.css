@@ -1,0 +1,309 @@
+/* Import design tokens */
+@import '../../tokens/tokens.css';
+
+.device-status-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  width: 474px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 标题栏 */
+.device-status-chart__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.device-status-chart__title {
+  flex: 1 0 0;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.43;
+  letter-spacing: 0.168px;
+  color: var(--color-std-text, white);
+}
+
+.device-status-chart__buttons {
+  display: flex;
+  gap: 0;
+}
+
+/* Y轴标签 */
+.device-status-chart__y-label {
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.43;
+  letter-spacing: 0.168px;
+  color: var(--color-std-text, white);
+}
+
+/* 图表网格容器 */
+.device-status-chart__grid-container {
+  display: flex;
+  gap: 5px;
+  height: 121px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Y轴刻度 */
+.device-status-chart__y-axis {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 32px;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 3px;
+  flex-shrink: 0;
+}
+
+.device-status-chart__y-tick {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms--1, 12px);
+  line-height: 1.5;
+  letter-spacing: 0.144px;
+  color: var(--color-std-text, white);
+}
+
+/* 图表区域 */
+.device-status-chart__chart-area {
+  flex: 1 0 0;
+  height: 100%;
+  position: relative;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+/* 垂直网格线 */
+.device-status-chart__grid-lines {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  right: 10px;
+  height: 121px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.device-status-chart__grid-line {
+  width: 1px;
+  height: 121px;
+  background-color: var(--chart-grid-lines, rgba(255, 255, 255, 0.1));
+  flex-shrink: 0;
+}
+
+.device-status-chart__grid-line--bold {
+  background-color: var(--chart-axes, rgba(255, 255, 255, 0.3));
+}
+
+/* 数据条容器 */
+.device-status-chart__bars {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  height: 121px;
+  z-index: 1;
+}
+
+.device-status-chart__bar-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.device-status-chart__bar-row:last-child {
+  height: 41px;
+}
+
+/* 行分隔线 */
+.device-status-chart__row-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 10px;
+}
+
+.device-status-chart__row-divider-tick {
+  width: 4px;
+  height: 1px;
+  background-color: var(--chart-ticks, rgba(255, 255, 255, 0.35));
+  flex-shrink: 0;
+}
+
+.device-status-chart__row-divider-line {
+  flex: 1 0 0;
+  height: 1px;
+  background-color: var(--chart-grid-lines, rgba(255, 255, 255, 0.1));
+  min-width: 1px;
+}
+
+/* 条形图容器 */
+.device-status-chart__bar-container {
+  display: flex;
+  align-items: stretch;
+  padding-left: 0;
+  padding-right: 0;
+  height: 24px;
+  width: 100%;
+}
+
+/* 条形图 */
+.device-status-chart__bar {
+  flex-shrink: 0;
+  height: 24px;
+}
+
+.device-status-chart__bar--green {
+  background-color: var(--color-success, #01d65a);
+}
+
+.device-status-chart__bar--yellow {
+  background-color: var(--color-warning, #ffd732);
+}
+
+.device-status-chart__bar--red {
+  background-color: var(--color-alarm, #ff2640);
+}
+
+.device-status-chart__bar--critical {
+  background-color: var(--color-critical, #ff9000);
+}
+
+/* 底部X轴线 */
+.device-status-chart__x-axis-line {
+  position: absolute;
+  bottom: 0;
+  left: 4px;
+  right: 10px;
+  height: 1px;
+  background-color: var(--chart-axes, rgba(255, 255, 255, 0.3));
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.device-status-chart__x-axis-tick {
+  width: 1px;
+  height: 4px;
+  background-color: var(--chart-ticks, rgba(255, 255, 255, 0.35));
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+/* X轴刻度 */
+.device-status-chart__x-axis {
+  position: relative;
+  margin-left: 41px;
+  margin-right: 10px;
+  width: calc(100% - 51px);
+  height: 18px;
+}
+
+.device-status-chart__x-tick {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 18px;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms--1, 12px);
+  line-height: 1.5;
+  letter-spacing: 0.144px;
+  color: var(--color-std-text, white);
+  text-align: center;
+  flex-shrink: 0;
+  /* 标签中心对齐到垂直线 */
+  left: 4px;
+  transform: translateX(-50%);
+}
+
+/* X轴标签 */
+.device-status-chart__x-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.43;
+  letter-spacing: 0.168px;
+  color: var(--color-std-text, white);
+}
+
+/* 图例 */
+.device-status-chart__legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.device-status-chart__legend-item {
+  display: flex;
+  gap: 8px;
+  height: 18px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.device-status-chart__legend-color {
+  width: 24px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.device-status-chart__legend-color--green {
+  background-color: var(--color-success, #01d65a);
+}
+
+.device-status-chart__legend-color--yellow {
+  background-color: var(--color-warning, #ffd732);
+}
+
+.device-status-chart__legend-color--red {
+  background-color: var(--color-alarm, #ff2640);
+}
+
+.device-status-chart__legend-color--critical {
+  background-color: var(--color-critical, #ff9000);
+}
+
+.device-status-chart__legend-label {
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: var(--font-size-ms--1, 12px);
+  line-height: 1.5;
+  letter-spacing: 0.144px;
+  color: var(--color-std-text, white);
+  flex-shrink: 0;
+}

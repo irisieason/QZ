@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventListItem Severity Indicator Test</title>
+  <style>
+    :root {
+      --color-component-1: rgba(140, 161, 171, 0.2);
+      --color-component-1--hover: rgba(140, 161, 171, 0.35);
+      --color-alarm: #ff2453;
+      --color-warning: #ffbb00;
+      --color-critical: #eb7a0a;
+      --color-info: #357fff;
+      --color-success: #00cc5c;
+      --color-neutral: #b6b9ba;
+      --color-std-text: rgba(245, 252, 255, 0.9);
+      --color-focus-bdr: #19a0ff;
+      --color-dynamic: #00eaff;
+    }
+
+    body {
+      background-color: #000028;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .event-list-item {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      width: 432px;
+      min-height: 80px;
+      background-color: var(--color-component-1);
+      border: 1px solid transparent;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-bottom: 8px;
+    }
+
+    .event-list-item__severity {
+      width: 8px;
+      height: 100%;
+      flex-shrink: 0;
+      align-self: stretch;
+    }
+
+    .event-list-item__severity--alarm {
+      background-color: var(--color-alarm, #ff2640);
+    }
+
+    .event-list-item__severity--warning {
+      background-color: var(--color-warning, #ffd732);
+    }
+
+    .event-list-item__severity--critical {
+      background-color: var(--color-critical, #ff9000);
+    }
+
+    .event-list-item__severity--info {
+      background-color: var(--color-info, #00bedc);
+    }
+
+    .event-list-item__severity--success {
+      background-color: var(--color-success, #01d65a);
+    }
+
+    .event-list-item__severity--neutral {
+      background-color: var(--color-neutral, #b9b9b6);
+    }
+
+    .event-list-item__content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      min-width: 0;
+      color: white;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>EventListItem Severity Indicator Test</h1>
+
+  <div class="event-list-item">
+    <div class="event-list-item__severity event-list-item__severity--alarm"></div>
+    <div class="event-list-item__content">
+      <div>Alarm - Critical system error</div>
+    </div>
+  </div>
+
+  <div class="event-list-item">
+    <div class="event-list-item__severity event-list-item__severity--warning"></div>
+    <div class="event-list-item__content">
+      <div>Warning - High CPU usage</div>
+    </div>
+  </div>
+
+  <div class="event-list-item">
+    <div class="event-list-item__severity event-list-item__severity--critical"></div>
+    <div class="event-list-item__content">
+      <div>Critical - Database connection lost</div>
+    </div>
+  </div>
+
+  <div class="event-list-item">
+    <div class="event-list-item__severity event-list-item__severity--info"></div>
+    <div class="event-list-item__content">
+      <div>Info - System update available</div>
+    </div>
+  </div>
+
+  <div class="event-list-item">
+    <div class="event-list-item__severity event-list-item__severity--success"></div>
+    <div class="event-list-item__content">
+      <div>Success - Backup completed</div>
+    </div>
+  </div>
+
+  <div class="event-list-item">
+    <div class="event-list-item__severity event-list-item__severity--neutral"></div>
+    <div class="event-list-item__content">
+      <div>Neutral - System status normal</div>
+    </div>
+  </div>
+</body>
+</html>

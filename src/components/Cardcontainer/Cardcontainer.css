@@ -1,0 +1,121 @@
+/* Import design tokens */
+@import '../../tokens/tokens.css';
+
+.cardcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+  width: 214px;
+  height: 120px;
+  padding: 1px;
+  border-radius: 4px;
+  border: 1px solid var(--color-soft-bdr, rgba(211, 236, 248, 0.4));
+  background-color: var(--color-ghost, rgba(166, 171, 140, 0));
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover 状态 */
+.cardcontainer--hover:not(.cardcontainer--selected) {
+  background-color: var(--color-ghost--hover, rgba(140, 161, 171, 0.2));
+}
+
+/* Active 状态 */
+.cardcontainer--active:not(.cardcontainer--selected) {
+  background-color: var(--color-ghost--active, rgba(166, 171, 140, 0.15));
+}
+
+/* Selected 状态 */
+.cardcontainer--selected {
+  background-color: var(--color-ghost--selected, rgba(85, 255, 0, 0.1));
+  border-color: var(--color-dynamic, #00eaff);
+}
+
+/* 聚焦轮廓 */
+.cardcontainer__focus-outline {
+  position: absolute;
+  inset: -1px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.cardcontainer__focus-outline::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 1px solid var(--color-focus-bdr, #199fff);
+  border-radius: 6px;
+}
+
+/* 选中内边框 */
+.cardcontainer__inner-border {
+  position: absolute;
+  inset: -1px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.cardcontainer__inner-border::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border: 1px solid var(--color-1, #0f1619);
+  border-radius: 3px;
+}
+
+/* 内容区域 */
+.cardcontainer__content {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 1px;
+  min-width: 1px;
+  overflow: hidden;
+  border-radius: 3px;
+  position: relative;
+}
+
+/* 占位符样式 */
+.cardcontainer__placeholder {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 1px;
+  min-width: 1px;
+  overflow: hidden;
+  background-color: rgba(255, 0, 255, 0.15);
+  padding: 8px;
+}
+
+.cardcontainer__placeholder-content {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+.cardcontainer__placeholder-icon {
+  width: 24px;
+  height: 24px;
+  color: #f0f;
+}
+
+.cardcontainer__placeholder-text {
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  font-size: 16px;
+  line-height: 24px;
+  color: #f0f;
+  text-align: center;
+  min-width: 100%;
+  width: min-content;
+}

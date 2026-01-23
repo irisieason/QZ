@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MenuItem Toggle Behavior Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000028;
+      color: white;
+      padding: 40px;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: #0cc;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      color: #9d9d96;
+      margin-bottom: 40px;
+    }
+    
+    .section {
+      margin-bottom: 40px;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 24px;
+      border-radius: 8px;
+    }
+    
+    .section h2 {
+      color: #0cc;
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+    
+    .description {
+      color: #9d9d96;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .menu-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 256px;
+      height: 48px;
+      background-color: transparent;
+      border-left: 4px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      margin-bottom: 4px;
+    }
+    
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu-item.selected {
+      background-color: rgba(0, 204, 204, 0.15);
+      border-left-color: #0cc;
+    }
+    
+    .menu-item__icon {
+      margin-left: 14px;
+      margin-right: 20px;
+      font-size: 24px;
+    }
+    
+    .menu-item__label {
+      font-size: 14px;
+      color: white;
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: rgba(0, 204, 204, 0.1);
+      border-left: 4px solid #0cc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .status strong {
+      color: #0cc;
+    }
+    
+    .code {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 16px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #0cc;
+      margin-top: 16px;
+      overflow-x: auto;
+    }
+    
+    .highlight {
+      color: #0cc;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>MenuItem 切换选中行为测试</h1>
+    <p class="subtitle">验证点击已选中的菜单项可以取消选中</p>
+    
+    <!-- 场景 1: 单个菜单项切换 -->
+    <div class="section">
+      <h2>场景 1: 单个菜单项（非受控模式）</h2>
+      <p class="description">
+        点击菜单项选中，再次点击取消选中。组件内部自动管理状态。
+      </p>
+      
+      <div id="single-item-container">
+        <div class="menu-item" id="single-item">
+          <span class="menu-item__icon">🏠</span>
+          <span class="menu-item__label">Dashboard</span>
+        </div>
+      </div>
+      
+      <div class="status">
+        <strong>状态：</strong> <span id="single-status">未选中</span>
+      </div>
+      
+      <div class="code">
+// 实现代码<br>
+const handleClick = () => {<br>
+  &nbsp;&nbsp;if (controlledSelected === undefined) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">setInternalSelected(!internalSelected);</span> // 切换状态<br>
+  &nbsp;&nbsp;}<br>
+};
+      </div>
+    </div>
+    
+    <!-- 场景 2: 多个独立菜单项 -->
+    <div class="section">
+      <h2>场景 2: 多个独立菜单项（非受控模式）</h2>
+      <p class="description">
+        每个菜单项独立管理自己的选中状态，可以同时选中多个。
+      </p>
+      
+      <div id="multiple-items-container">
+        <div class="menu-item" data-id="dashboard">
+          <span class="menu-item__icon">🏠</span>
+          <span class="menu-item__label">Dashboard</span>
+        </div>
+        <div class="menu-item" data-id="analytics">
+          <span class="menu-item__icon">📊</span>
+          <span class="menu-item__label">Analytics</span>
+        </div>
+        <div class="menu-item" data-id="settings">
+          <span class="menu-item__icon">⚙️</span>
+          <span class="menu-item__label">Settings</span>
+        </div>
+      </div>
+      
+      <div class="status">
+        <strong>已选中：</strong> <span id="multiple-status">无</span>
+      </div>
+    </div>
+    
+    <!-- 场景 3: 互斥选择（受控模式） -->
+    <div class="section">
+      <h2>场景 3: 互斥选择（受控模式）</h2>
+      <p class="description">
+        父组件管理选中状态，只能选中一个菜单项。点击其他项会取消当前选中项。
+      </p>
+      
+      <div id="controlled-items-container">
+        <div class="menu-item" data-id="home">
+          <span class="menu-item__icon">🏠</span>
+          <span class="menu-item__label">Home</span>
+        </div>
+        <div class="menu-item" data-id="profile">
+          <span class="menu-item__icon">👤</span>
+          <span class="menu-item__label">Profile</span>
+        </div>
+        <div class="menu-item" data-id="messages">
+          <span class="menu-item__icon">✉️</span>
+          <span class="menu-item__label">Messages</span>
+        </div>
+      </div>
+      
+      <div class="status">
+        <strong>当前选中：</strong> <span id="controlled-status">Home</span>
+      </div>
+      
+      <div class="code">
+// 受控模式实现<br>
+const [selectedItem, setSelectedItem] = useState('home');<br>
+<br>
+&lt;MenuItem<br>
+&nbsp;&nbsp;selected={selectedItem === 'home'}<br>
+&nbsp;&nbsp;<span class="highlight">onClick={() => setSelectedItem('home')}</span><br>
+/&gt;
+      </div>
+    </div>
+    
+    <!-- 总结 -->
+    <div class="section">
+      <h2>✅ 验证结果</h2>
+      <p class="description">
+        <strong style="color: #0cc;">场景 1 和 2（非受控模式）：</strong><br>
+        ✓ 点击未选中的项 → 选中（显示蓝色边框）<br>
+        ✓ 点击已选中的项 → 取消选中（恢复默认状态）<br>
+        ✓ 可以同时选中多个项（场景 2）<br>
+        <br>
+        <strong style="color: #0cc;">场景 3（受控模式）：</strong><br>
+        ✓ 点击任意项 → 该项选中，其他项取消<br>
+        ✓ 只能有一个项被选中<br>
+        ✓ 不支持点击取消选中（总有一个被选中）
+      </p>
+    </div>
+  </div>
+  
+  <script>
+    // 场景 1: 单个菜单项切换
+    const singleItem = document.getElementById('single-item');
+    const singleStatus = document.getElementById('single-status');
+    let singleSelected = false;
+    
+    singleItem.addEventListener('click', () => {
+      singleSelected = !singleSelected;
+      singleItem.classList.toggle('selected', singleSelected);
+      singleStatus.textContent = singleSelected ? '已选中 ✓' : '未选中';
+      singleStatus.style.color = singleSelected ? '#0cc' : '#9d9d96';
+    });
+    
+    // 场景 2: 多个独立菜单项
+    const multipleItems = document.querySelectorAll('#multiple-items-container .menu-item');
+    const multipleStatus = document.getElementById('multiple-status');
+    
+    multipleItems.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('selected');
+        updateMultipleStatus();
+      });
+    });
+    
+    function updateMultipleStatus() {
+      const selected = Array.from(multipleItems)
+        .filter(item => item.classList.contains('selected'))
+        .map(item => item.querySelector('.menu-item__label').textContent);
+      
+      multipleStatus.textContent = selected.length > 0 ? selected.join(', ') : '无';
+      multipleStatus.style.color = selected.length > 0 ? '#0cc' : '#9d9d96';
+    }
+    
+    // 场景 3: 互斥选择（受控模式）
+    const controlledItems = document.querySelectorAll('#controlled-items-container .menu-item');
+    const controlledStatus = document.getElementById('controlled-status');
+    let currentSelected = 'home';
+    
+    // 初始化第一个为选中状态
+    controlledItems[0].classList.add('selected');
+    
+    controlledItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const id = item.getAttribute('data-id');
+        
+        // 取消所有选中
+        controlledItems.forEach(i => i.classList.remove('selected'));
+        
+        // 选中当前项
+        item.classList.add('selected');
+        currentSelected = id;
+        
+        // 更新状态显示
+        const label = item.querySelector('.menu-item__label').textContent;
+        controlledStatus.textContent = label;
+      });
+    });
+  </script>
+</body>
+</html>

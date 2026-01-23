@@ -1,0 +1,120 @@
+/* Import design tokens */
+@import '../../tokens/tokens.css';
+
+.application-menu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 自适应浏览器高度 */
+  background-color: var(--color-2);
+  transition: width 0.1s ease;
+}
+
+.application-menu--expanded {
+  width: 256px;
+}
+
+.application-menu--collapsed {
+  width: 52px;
+}
+
+.application-menu__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: 60px;
+  width: 100%;
+}
+
+/* 展开/折叠按钮 */
+.application-menu__toggle-button {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-ghost);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--color-std-text);
+  transition: background-color 0.2s ease;
+}
+
+.application-menu__toggle-button:hover {
+  background-color: var(--color-ghost--hover);
+}
+
+.application-menu__toggle-button:active {
+  background-color: var(--color-ghost--active);
+}
+
+/* 内容区域 */
+.application-menu__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  overflow: visible; /* 允许 dropdown 溢出显示 */
+}
+
+/* 用户头像区域 */
+.application-menu__avatar-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  width: 100%;
+  min-height: 48px; /* 固定最小高度，防止跳动 */
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* 展开状态：AvatarButtonMenu 左侧 6px */
+.application-menu--expanded .application-menu__avatar-section {
+  padding-left: 6px;
+}
+
+/* 收起状态：AvatarButtonMenu 居中（40px 在 52px 容器中，左右各 6px） */
+.application-menu--collapsed .application-menu__avatar-section {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+/* 菜单项列表 */
+.application-menu__menu-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* 滚动条样式 */
+.application-menu__menu-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.application-menu__menu-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.application-menu__menu-list::-webkit-scrollbar-thumb {
+  background: var(--color-weak-text);
+  border-radius: 2px;
+}
+
+.application-menu__menu-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-soft-text);
+}
+
+/* 响应式调整 */
+@media (max-height: 600px) {
+  .application-menu {
+    height: 100vh;
+  }
+}

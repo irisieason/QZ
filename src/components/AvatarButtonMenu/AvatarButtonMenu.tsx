@@ -1,5 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { Avatar } from '../Avatar';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import './AvatarButtonMenu.css';
 
 // Figma 定义的状态类型
@@ -85,26 +86,15 @@ export const AvatarButtonMenu: React.FC<AvatarButtonMenuProps> = ({
   const state = controlledState !== undefined ? controlledState : internalState;
   const isControlled = controlledState !== undefined;
 
-  // 点击外部关闭下拉菜单
-  useEffect(() => {
-    if (isControlled) return; // 如果是受控组件，不自动管理
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setInternalState('Default');
-      }
-    };
-
-    if (state === 'Active') {
-      document.addEventListener('mousedown', handleClickOutside);
+  // ✅ 使用 useClickOutside hook 处理点击外部关闭
+  useClickOutside(containerRef, useCallback(() => {
+    if (!isControlled && state === 'Active') {
+      setInternalState('Default');
     }
+  }, [isControlled, state]));
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [state, isControlled]);
-
-  const getButtonClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const buttonClasses = useMemo(() => {
     const classes = ['avatar-button-menu'];
     
     // 展开/收起状态
@@ -128,65 +118,61 @@ export const AvatarButtonMenu: React.FC<AvatarButtonMenuProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [expand, state, focused, className]);
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     if (!isControlled) {
       // 非受控模式：组件内部管理状态
       setInternalState(state === 'Active' ? 'Default' : 'Active');
     }
     
-    if (onClick) {
-      onClick(event);
-    }
-  };
+    onClick?.(event);
+  }, [isControlled, state, onClick]);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     if (!isControlled && state !== 'Active') {
       setInternalState('Hover');
     }
-  };
+  }, [isControlled, state]);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     if (!isControlled && state !== 'Active') {
       setInternalState('Default');
     }
-  };
+  }, [isControlled, state]);
 
-  const handleProfileClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleProfileClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     
     if (!isControlled) {
       setInternalState('Default');
     }
     
-    if (onProfileClick) {
-      onProfileClick();
-    }
-  };
+    onProfileClick?.();
+  }, [isControlled, onProfileClick]);
 
-  const handleLogoutClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleLogoutClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     
     if (!isControlled) {
       setInternalState('Default');
     }
     
-    if (onLogoutClick) {
-      onLogoutClick();
-    }
-  };
+    onLogoutClick?.();
+  }, [isControlled, onLogoutClick]);
 
   return (
     <div
       ref={containerRef}
-      className={getButtonClasses()}
+      className={buttonClasses}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       role="button"
       aria-label={ariaLabel || `User menu: ${email}`}
       aria-expanded={state === 'Active'}
+      aria-haspopup="menu"
       data-state={state}
       data-focused={focused}
       data-expand={expand}

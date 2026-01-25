@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { IconButton } from '../IconButton';
 import './DeviceStatusChart.css';
 
@@ -72,13 +72,15 @@ export const DeviceStatusChart: React.FC<DeviceStatusChartProps> = ({
   onNextClick,
   className = '',
 }) => {
-  // 计算最大值用于缩放
-  const maxValue = Math.max(
-    ...data.map(item => item.green + item.yellow + item.red + item.critical)
-  );
+  // ✅ 性能优化：使用 useMemo 缓存复杂计算
+  const maxValue = useMemo(() => {
+    return Math.max(
+      ...data.map(item => item.green + item.yellow + item.red + item.critical)
+    );
+  }, [data]);
   
   // 动态生成X轴刻度：从0到最大值，间隔为3
-  const generateXAxisTicks = () => {
+  const xAxisTicks = useMemo(() => {
     if (maxValue === 0) return [0];
     
     // 向上取整到3的倍数
@@ -90,20 +92,28 @@ export const DeviceStatusChart: React.FC<DeviceStatusChartProps> = ({
     }
     
     return ticks;
-  };
+  }, [maxValue]);
   
-  const xAxisTicks = generateXAxisTicks();
-  
-  const getChartClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const chartClasses = useMemo(() => {
     const classes = ['device-status-chart'];
     if (className) {
       classes.push(className);
     }
     return classes.join(' ');
-  };
+  }, [className]);
+
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handlePrevClick = useCallback(() => {
+    onPrevClick?.();
+  }, [onPrevClick]);
+
+  const handleNextClick = useCallback(() => {
+    onNextClick?.();
+  }, [onNextClick]);
 
   return (
-    <div className={getChartClasses()}>
+    <div className={chartClasses} role="img" aria-label={`${chartTitle} chart showing device status by IP range`}>
       {/* 标题栏 */}
       <div className="device-status-chart__header">
         <div className="device-status-chart__title">{chartTitle}</div>
@@ -112,14 +122,14 @@ export const DeviceStatusChart: React.FC<DeviceStatusChartProps> = ({
             icon="chevron-left-small"
             type="Primary ghost"
             size="24"
-            onClick={onPrevClick}
+            onClick={handlePrevClick}
             aria-label="Previous"
           />
           <IconButton
             icon="chevron-right-small"
             type="Primary ghost"
             size="24"
-            onClick={onNextClick}
+            onClick={handleNextClick}
             aria-label="Next"
           />
         </div>

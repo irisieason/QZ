@@ -89,20 +89,11 @@ const meta = {
         category: 'Extended Props',
       },
     },
-    onClick: {
-      action: 'clicked',
-      description: '点击事件处理 - 扩展属性',
-      table: {
-        category: 'Extended Props',
-      },
-    },
-    className: {
-      control: 'text',
-      description: '自定义类名 - 扩展属性',
-      table: {
-        category: 'Extended Props',
-      },
-    },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    onClick: { table: { disable: true } },
+    className: { table: { disable: true } },
+    'aria-label': { table: { disable: true } },
   },
 } satisfies Meta<typeof MenuItem>;
 

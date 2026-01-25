@@ -48,6 +48,14 @@ const meta: Meta<typeof AvatarButtonMenu> = {
       control: 'text',
       description: '首字母文本（扩展属性）',
     },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    onClick: { table: { disable: true } },
+    onProfileClick: { table: { disable: true } },
+    onLogoutClick: { table: { disable: true } },
+    className: { table: { disable: true } },
+    'aria-label': { table: { disable: true } },
+    avatarSrc: { table: { disable: true } },
   },
 };
 

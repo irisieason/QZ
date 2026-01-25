@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './Cardcontainer.css';
 
 // Figma 定义的状态类型
@@ -53,7 +53,8 @@ export const Cardcontainer: React.FC<CardcontainerProps> = ({
   className = '',
   'aria-label': ariaLabel,
 }) => {
-  const getCardClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const cardClasses = useMemo(() => {
     const classes = ['cardcontainer'];
     
     // 变体类名
@@ -80,16 +81,31 @@ export const Cardcontainer: React.FC<CardcontainerProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [variant, state, selected, focused, className]);
+
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    onClick?.(event);
+  }, [onClick]);
+
+  // 键盘支持
+  const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick?.(event as any);
+    }
+  }, [onClick]);
 
   return (
     <div
-      className={getCardClasses()}
-      onClick={onClick}
+      className={cardClasses}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
       aria-label={ariaLabel}
       aria-selected={selected}
+      aria-pressed={selected}
       data-state={state}
       data-selected={selected}
     >

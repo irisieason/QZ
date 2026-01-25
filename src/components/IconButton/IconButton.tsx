@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './IconButton.css';
 
 // Figma 定义的类型
@@ -79,8 +79,11 @@ export const IconButton: React.FC<IconButtonProps> = ({
 }) => {
   // 如果 disabled 为 true，自动设置 state 为 Disabled
   const effectiveState = disabled ? 'Disabled' : state;
+  const isDisabled = effectiveState === 'Disabled';
+  const isLoading = effectiveState === 'Loading';
   
-  const getButtonClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const buttonClasses = useMemo(() => {
     const classes = ['icon-button'];
     
     // 类型类名
@@ -111,8 +114,14 @@ export const IconButton: React.FC<IconButtonProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [type, effectiveState, oval, size, focused, className]);
 
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    onClick?.(event);
+  }, [onClick]);
+
+  // 渲染函数（不需要 useCallback，因为不传递给子组件）
   const renderIcon = () => {
     if (!icon) return null;
     
@@ -156,16 +165,15 @@ export const IconButton: React.FC<IconButtonProps> = ({
     );
   };
 
-  const isDisabled = effectiveState === 'Disabled';
-  const isLoading = effectiveState === 'Loading';
-
   return (
     <button
       type={buttonType}
-      className={getButtonClasses()}
-      onClick={onClick}
+      className={buttonClasses}
+      onClick={handleClick}
       disabled={isDisabled || isLoading}
       aria-label={ariaLabel || `Icon button ${icon}`}
+      aria-busy={isLoading}
+      aria-disabled={isDisabled}
       data-type={type}
       data-state={effectiveState}
       data-oval={oval}

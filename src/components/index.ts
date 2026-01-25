@@ -7,6 +7,7 @@ export { AvatarButtonMenu } from './AvatarButtonMenu';
 export { ApplicationMenu } from './ApplicationMenu';
 export { BasicNavigation } from './BasicNavigation';
 export { Cardcontainer } from './Cardcontainer';
+export { CategoryFilter } from './CategoryFilter';
 export { DeviceStatusChart } from './DeviceStatusChart';
 export { EventItemContent } from './EventItemContent';
 export { EventListItem } from './EventListItem';
@@ -17,6 +18,7 @@ export type { AvatarButtonMenuProps, AvatarButtonMenuState } from './AvatarButto
 export type { ApplicationMenuProps } from './ApplicationMenu';
 export type { BasicNavigationProps, MenuItem } from './BasicNavigation';
 export type { CardcontainerProps, CardcontainerState, CardcontainerVariant } from './Cardcontainer';
+export type { CategoryFilterProps } from './CategoryFilter';
 export type { DeviceStatusChartProps, ChartDataItem, LegendItem } from './DeviceStatusChart';
 export type { EventItemContentProps } from './EventItemContent';
 export type { EventListItemProps, EventListItemState, SeverityColor } from './EventListItem';

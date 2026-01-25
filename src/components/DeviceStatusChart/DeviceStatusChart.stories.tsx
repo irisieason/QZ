@@ -48,74 +48,13 @@ const meta = {
         defaultValue: { summary: 'Device' },
       },
     },
-    // 扩展属性
-    data: {
-      control: 'object',
-      description: '图表数据数组 - 扩展属性，用于接入真实数据。每个数据项包含 label 和各状态的设备数量。',
-      table: {
-        category: '扩展属性',
-        type: { 
-          summary: 'ChartDataItem[]',
-          detail: `[
-  {
-    label: string,      // IP 范围标签
-    green: number,      // 正常设备数
-    yellow: number,     // 警告设备数
-    red: number,        // 错误设备数
-    critical: number    // 严重错误设备数
-  }
-]`
-        },
-        defaultValue: { 
-          summary: '3行数据',
-          detail: '10.x、192.x、172.x 三个 IP 范围的设备状态'
-        },
-      },
-    },
-    legends: {
-      control: 'object',
-      description: '图例配置数组 - 扩展属性，定义每种状态的颜色和标签。',
-      table: {
-        category: '扩展属性',
-        type: { 
-          summary: 'LegendItem[]',
-          detail: `[
-  {
-    color: 'green' | 'yellow' | 'red' | 'critical',
-    label: string
-  }
-]`
-        },
-        defaultValue: { 
-          summary: '4个图例',
-          detail: 'green、yellow、red、critical 四种状态'
-        },
-      },
-    },
-    onPrevClick: {
-      action: 'prev-clicked',
-      description: '左箭头点击事件 - 扩展属性',
-      table: {
-        category: '扩展属性',
-        type: { summary: '() => void' },
-      },
-    },
-    onNextClick: {
-      action: 'next-clicked',
-      description: '右箭头点击事件 - 扩展属性',
-      table: {
-        category: '扩展属性',
-        type: { summary: '() => void' },
-      },
-    },
-    className: {
-      control: 'text',
-      description: '自定义类名 - 扩展属性',
-      table: {
-        category: '扩展属性',
-        type: { summary: 'string' },
-      },
-    },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    data: { table: { disable: true } },
+    legends: { table: { disable: true } },
+    onPrevClick: { table: { disable: true } },
+    onNextClick: { table: { disable: true } },
+    className: { table: { disable: true } },
   },
 } satisfies Meta<typeof DeviceStatusChart>;
 

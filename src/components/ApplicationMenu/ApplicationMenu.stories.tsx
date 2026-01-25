@@ -66,21 +66,10 @@ const meta: Meta<typeof ApplicationMenu> = {
         defaultValue: { summary: '<MenuItem /> × N' },
       },
     },
-    onToggleExpand: {
-      action: 'toggled',
-      description: '展开/折叠切换事件（扩展属性）',
-      table: {
-        category: 'Events',
-        type: { summary: '() => void' },
-      },
-    },
-    className: {
-      control: 'text',
-      description: '自定义类名（扩展属性）',
-      table: {
-        category: 'Styling',
-      },
-    },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    onToggleExpand: { table: { disable: true } },
+    className: { table: { disable: true } },
   },
 };
 

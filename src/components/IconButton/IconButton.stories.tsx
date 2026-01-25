@@ -54,6 +54,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
+    // ========== 可控制的属性（设计师需要的） ==========
     type: {
       control: 'select',
       options: [
@@ -96,6 +97,12 @@ const meta = {
       control: 'boolean',
       description: '是否禁用（便捷属性）',
     },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    onClick: { table: { disable: true } },
+    buttonType: { table: { disable: true } },
+    className: { table: { disable: true } },
+    'aria-label': { table: { disable: true } },
   },
 } satisfies Meta<typeof IconButton>;
 

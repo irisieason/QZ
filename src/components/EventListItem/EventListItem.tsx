@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import './EventListItem.css';
 
 // Figma 定义的状态类型
@@ -77,24 +78,15 @@ export const EventListItem: React.FC<EventListItemProps> = ({
   const isControlled = controlledState !== undefined;
   const isSelectedControlled = controlledSelected !== undefined;
 
-  // 点击外部区域取消选中
-  useEffect(() => {
-    // 只在非受控模式且已选中时监听
+  // ✅ 使用 useClickOutside hook 处理点击外部取消选中
+  useClickOutside(itemRef, useCallback(() => {
     if (!isSelectedControlled && internalSelected) {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (itemRef.current && !itemRef.current.contains(event.target as Node)) {
-          setInternalSelected(false);
-        }
-      };
-
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
+      setInternalSelected(false);
     }
-  }, [isSelectedControlled, internalSelected]);
+  }, [isSelectedControlled, internalSelected]));
 
-  const getItemClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const itemClasses = useMemo(() => {
     const classes = ['event-list-item'];
     
     // 状态类名
@@ -118,9 +110,10 @@ export const EventListItem: React.FC<EventListItemProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [state, selected, focused, className]);
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     if (state === 'Disabled') return;
     
     // 如果 selected 不是受控的，切换内部选中状态
@@ -128,40 +121,37 @@ export const EventListItem: React.FC<EventListItemProps> = ({
       setInternalSelected(!internalSelected);
     }
     
-    // 调用外部 onClick 回调
-    if (onClick) {
-      onClick(event);
-    }
-  };
+    onClick?.(event);
+  }, [state, isSelectedControlled, internalSelected, onClick]);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     if (!isControlled && state !== 'Disabled' && !selected) {
       setInternalState('Hover');
     }
-  };
+  }, [isControlled, state, selected]);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     if (!isControlled && state !== 'Disabled' && !selected) {
       setInternalState('Default');
     }
-  };
+  }, [isControlled, state, selected]);
 
-  const handleMouseDown = () => {
+  const handleMouseDown = useCallback(() => {
     if (!isControlled && state !== 'Disabled' && !selected) {
       setInternalState('Active');
     }
-  };
+  }, [isControlled, state, selected]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     if (!isControlled && state !== 'Disabled' && !selected) {
       setInternalState('Hover');
     }
-  };
+  }, [isControlled, state, selected]);
 
   return (
     <div
       ref={itemRef}
-      className={getItemClasses()}
+      className={itemClasses}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -171,6 +161,7 @@ export const EventListItem: React.FC<EventListItemProps> = ({
       aria-label={ariaLabel}
       aria-selected={selected}
       aria-disabled={state === 'Disabled'}
+      aria-expanded={selected}
       data-state={state}
       data-selected={selected}
     >

@@ -60,20 +60,11 @@ const meta = {
         defaultValue: { summary: 'false' },
       },
     },
-    onClick: {
-      action: 'clicked',
-      description: '点击事件处理',
-      table: {
-        type: { summary: '(event: React.MouseEvent) => void' },
-      },
-    },
-    className: {
-      control: 'text',
-      description: '自定义类名',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    onClick: { table: { disable: true } },
+    className: { table: { disable: true } },
+    'aria-label': { table: { disable: true } },
   },
 } satisfies Meta<typeof Cardcontainer>;
 

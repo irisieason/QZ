@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { IconButton } from '../IconButton';
 import './StatusHistoryChart.css';
 
@@ -145,8 +145,8 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
   const chartWidth = 609;
   const chartHeight = 187;
   
-  // 坐标转换：将数据坐标转换为SVG坐标
-  const dataToSvg = (point: DataPoint, maxTimestamp: number): { x: number; y: number } => {
+  // ✅ 性能优化：使用 useCallback 缓存坐标转换函数
+  const dataToSvg = useCallback((point: DataPoint, maxTimestamp: number): { x: number; y: number } => {
     // X: 根据timestamp映射
     const svgX = maxTimestamp > 0 ? (Number(point.timestamp) / maxTimestamp) * chartWidth : 0;
     
@@ -155,10 +155,10 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
     const svgY = yRange > 0 ? ((yAxisMax - point.value) / yRange) * chartHeight : chartHeight / 2;
     
     return { x: svgX, y: svgY };
-  };
+  }, [yAxisMax, yAxisMin, chartWidth, chartHeight]);
   
-  // 生成SVG路径
-  const generatePath = (data: DataPoint[], maxTimestamp: number): string => {
+  // ✅ 性能优化：使用 useCallback 缓存路径生成函数
+  const generatePath = useCallback((data: DataPoint[], maxTimestamp: number): string => {
     if (data.length === 0) return '';
     
     const points = data.map(d => dataToSvg(d, maxTimestamp));
@@ -169,7 +169,7 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
     }
     
     return path;
-  };
+  }, [dataToSvg]);
   
   // 计算最大timestamp
   const maxTimestamp = useMemo(() => {
@@ -182,16 +182,26 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
     return allTimestamps.length > 0 ? Math.max(...allTimestamps) : 0;
   }, [dataSeries]);
   
-  const getChartClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const chartClasses = useMemo(() => {
     const classes = ['status-history-chart'];
     if (className) {
       classes.push(className);
     }
     return classes.join(' ');
-  };
+  }, [className]);
+
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handlePrevClick = useCallback(() => {
+    onPrevClick?.();
+  }, [onPrevClick]);
+
+  const handleNextClick = useCallback(() => {
+    onNextClick?.();
+  }, [onNextClick]);
 
   return (
-    <div className={getChartClasses()}>
+    <div className={chartClasses} role="img" aria-label={`${chartTitle} chart showing maintenance, errors, and offline status over time`}>
       {/* 标题栏 */}
       <div className="status-history-chart__header">
         <div className="status-history-chart__title">{chartTitle}</div>
@@ -200,14 +210,14 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
             icon="chevron-left-small"
             type="Primary ghost"
             size="24"
-            onClick={onPrevClick}
+            onClick={handlePrevClick}
             aria-label="Previous"
           />
           <IconButton
             icon="chevron-right-small"
             type="Primary ghost"
             size="24"
-            onClick={onNextClick}
+            onClick={handleNextClick}
             aria-label="Next"
           />
         </div>

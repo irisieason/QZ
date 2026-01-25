@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import './ApplicationMenu.css';
 
 // Figma 定义的属性（严格遵循 Figma 设计）
@@ -53,16 +53,16 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
   // 使用受控或内部状态
   const expanded = controlledExpanded !== undefined ? controlledExpanded : internalExpanded;
 
-  const handleToggleExpand = () => {
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handleToggleExpand = useCallback(() => {
     if (controlledExpanded === undefined) {
       setInternalExpanded(!expanded);
     }
-    if (onToggleExpand) {
-      onToggleExpand();
-    }
-  };
+    onToggleExpand?.();
+  }, [controlledExpanded, expanded, onToggleExpand]);
 
-  const getMenuClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const menuClasses = useMemo(() => {
     const classes = ['application-menu'];
     
     if (expanded) {
@@ -76,7 +76,7 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [expanded, className]);
 
   // 默认的展开/折叠按钮
   const defaultToggleButton = (
@@ -84,6 +84,7 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
       className="application-menu__toggle-button"
       onClick={handleToggleExpand}
       aria-label={expanded ? 'Collapse menu' : 'Expand menu'}
+      aria-expanded={expanded}
     >
       <ix-icon 
         name={expanded ? 'double-chevron-left' : 'double-chevron-right'} 
@@ -93,7 +94,12 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
   );
 
   return (
-    <div className={getMenuClasses()} data-expanded={expanded}>
+    <div 
+      className={menuClasses} 
+      data-expanded={expanded}
+      role="navigation"
+      aria-label="Application menu"
+    >
       <div className="application-menu__container">
         {/* 展开/折叠按钮插槽 */}
         {toggleButton || defaultToggleButton}

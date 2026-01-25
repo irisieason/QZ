@@ -23,92 +23,16 @@ const meta = {
         defaultValue: { summary: 'Status history' },
       },
     },
-    // 扩展属性
-    dataSeries: {
-      control: 'object',
-      description: '数据系列数组 - 扩展属性，用于接入真实数据。每个数据系列包含 id、name、type 和 data 数组。',
-      table: {
-        category: '扩展属性',
-        type: { 
-          summary: 'DataSeries[]',
-          detail: `[
-  {
-    id: string,
-    name: string,
-    type: 'maintenance' | 'errors' | 'offline',
-    data: [
-      { timestamp: number, value: number },
-      ...
-    ]
-  }
-]`
-        },
-        defaultValue: { 
-          summary: '3条数据线',
-          detail: 'Maintenance（黄色）、Errors（红色）、Offline（灰色）'
-        },
-      },
-    },
-    xAxisLabels: {
-      control: 'object',
-      description: 'X轴标签数组 - 扩展属性',
-      table: {
-        category: '扩展属性',
-        type: { summary: 'string[]' },
-        defaultValue: { summary: "['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']" },
-      },
-    },
-    yMin: {
-      control: 'number',
-      description: 'Y轴最小值 - 扩展属性（不设置则自动计算）',
-      table: {
-        category: '扩展属性',
-        type: { summary: 'number' },
-        defaultValue: { summary: 'undefined（自动计算）' },
-      },
-    },
-    yMax: {
-      control: 'number',
-      description: 'Y轴最大值 - 扩展属性（不设置则自动计算）',
-      table: {
-        category: '扩展属性',
-        type: { summary: 'number' },
-        defaultValue: { summary: 'undefined（自动计算）' },
-      },
-    },
-    yTickCount: {
-      control: 'number',
-      description: 'Y轴刻度数量 - 扩展属性',
-      table: {
-        category: '扩展属性',
-        type: { summary: 'number' },
-        defaultValue: { summary: '7' },
-      },
-    },
-    onPrevClick: {
-      action: 'prev clicked',
-      description: '左箭头点击事件 - 扩展属性',
-      table: {
-        category: '扩展属性',
-        type: { summary: '() => void' },
-      },
-    },
-    onNextClick: {
-      action: 'next clicked',
-      description: '右箭头点击事件 - 扩展属性',
-      table: {
-        category: '扩展属性',
-        type: { summary: '() => void' },
-      },
-    },
-    className: {
-      control: 'text',
-      description: '自定义类名 - 扩展属性',
-      table: {
-        category: '扩展属性',
-        type: { summary: 'string' },
-      },
-    },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    dataSeries: { table: { disable: true } },
+    xAxisLabels: { table: { disable: true } },
+    yMin: { table: { disable: true } },
+    yMax: { table: { disable: true } },
+    yTickCount: { table: { disable: true } },
+    onPrevClick: { table: { disable: true } },
+    onNextClick: { table: { disable: true } },
+    className: { table: { disable: true } },
   },
 } satisfies Meta<typeof StatusHistoryChart>;
 

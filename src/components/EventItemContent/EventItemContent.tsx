@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './EventItemContent.css';
 
 // Figma 定义的属性（严格遵循 Figma 设计）
@@ -59,7 +59,8 @@ export const EventItemContent: React.FC<EventItemContentProps> = ({
   onActionClick,
   className = '',
 }) => {
-  const getContentClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const contentClasses = useMemo(() => {
     const classes = ['event-item-content'];
     
     if (disabled) {
@@ -71,18 +72,27 @@ export const EventItemContent: React.FC<EventItemContentProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [disabled, className]);
+
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handleButtonClick = useCallback(() => {
+    onButtonClick?.();
+  }, [onButtonClick]);
+
+  const handleActionClick = useCallback(() => {
+    onActionClick?.();
+  }, [onActionClick]);
 
   return (
-    <div className={getContentClasses()}>
+    <div className={contentClasses}>
       {/* 图标列 */}
       <div className="event-item-content__icon-column">
-        <ix-icon name={icon} size="24" />
+        <ix-icon name={icon} size="24" aria-hidden="true" />
       </div>
       
       {/* 内容列 */}
       <div className="event-item-content__content-column">
-        <div className="event-item-content__header">{header}</div>
+        <div className="event-item-content__header" aria-label={`Event: ${header}`}>{header}</div>
         <div className="event-item-content__subheader">{subheader}</div>
         <div className="event-item-content__subinfo">{subInfo}</div>
       </div>
@@ -91,14 +101,14 @@ export const EventItemContent: React.FC<EventItemContentProps> = ({
       <div className="event-item-content__additional-column">
         <button
           className="event-item-content__action-button"
-          onClick={onActionClick}
+          onClick={handleActionClick}
           disabled={disabled}
           aria-label="More actions"
         >
           <ix-icon name={actionIcon} size="24" />
         </button>
         
-        <div className="event-item-content__timestamp">
+        <div className="event-item-content__timestamp" aria-label={`Time: ${timestamp}`}>
           {timestamp}
         </div>
       </div>
@@ -107,7 +117,7 @@ export const EventItemContent: React.FC<EventItemContentProps> = ({
       <div className="event-item-content__button-column">
         <button
           className="event-item-content__button"
-          onClick={onButtonClick}
+          onClick={handleButtonClick}
           disabled={disabled}
         >
           <span className="event-item-content__button-label">{buttonLabel}</span>

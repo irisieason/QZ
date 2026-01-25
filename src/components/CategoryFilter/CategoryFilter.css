@@ -1,0 +1,225 @@
+/* Import design tokens */
+@import '../../tokens/tokens.css';
+
+.category-filter {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  height: 32px;
+}
+
+/* 聚焦轮廓 */
+.category-filter__focus-outline {
+  position: absolute;
+  inset: -3px;
+  border: 1px solid var(--theme-color-focus-bdr, #199fff);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* 主容器 - 这是唯一的容器，直接包含图标和输入框 */
+.category-filter__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 4px 8px;
+  border-radius: 2px;
+  border: 1px solid var(--theme-color-std-bdr, rgba(211, 236, 248, 0.55));
+  background-color: var(--theme-color-component-8, #00273b);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  cursor: text;
+}
+
+/* 自动交互反馈 - 鼠标悬停 */
+.category-filter__container:hover:not(.category-filter--disabled .category-filter__container) {
+  border-color: var(--theme-color-dynamic, #00eaff);
+  background-color: var(--theme-color-component-8--hover, #002639);
+}
+
+.category-filter__container:hover:not(.category-filter--disabled .category-filter__container) .category-filter__icon ix-icon {
+  color: var(--theme-color-dynamic, #00eaff);
+}
+
+/* 自动交互反馈 - 聚焦状态 */
+.category-filter__container:focus-within:not(.category-filter--disabled .category-filter__container) {
+  border-color: var(--theme-color-dynamic, #00eaff);
+  background-color: var(--theme-color-component-8--hover, #002639);
+}
+
+.category-filter__container:focus-within:not(.category-filter--disabled .category-filter__container) .category-filter__icon ix-icon {
+  color: var(--theme-color-dynamic, #00eaff);
+}
+
+/* 搜索图标 */
+.category-filter__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.category-filter__icon ix-icon {
+  color: var(--theme-color-primary, #00bddd);
+}
+
+/* 输入框 - 直接在主容器中，无额外包装 */
+.category-filter__input {
+  flex: 1;
+  height: 24px;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--typography-family-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-font-weight-normal, 400);
+  font-size: var(--font-size-ms-0, 14px);
+  line-height: 1.2;
+  letter-spacing: 0.168px;
+  color: var(--theme-color-std-text, white);
+}
+
+.category-filter__input::placeholder {
+  color: var(--theme-color-soft-text, rgba(229, 247, 255, 0.65));
+}
+
+/* 清除按钮 - 使用 IconButton size="16" (24x24px 容器，16px 图标) */
+.category-filter__clear-button {
+  flex-shrink: 0;
+}
+
+/* IconButton size="16" 默认是 24x24px，正好适合 CategoryFilter */
+.category-filter__clear-button.icon-button {
+  background: transparent;
+  border-radius: 2px;
+}
+
+.category-filter__clear-button.icon-button .icon-button__icon ix-icon {
+  color: var(--theme-color-soft-text, rgba(229, 247, 255, 0.65));
+  transition: color 0.2s ease-in-out;
+}
+
+.category-filter__clear-button.icon-button:hover .icon-button__icon ix-icon {
+  color: var(--theme-color-std-text, white);
+}
+
+.category-filter__clear-button.icon-button:hover {
+  background-color: var(--theme-color-component-6, rgba(0, 234, 255, 0.1));
+}
+
+.category-filter__clear-button.icon-button:active {
+  background-color: var(--theme-color-component-5, rgba(0, 234, 255, 0.2));
+}
+
+/* 光标 - 重新定位，确保不会出现在搜索图标前面 */
+.category-filter__caret {
+  position: absolute;
+  /* 相对于 .category-filter__container 定位 */
+  /* 有搜索图标时：容器内部，跳过图标和gap到达输入框开始位置 */
+  left: calc(8px + 16px + 4px); /* padding-left + icon-width + gap */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 16px;
+  background-color: var(--theme-color-std-text, white);
+  animation: blink 1s infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 当没有搜索图标时，光标位置在容器padding-left位置 */
+.category-filter:not(.category-filter--has-search-icon) .category-filter__caret {
+  left: 8px; /* 只有容器的padding-left */
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* 内阴影 */
+.category-filter__shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0px 2px 4px 0px var(--theme-color-shadow-1, rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+}
+
+/* 状态样式 */
+
+/* 聚焦状态（由组件内部管理） */
+.category-filter--focused .category-filter__container {
+  border-color: var(--theme-color-dynamic, #00eaff);
+  background-color: var(--theme-color-component-8--hover, #002639);
+}
+
+.category-filter--focused .category-filter__icon ix-icon {
+  color: var(--theme-color-dynamic, #00eaff);
+}
+
+/* 只读状态 */
+.category-filter--readonly .category-filter__container {
+  border: none;
+  border-bottom: 1px solid var(--theme-color-std-bdr, rgba(211, 236, 248, 0.55));
+  border-radius: 0;
+  background-color: transparent;
+  padding-left: 8px;
+  padding-right: 4px;
+}
+
+.category-filter--readonly .category-filter__icon ix-icon {
+  color: var(--theme-color-std-text, rgba(245, 252, 255, 1));
+}
+
+.category-filter--readonly .category-filter__shadow {
+  display: none;
+}
+
+/* 禁用状态 */
+.category-filter--disabled .category-filter__container {
+  border: none;
+  border-bottom: 1px solid var(--theme-color-weak-bdr, rgba(224, 245, 255, 0.25));
+  border-radius: 0;
+  background-color: transparent;
+  padding-left: 8px;
+  padding-right: 4px;
+  cursor: not-allowed;
+  transition: none;
+}
+
+.category-filter--disabled .category-filter__icon ix-icon {
+  color: var(--theme-color-weak-text, rgba(219, 244, 255, 1));
+}
+
+.category-filter--disabled .category-filter__input {
+  color: var(--theme-color-weak-text, rgba(219, 244, 255, 1));
+  cursor: not-allowed;
+}
+
+.category-filter--disabled .category-filter__input::placeholder {
+  color: var(--theme-color-weak-text, rgba(219, 244, 255, 1));
+}
+
+.category-filter--disabled .category-filter__shadow {
+  display: none;
+}
+
+/* 填充状态 */
+.category-filter--filled .category-filter__input {
+  color: var(--theme-color-std-text, white);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .category-filter {
+    width: 100%;
+    max-width: none;
+  }
+}

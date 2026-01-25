@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import './MenuItem.css';
 
 // Figma 定义的变体类型
@@ -77,7 +77,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   const state = controlledState !== undefined ? controlledState : internalState;
   const selected = controlledSelected !== undefined ? controlledSelected : internalSelected;
 
-  const getMenuItemClasses = () => {
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const menuItemClasses = useMemo(() => {
     const classes = ['menu-item'];
     
     // 变体类名
@@ -110,8 +111,9 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [variant, state, expanded, selected, focused, className]);
 
+  // 渲染函数（不需要 useCallback，因为不传递给子组件）
   const renderIcon = () => {
     if (!icon) return null;
     
@@ -147,21 +149,22 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     );
   };
 
-  const handleMouseEnter = () => {
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handleMouseEnter = useCallback(() => {
     // 只在非受控模式且未选中时更新 hover 状态
     if (controlledState === undefined && !selected) {
       setInternalState('Hover');
     }
-  };
+  }, [controlledState, selected]);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     // 只在非受控模式且未选中时恢复默认状态
     if (controlledState === undefined && !selected) {
       setInternalState('Default');
     }
-  };
+  }, [controlledState, selected]);
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     // 只在非受控模式下更新内部状态（切换选中状态）
     if (controlledSelected === undefined) {
       setInternalSelected(!internalSelected);
@@ -170,20 +173,19 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       setInternalState('Default');
     }
     
-    if (onClick) {
-      onClick(event);
-    }
-  };
+    onClick?.(event);
+  }, [controlledSelected, controlledState, internalSelected, onClick]);
 
   return (
     <div
-      className={getMenuItemClasses()}
+      className={menuItemClasses}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       role="menuitem"
       aria-label={ariaLabel || label}
       aria-selected={selected}
+      aria-expanded={expanded}
       data-variant={variant}
       data-state={state}
       data-expanded={expanded}

@@ -77,42 +77,14 @@ const meta = {
         category: 'Figma Props',
       },
     },
-    // 扩展属性
-    icon: {
-      control: 'text',
-      description: '左侧图标名称 - 扩展属性',
-      table: {
-        category: 'Extended Props',
-      },
-    },
-    actionIcon: {
-      control: 'text',
-      description: '右侧图标按钮名称 - 扩展属性',
-      table: {
-        category: 'Extended Props',
-      },
-    },
-    buttonLabel: {
-      control: 'text',
-      description: '按钮文本 - 扩展属性',
-      table: {
-        category: 'Extended Props',
-      },
-    },
-    onButtonClick: {
-      action: 'button clicked',
-      description: '按钮点击事件 - 扩展属性',
-      table: {
-        category: 'Extended Props',
-      },
-    },
-    onActionClick: {
-      action: 'action clicked',
-      description: '图标按钮点击事件 - 扩展属性',
-      table: {
-        category: 'Extended Props',
-      },
-    },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    icon: { table: { disable: true } },
+    actionIcon: { table: { disable: true } },
+    buttonLabel: { table: { disable: true } },
+    onButtonClick: { table: { disable: true } },
+    onActionClick: { table: { disable: true } },
+    className: { table: { disable: true } },
   },
 } satisfies Meta<typeof EventItemContent>;
 

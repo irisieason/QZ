@@ -64,7 +64,7 @@ describe('IconButton', () => {
 
     it('应该正确应用 focused 属性', () => {
       const { container, rerender } = render(<IconButton focused={false} icon="about" aria-label="测试" />);
-      expect(container.querySelector('.icon-button__focus-outline')).toBeInTheDocument();
+      expect(container.querySelector('.icon-button__focus-outline')).not.toBeInTheDocument();
 
       rerender(<IconButton focused={true} icon="about" aria-label="测试" />);
       expect(container.querySelector('.icon-button__focus-outline')).toBeInTheDocument();

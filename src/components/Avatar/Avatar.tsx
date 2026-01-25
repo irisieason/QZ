@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import './Avatar.css';
 
 // Figma 定义的属性（严格遵循 Figma 设计）
@@ -43,7 +43,11 @@ export const Avatar: React.FC<AvatarProps> = ({
   className = '',
   'aria-label': ariaLabel,
 }) => {
-  const getAvatarClasses = () => {
+  // 图片加载错误状态
+  const [imageError, setImageError] = useState(false);
+  
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const avatarClasses = useMemo(() => {
     const classes = ['avatar'];
     
     if (image) {
@@ -59,22 +63,27 @@ export const Avatar: React.FC<AvatarProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [image, initials, className]);
 
+  // 渲染函数（不需要 useCallback，因为不传递给子组件）
   const renderContent = () => {
     // 显示图片
     if (image && !initials) {
+      // 如果图片加载失败，显示占位符
+      if (imageError || !src) {
+        return (
+          <div className="avatar__image-placeholder" />
+        );
+      }
+      
       return (
         <div className="avatar__image-wrapper">
-          {src ? (
-            <img 
-              src={src} 
-              alt={alt} 
-              className="avatar__image"
-            />
-          ) : (
-            <div className="avatar__image-placeholder" />
-          )}
+          <img 
+            src={src} 
+            alt={alt} 
+            className="avatar__image"
+            onError={() => setImageError(true)}
+          />
         </div>
       );
     }
@@ -98,7 +107,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 
   return (
     <div
-      className={getAvatarClasses()}
+      className={avatarClasses}
       role="img"
       aria-label={ariaLabel || alt}
       data-image={image}

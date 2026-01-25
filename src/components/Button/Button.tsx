@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './Button.css';
 
 // Figma 定义的变体类型
@@ -77,7 +77,11 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   // 如果 disabled 为 true，自动设置 state 为 Disabled
   const effectiveState = disabled ? 'Disabled' : state;
-  const getButtonClasses = () => {
+  const isDisabled = effectiveState === 'Disabled';
+  const isLoading = effectiveState === 'Loading';
+  
+  // ✅ 性能优化：使用 useMemo 缓存类名计算
+  const buttonClasses = useMemo(() => {
     const classes = ['button'];
     
     // 变体类名
@@ -100,8 +104,14 @@ export const Button: React.FC<ButtonProps> = ({
     }
     
     return classes.join(' ');
-  };
+  }, [variant, effectiveState, focused, className]);
 
+  // ✅ 性能优化：使用 useCallback 缓存事件处理器
+  const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    onClick?.(event);
+  }, [onClick]);
+
+  // 渲染函数（不需要 useCallback，因为不传递给子组件）
   const renderIcon = () => {
     if (!showIcon || !icon) return null;
     
@@ -138,16 +148,15 @@ export const Button: React.FC<ButtonProps> = ({
     </span>
   );
 
-  const isDisabled = effectiveState === 'Disabled';
-  const isLoading = effectiveState === 'Loading';
-
   return (
     <button
       type={type}
-      className={getButtonClasses()}
-      onClick={onClick}
+      className={buttonClasses}
+      onClick={handleClick}
       disabled={isDisabled || isLoading}
       aria-label={ariaLabel || label}
+      aria-busy={isLoading}
+      aria-disabled={isDisabled}
       data-variant={variant}
       data-state={effectiveState}
     >

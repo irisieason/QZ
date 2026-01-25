@@ -52,6 +52,7 @@ const meta: Meta<typeof Button> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    // ========== 可控制的属性（设计师需要的） ==========
     variant: {
       control: 'select',
       options: [
@@ -94,6 +95,13 @@ const meta: Meta<typeof Button> = {
       control: 'boolean',
       description: '是否显示聚焦状态',
     },
+    
+    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    onClick: { table: { disable: true } },
+    type: { table: { disable: true } },
+    className: { table: { disable: true } },
+    style: { table: { disable: true } },
+    'aria-label': { table: { disable: true } },
   },
 };
 

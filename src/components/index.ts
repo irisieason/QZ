@@ -5,18 +5,20 @@ export { MenuItem } from './MenuItem';
 export { Avatar } from './Avatar';
 export { AvatarButtonMenu } from './AvatarButtonMenu';
 export { ApplicationMenu } from './ApplicationMenu';
-export { BasicNavigation } from './BasicNavigation';
 export { Cardcontainer } from './Cardcontainer';
 export { CategoryFilter } from './CategoryFilter';
 export { DeviceStatusChart } from './DeviceStatusChart';
 export { EventItemContent } from './EventItemContent';
 export { EventListItem } from './EventListItem';
 export { StatusHistoryChart } from './StatusHistoryChart';
+
+// Types
 export type { ButtonProps, ButtonVariant, ButtonState } from './Button';
 export type { IconButtonProps, IconButtonType, IconButtonState, IconButtonSize } from './IconButton';
+export type { MenuItemProps, MenuItemVariant, MenuItemState } from './MenuItem';
+export type { AvatarProps } from './Avatar';
 export type { AvatarButtonMenuProps, AvatarButtonMenuState } from './AvatarButtonMenu';
 export type { ApplicationMenuProps } from './ApplicationMenu';
-export type { BasicNavigationProps, MenuItem } from './BasicNavigation';
 export type { CardcontainerProps, CardcontainerState, CardcontainerVariant } from './Cardcontainer';
 export type { CategoryFilterProps } from './CategoryFilter';
 export type { DeviceStatusChartProps, ChartDataItem, LegendItem } from './DeviceStatusChart';

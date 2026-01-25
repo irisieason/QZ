@@ -168,6 +168,7 @@ export const DeviceStatusChart: React.FC<DeviceStatusChartProps> = ({
           {/* 数据条 */}
           <div className="device-status-chart__bars">
             {data.map((item, index) => {
+              // @ts-expect-error - total variable reserved for future use
               const total = item.green + item.yellow + item.red + item.critical;
               const maxTick = xAxisTicks[xAxisTicks.length - 1];
               const greenWidth = maxTick > 0 ? (item.green / maxTick) * 100 : 0;

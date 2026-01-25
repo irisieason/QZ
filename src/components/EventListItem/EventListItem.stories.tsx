@@ -7,7 +7,7 @@ import * as allIcons from '@irisieason/ix-icons/icons';
 // 注册所有图标
 addIcons(allIcons);
 
-const meta = {
+const meta: Meta<typeof EventListItem> = {
   title: 'Components/EventListItem',
   component: EventListItem,
   parameters: {

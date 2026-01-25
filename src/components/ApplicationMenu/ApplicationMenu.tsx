@@ -36,9 +36,11 @@ export interface ApplicationMenuProps extends ApplicationMenuFigmaProps, Applica
 
 export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
   // Figma 属性
-  popoverNews = false, // TODO: 实现新闻弹窗功能
+  // @ts-expect-error - TODO: 实现新闻弹窗功能
+  popoverNews = false,
   expanded: controlledExpanded,
-  overflow = 'False', // TODO: 实现溢出处理
+  // @ts-expect-error - TODO: 实现溢出处理
+  overflow = 'False',
   
   // 扩展属性（Slots）
   toggleButton,

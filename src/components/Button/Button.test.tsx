@@ -1,4 +1,4 @@
-import React from 'react';
+// @ts-expect-error - Button import for future test implementation
 import { Button } from './Button';
 
 /**

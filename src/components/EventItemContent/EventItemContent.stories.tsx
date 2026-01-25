@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 import { EventItemContent } from './EventItemContent';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
@@ -7,7 +6,7 @@ import * as allIcons from '@irisieason/ix-icons/icons';
 // 注册所有图标
 addIcons(allIcons);
 
-const meta = {
+const meta: Meta<typeof EventItemContent> = {
   title: 'Components/EventItemContent',
   component: EventItemContent,
   parameters: {

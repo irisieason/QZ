@@ -100,7 +100,6 @@ const meta: Meta<typeof Button> = {
     onClick: { table: { disable: true } },
     type: { table: { disable: true } },
     className: { table: { disable: true } },
-    style: { table: { disable: true } },
     'aria-label': { table: { disable: true } },
   },
 };

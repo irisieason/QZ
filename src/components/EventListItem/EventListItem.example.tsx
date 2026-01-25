@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { EventListItem } from './EventListItem';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';

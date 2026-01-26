@@ -49,10 +49,9 @@ const meta: Meta<typeof EventListItem> = {
         category: 'Figma Props',
       },
     },
-    state: {
-      control: 'select',
-      options: ['Default', 'Hover', 'Active', 'Disabled'],
-      description: '组件状态（可选，不提供则自动管理）',
+    disabled: {
+      control: 'boolean',
+      description: '是否禁用',
       table: {
         category: 'Figma Props',
       },
@@ -73,11 +72,16 @@ const meta: Meta<typeof EventListItem> = {
         category: 'Extended Props',
       },
     },
+    
+    // ========== Slot 属性（用于设计库绑定） ==========
     children: {
-      control: 'text',
-      description: '内容插槽 - 扩展属性',
+      name: 'contentSlot (children)',
+      control: false,
+      description: '**EventItemContent 组件插槽**\n\n用于插入事件内容组件（EventItemContent）。\n\n使用方式：\n```tsx\n<EventListItem severity="alarm">\n  <EventItemContent\n    title="System Alert"\n    description="Critical error"\n    time="10:30 AM"\n  />\n</EventListItem>\n```\n\n💡 用于 Figma Code Connect 设计库绑定。',
       table: {
-        category: 'Extended Props',
+        category: 'Slots',
+        type: { summary: 'EventItemContent 组件' },
+        defaultValue: { summary: '必需' },
       },
     },
     
@@ -96,7 +100,8 @@ export const Default: Story = {
   args: {
     chevron: true,
     focused: false,
-    // 不设置 state 和 selected，让组件自动管理
+    disabled: false,
+    // 不设置 selected，让组件自动管理
     severity: 'alarm',
     children: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -111,19 +116,21 @@ export const Default: Story = {
   },
 };
 
-// Hover 状态
-export const Hover: Story = {
+// Disabled 状态
+export const Disabled: Story = {
   args: {
     ...Default.args,
-    state: 'Hover',
-  },
-};
-
-// Active 状态
-export const Active: Story = {
-  args: {
-    ...Default.args,
-    state: 'Active',
+    disabled: true,
+    children: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div style={{ fontSize: '14px', fontWeight: 'bold', color: 'white' }}>
+          Disabled Event (无法交互)
+        </div>
+        <div style={{ fontSize: '12px', color: '#9d9d96' }}>
+          This event item is disabled
+        </div>
+      </div>
+    ),
   },
 };
 
@@ -142,14 +149,6 @@ export const SelectedControlled: Story = {
         </div>
       </div>
     ),
-  },
-};
-
-// Disabled 状态
-export const Disabled: Story = {
-  args: {
-    ...Default.args,
-    state: 'Disabled',
   },
 };
 

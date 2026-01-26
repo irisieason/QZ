@@ -2,8 +2,8 @@ import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import './EventListItem.css';
 
-// Figma 定义的状态类型
-export type EventListItemState = 'Default' | 'Hover' | 'Active' | 'Disabled';
+// 内部状态类型（组件内部使用，不暴露给外部）
+type InternalState = 'Default' | 'Hover' | 'Active';
 
 // Figma 定义的严重性颜色类型
 export type SeverityColor = 
@@ -22,8 +22,8 @@ interface EventListItemFigmaProps {
   /** 是否显示聚焦状态 */
   focused?: boolean;
   
-  /** 组件状态（可选，如果不提供则组件内部自动管理） */
-  state?: EventListItemState;
+  /** 是否禁用 */
+  disabled?: boolean;
   
   /** 是否选中 */
   selected?: boolean;
@@ -54,7 +54,7 @@ export const EventListItem: React.FC<EventListItemProps> = ({
   // Figma 属性
   chevron = true,
   focused = false,
-  state: controlledState,
+  disabled = false,
   selected: controlledSelected,
   
   // 扩展属性
@@ -64,8 +64,8 @@ export const EventListItem: React.FC<EventListItemProps> = ({
   className = '',
   'aria-label': ariaLabel,
 }) => {
-  // 内部状态管理（如果外部没有提供 state）
-  const [internalState, setInternalState] = useState<EventListItemState>('Default');
+  // 内部状态管理（Hover、Active 等交互状态）
+  const [internalState, setInternalState] = useState<InternalState>('Default');
   // 内部选中状态管理（如果外部没有提供 selected）
   const [internalSelected, setInternalSelected] = useState<boolean>(false);
   
@@ -73,9 +73,7 @@ export const EventListItem: React.FC<EventListItemProps> = ({
   const itemRef = useRef<HTMLDivElement>(null);
   
   // 使用受控状态或内部状态
-  const state = controlledState !== undefined ? controlledState : internalState;
   const selected = controlledSelected !== undefined ? controlledSelected : internalSelected;
-  const isControlled = controlledState !== undefined;
   const isSelectedControlled = controlledSelected !== undefined;
 
   // ✅ 使用 useClickOutside hook 处理点击外部取消选中
@@ -89,9 +87,14 @@ export const EventListItem: React.FC<EventListItemProps> = ({
   const itemClasses = useMemo(() => {
     const classes = ['event-list-item'];
     
-    // 状态类名
-    if (state !== 'Default') {
-      classes.push(`event-list-item--${state.toLowerCase()}`);
+    // 内部交互状态类名
+    if (internalState !== 'Default') {
+      classes.push(`event-list-item--${internalState.toLowerCase()}`);
+    }
+    
+    // 禁用状态
+    if (disabled) {
+      classes.push('event-list-item--disabled');
     }
     
     // 选中状态
@@ -110,11 +113,11 @@ export const EventListItem: React.FC<EventListItemProps> = ({
     }
     
     return classes.join(' ');
-  }, [state, selected, focused, className]);
+  }, [internalState, disabled, selected, focused, className]);
 
   // ✅ 性能优化：使用 useCallback 缓存事件处理器
   const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    if (state === 'Disabled') return;
+    if (disabled) return;
     
     // 如果 selected 不是受控的，切换内部选中状态
     if (!isSelectedControlled) {
@@ -122,31 +125,31 @@ export const EventListItem: React.FC<EventListItemProps> = ({
     }
     
     onClick?.(event);
-  }, [state, isSelectedControlled, internalSelected, onClick]);
+  }, [disabled, isSelectedControlled, internalSelected, onClick]);
 
   const handleMouseEnter = useCallback(() => {
-    if (!isControlled && state !== 'Disabled' && !selected) {
+    if (!disabled && !selected) {
       setInternalState('Hover');
     }
-  }, [isControlled, state, selected]);
+  }, [disabled, selected]);
 
   const handleMouseLeave = useCallback(() => {
-    if (!isControlled && state !== 'Disabled' && !selected) {
+    if (!disabled && !selected) {
       setInternalState('Default');
     }
-  }, [isControlled, state, selected]);
+  }, [disabled, selected]);
 
   const handleMouseDown = useCallback(() => {
-    if (!isControlled && state !== 'Disabled' && !selected) {
+    if (!disabled && !selected) {
       setInternalState('Active');
     }
-  }, [isControlled, state, selected]);
+  }, [disabled, selected]);
 
   const handleMouseUp = useCallback(() => {
-    if (!isControlled && state !== 'Disabled' && !selected) {
+    if (!disabled && !selected) {
       setInternalState('Hover');
     }
-  }, [isControlled, state, selected]);
+  }, [disabled, selected]);
 
   return (
     <div
@@ -160,9 +163,9 @@ export const EventListItem: React.FC<EventListItemProps> = ({
       role="listitem"
       aria-label={ariaLabel}
       aria-selected={selected}
-      aria-disabled={state === 'Disabled'}
+      aria-disabled={disabled}
       aria-expanded={selected}
-      data-state={state}
+      data-disabled={disabled}
       data-selected={selected}
     >
       {/* 严重性指示器容器 - 遵循 Figma 结构 */}

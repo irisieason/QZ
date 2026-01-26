@@ -11,7 +11,8 @@ export type IconButtonType =
   | 'Secondary ghost'
   | 'Danger'
   | 'Danger outline'
-  | 'Danger ghost';
+  | 'Danger ghost'
+  | 'subtle-tertiary';
 
 // Figma 定义的状态
 export type IconButtonState = 'Default' | 'Hover' | 'Active' | 'Disabled' | 'Loading';

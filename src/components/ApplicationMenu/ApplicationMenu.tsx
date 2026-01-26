@@ -3,14 +3,11 @@ import './ApplicationMenu.css';
 
 // ========== 视觉属性（来自 Figma） ==========
 interface ApplicationMenuVisualProps {
-  /** 是否显示新闻弹窗 */
-  popoverNews?: boolean;
-  
   /** 是否展开菜单 */
   expanded?: boolean;
   
-  /** 溢出处理 */
-  overflow?: 'False';
+  /** 是否显示头像区域 */
+  avatar?: boolean;
 }
 
 // ========== 扩展属性（React 标准） ==========
@@ -41,11 +38,8 @@ export interface ApplicationMenuProps extends ApplicationMenuVisualProps, Applic
 
 export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
   // 视觉属性
-  // @ts-expect-error - TODO: 实现新闻弹窗功能
-  popoverNews = false,
   expanded: controlledExpanded,
-  // @ts-expect-error - TODO: 实现溢出处理
-  overflow = 'False',
+  avatar = true,
   
   // 扩展属性
   toggleButton,
@@ -117,7 +111,7 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
         {/* 内容区域 */}
         <div className="application-menu__content">
           {/* 用户头像区域插槽 */}
-          {avatarSection && (
+          {avatar && avatarSection && (
             <div className="application-menu__avatar-section">
               {avatarSection}
             </div>

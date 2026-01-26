@@ -31,6 +31,7 @@
 | [figma-component-rules.md](.kiro/steering/figma-component-rules.md) | Figma 组件开发规范 | 创建/更新组件 |
 | [storybook-controls-rules.md](.kiro/steering/storybook-controls-rules.md) | Storybook 展示规范 | 配置 Storybook |
 | [icon-usage-rules.md](.kiro/steering/icon-usage-rules.md) | 图标使用规范 | 使用图标 |
+| [github-packages-publish.md](.kiro/steering/github-packages-publish.md) | GitHub Packages 发布流程 | 发布包 ⭐ |
 | [component-design-principles.md](.kiro/steering/component-design-principles.md) | 组件设计原则快速参考 | 快速查阅 |
 | [best-practices-validation.md](.kiro/steering/best-practices-validation.md) | 最佳实践验证报告 | 验证规则正确性 |
 
@@ -40,6 +41,7 @@
 |------|------|
 | [QUICK_START.md](docs/QUICK_START.md) | 快速开始指南 |
 | [QUICK_REFERENCE.md](docs/QUICK_REFERENCE.md) | 快速参考 |
+| [QUICK_PUBLISH.md](docs/QUICK_PUBLISH.md) | 快速发布指南 ⭐ |
 | [ICON_USAGE_GUIDE.md](docs/ICON_USAGE_GUIDE.md) | 图标使用指南 |
 | [GITHUB_PACKAGES_SETUP.md](docs/GITHUB_PACKAGES_SETUP.md) | GitHub Packages 配置 |
 | [QUICK_SETUP_GITHUB_TOKEN.md](docs/QUICK_SETUP_GITHUB_TOKEN.md) | GitHub Token 快速配置 |

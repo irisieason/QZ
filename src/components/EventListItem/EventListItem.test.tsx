@@ -72,32 +72,23 @@ describe('EventListItem', () => {
     });
   });
 
-  describe('Figma Props - state', () => {
-    it('renders Default state by default', () => {
+  describe('Figma Props - disabled', () => {
+    it('is not disabled by default', () => {
       const { container } = render(<EventListItem>Content</EventListItem>);
-      const item = container.querySelector('.event-list-item');
-      expect(item?.getAttribute('data-state')).toBe('Default');
+      expect(container.querySelector('.event-list-item--disabled')).not.toBeInTheDocument();
     });
 
-    it('renders Hover state', () => {
+    it('renders disabled state', () => {
       const { container } = render(
-        <EventListItem state="Hover">Content</EventListItem>
-      );
-      expect(container.querySelector('.event-list-item--hover')).toBeInTheDocument();
-    });
-
-    it('renders Active state', () => {
-      const { container } = render(
-        <EventListItem state="Active">Content</EventListItem>
-      );
-      expect(container.querySelector('.event-list-item--active')).toBeInTheDocument();
-    });
-
-    it('renders Disabled state', () => {
-      const { container } = render(
-        <EventListItem state="Disabled">Content</EventListItem>
+        <EventListItem disabled>Content</EventListItem>
       );
       expect(container.querySelector('.event-list-item--disabled')).toBeInTheDocument();
+    });
+
+    it('sets aria-disabled when disabled', () => {
+      render(<EventListItem disabled>Content</EventListItem>);
+      const item = screen.getByRole('listitem');
+      expect(item).toHaveAttribute('aria-disabled', 'true');
     });
   });
 
@@ -179,7 +170,7 @@ describe('EventListItem', () => {
     it('does not call onClick when disabled', () => {
       const handleClick = vi.fn();
       render(
-        <EventListItem state="Disabled" onClick={handleClick}>
+        <EventListItem disabled onClick={handleClick}>
           Content
         </EventListItem>
       );
@@ -217,17 +208,6 @@ describe('EventListItem', () => {
       
       expect(container.querySelector('.event-list-item--active')).toBeInTheDocument();
     });
-
-    it('does not change state when controlled', () => {
-      const { container } = render(
-        <EventListItem state="Default">Content</EventListItem>
-      );
-      const item = screen.getByRole('listitem');
-      
-      fireEvent.mouseEnter(item);
-      
-      expect(container.querySelector('.event-list-item--hover')).not.toBeInTheDocument();
-    });
   });
 
   describe('Accessibility', () => {
@@ -246,12 +226,6 @@ describe('EventListItem', () => {
       const item = screen.getByRole('listitem');
       expect(item).toHaveAttribute('aria-selected', 'true');
     });
-
-    it('sets aria-disabled when disabled', () => {
-      render(<EventListItem state="Disabled">Content</EventListItem>);
-      const item = screen.getByRole('listitem');
-      expect(item).toHaveAttribute('aria-disabled', 'true');
-    });
   });
 
   describe('Combined States', () => {
@@ -269,7 +243,7 @@ describe('EventListItem', () => {
 
     it('renders disabled and selected together', () => {
       const { container } = render(
-        <EventListItem state="Disabled" selected={true}>
+        <EventListItem disabled selected={true}>
           Content
         </EventListItem>
       );

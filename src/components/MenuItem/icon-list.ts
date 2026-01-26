@@ -1,19 +1,20 @@
 // 可用图标列表（用于 Storybook）
+// 这些图标都来自 @irisieason/ix-icons 包
 export const availableIcons = [
   'home',
   'dashboard',
-  'settings',
+  'cogwheel',
   'user',
   'user-management',
   'calendar',
   'clock',
   'search',
   'filter',
-  'edit',
-  'delete',
+  'edit-document',
+  'trashcan',
   'add',
-  'remove',
-  'save',
+  'remove-circle',
+  'disk',
   'close',
   'check',
   'info',
@@ -21,7 +22,7 @@ export const availableIcons = [
   'error',
   'help',
   'menu',
-  'more',
+  'more-menu',
   'arrow-left',
   'arrow-right',
   'arrow-up',
@@ -32,7 +33,8 @@ export const availableIcons = [
   'chevron-down',
   'alarm-bell',
   'maintenance',
-  'cogwheel',
+  'notification',
+  'e-mail',
 ] as const;
 
 export type AvailableIcon = typeof availableIcons[number];

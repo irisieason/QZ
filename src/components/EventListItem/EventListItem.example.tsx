@@ -65,19 +65,19 @@ export function SeverityExample() {
 export function StateExample() {
   return (
     <div style={{ width: '432px', padding: '16px', backgroundColor: '#000028', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-      <EventListItem state="Default" severity="info">
-        <div style={{ color: 'white' }}>Default State</div>
+      <EventListItem severity="info">
+        <div style={{ color: 'white' }}>Default State (hover to see effect)</div>
       </EventListItem>
       
-      <EventListItem state="Hover" severity="info">
-        <div style={{ color: 'white' }}>Hover State</div>
+      <EventListItem severity="info">
+        <div style={{ color: 'white' }}>Interactive State (hover/click to see effects)</div>
       </EventListItem>
       
-      <EventListItem state="Active" severity="info">
-        <div style={{ color: 'white' }}>Active State</div>
+      <EventListItem severity="info">
+        <div style={{ color: 'white' }}>Another Item</div>
       </EventListItem>
       
-      <EventListItem state="Disabled" severity="info">
+      <EventListItem disabled severity="info">
         <div style={{ color: 'white' }}>Disabled State</div>
       </EventListItem>
     </div>
@@ -291,7 +291,7 @@ export function DisabledExample() {
         <div style={{ color: 'white' }}>Enabled - Click me</div>
       </EventListItem>
       
-      <EventListItem state="Disabled" severity="info" onClick={handleClick}>
+      <EventListItem disabled severity="info" onClick={handleClick}>
         <div style={{ color: 'white' }}>Disabled - Cannot click</div>
       </EventListItem>
     </div>

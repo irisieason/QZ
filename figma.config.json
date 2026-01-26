@@ -1,0 +1,20 @@
+{
+  "codeConnect": {
+    "include": [
+      "src/figma/**/*.figma.tsx",
+      "src/components/**/*.tsx"
+    ],
+    "exclude": [
+      "**/*.test.tsx",
+      "**/*.stories.tsx"
+    ],
+    "parser": "react",
+    "paths": {
+      "@irisieason/ix-react": [
+        "./src"
+      ]
+    }
+  },
+  "documentId": "",
+  "accessToken": ""
+}

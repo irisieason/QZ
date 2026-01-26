@@ -19,45 +19,34 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
+    // ========== Figma Props（可控制的属性） ==========
     focused: {
       control: 'boolean',
       description: '是否显示聚焦状态',
       table: {
+        category: 'Figma Props',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-      },
-    },
-    content: {
-      control: false,
-      description: '内容插槽',
-      table: {
-        type: { summary: 'React.ReactNode' },
-      },
-    },
-    variant: {
-      control: 'select',
-      options: ['Outline'],
-      description: '卡片变体',
-      table: {
-        type: { summary: '"Outline"' },
-        defaultValue: { summary: '"Outline"' },
-      },
-    },
-    state: {
-      control: 'select',
-      options: ['Default', 'Hover', 'Active'],
-      description: '卡片状态',
-      table: {
-        type: { summary: '"Default" | "Hover" | "Active"' },
-        defaultValue: { summary: '"Default"' },
       },
     },
     selected: {
       control: 'boolean',
       description: '是否选中',
       table: {
+        category: 'Figma Props',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
+      },
+    },
+    
+    // ========== Slot 属性（用于设计库绑定） ==========
+    children: {
+      name: 'contentSlot (children)',
+      control: false,
+      description: '**内容插槽**\n\n用于插入卡片的自定义内容。\n\n使用方式：\n```tsx\n<Cardcontainer>\n  <YourContent />\n</Cardcontainer>\n```\n\n💡 用于 Figma Code Connect 设计库绑定。',
+      table: {
+        category: 'Slots',
+        type: { summary: 'React.ReactNode' },
       },
     },
     
@@ -119,78 +108,66 @@ const CustomContent = () => (
 // 默认状态
 export const Default: Story = {
   args: {
-    variant: 'Outline',
-    state: 'Default',
     selected: false,
     focused: false,
-    content: <PlaceholderContent />,
   },
-};
-
-// Hover 状态
-export const Hover: Story = {
-  args: {
-    variant: 'Outline',
-    state: 'Hover',
-    selected: false,
-    focused: false,
-    content: <PlaceholderContent />,
-  },
-};
-
-// Active 状态
-export const Active: Story = {
-  args: {
-    variant: 'Outline',
-    state: 'Active',
-    selected: false,
-    focused: false,
-    content: <PlaceholderContent />,
-  },
+  render: (args) => (
+    <Cardcontainer {...args}>
+      <PlaceholderContent />
+    </Cardcontainer>
+  ),
 };
 
 // Selected 状态
 export const Selected: Story = {
   args: {
-    variant: 'Outline',
-    state: 'Default',
     selected: true,
     focused: false,
-    content: <PlaceholderContent />,
   },
+  render: (args) => (
+    <Cardcontainer {...args}>
+      <PlaceholderContent />
+    </Cardcontainer>
+  ),
 };
 
 // Focused 状态
 export const Focused: Story = {
   args: {
-    variant: 'Outline',
-    state: 'Default',
     selected: false,
     focused: true,
-    content: <PlaceholderContent />,
   },
+  render: (args) => (
+    <Cardcontainer {...args}>
+      <PlaceholderContent />
+    </Cardcontainer>
+  ),
 };
 
 // Selected + Focused
 export const SelectedAndFocused: Story = {
   args: {
-    variant: 'Outline',
-    state: 'Default',
     selected: true,
     focused: true,
-    content: <PlaceholderContent />,
   },
+  render: (args) => (
+    <Cardcontainer {...args}>
+      <PlaceholderContent />
+    </Cardcontainer>
+  ),
 };
 
 // 自定义内容
 export const WithCustomContent: Story = {
   args: {
-    variant: 'Outline',
-    state: 'Default',
     selected: false,
     focused: false,
-    content: <CustomContent />,
   },
+  render: (args) => (
+    <Cardcontainer {...args}>
+      <CustomContent />
+    </Cardcontainer>
+  ),
 };
 
 // 所有状态展示
@@ -200,36 +177,21 @@ export const AllStates: Story = {
       <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
         <div>
           <div style={{ marginBottom: '8px', fontSize: '12px', color: 'var(--color-soft-text)' }}>Default</div>
-          <Cardcontainer
-            variant="Outline"
-            state="Default"
-            content={<PlaceholderContent />}
-          />
-        </div>
-        <div>
-          <div style={{ marginBottom: '8px', fontSize: '12px', color: 'var(--color-soft-text)' }}>Hover</div>
-          <Cardcontainer
-            variant="Outline"
-            state="Hover"
-            content={<PlaceholderContent />}
-          />
-        </div>
-        <div>
-          <div style={{ marginBottom: '8px', fontSize: '12px', color: 'var(--color-soft-text)' }}>Active</div>
-          <Cardcontainer
-            variant="Outline"
-            state="Active"
-            content={<PlaceholderContent />}
-          />
+          <Cardcontainer>
+            <PlaceholderContent />
+          </Cardcontainer>
         </div>
         <div>
           <div style={{ marginBottom: '8px', fontSize: '12px', color: 'var(--color-soft-text)' }}>Selected</div>
-          <Cardcontainer
-            variant="Outline"
-            state="Default"
-            selected={true}
-            content={<PlaceholderContent />}
-          />
+          <Cardcontainer selected={true}>
+            <PlaceholderContent />
+          </Cardcontainer>
+        </div>
+        <div>
+          <div style={{ marginBottom: '8px', fontSize: '12px', color: 'var(--color-soft-text)' }}>Focused</div>
+          <Cardcontainer focused={true}>
+            <PlaceholderContent />
+          </Cardcontainer>
         </div>
       </div>
     </div>

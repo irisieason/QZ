@@ -1,0 +1,22 @@
+/* MenuItemList 容器组件样式 */
+
+.menu-item-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: transparent;
+}
+
+.menu-item-list__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.menu-item-list__item {
+  margin: 0;
+  padding: 0;
+}

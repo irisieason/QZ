@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { AvatarButtonMenu } from './AvatarButtonMenu';
+import { Avatar } from '../Avatar';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
@@ -15,38 +16,54 @@ const meta: Meta<typeof AvatarButtonMenu> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    // ========== 可控制的属性（视觉属性） ==========
     focused: {
       control: 'boolean',
-      description: '是否显示聚焦状态（Figma 属性）',
+      description: '是否显示聚焦状态',
+      table: {
+        category: 'Visual Props',
+      },
     },
     state: {
       control: 'select',
       options: ['Default', 'Hover', 'Active'],
-      description: '组件状态（Figma 属性）',
+      description: '组件状态',
+      table: {
+        category: 'Visual Props',
+      },
     },
     expand: {
       control: 'boolean',
-      description: '是否展开显示完整信息（Figma 属性）',
+      description: '是否展开显示完整信息',
+      table: {
+        category: 'Visual Props',
+      },
     },
     email: {
       control: 'text',
-      description: '用户邮箱（扩展属性）',
+      description: '用户邮箱',
+      table: {
+        category: 'Visual Props',
+      },
     },
     role: {
       control: 'text',
-      description: '用户角色（扩展属性）',
+      description: '用户角色',
+      table: {
+        category: 'Visual Props',
+      },
     },
-    avatarImage: {
-      control: 'boolean',
-      description: '是否显示头像图片（扩展属性）',
-    },
-    avatarInitials: {
-      control: 'boolean',
-      description: '是否显示首字母（扩展属性）',
-    },
-    avatarText: {
-      control: 'text',
-      description: '首字母文本（扩展属性）',
+    
+    // ========== Slot 属性（插槽，用于插入子组件） ==========
+    children: {
+      name: 'avatarSlot (children)',
+      control: false,
+      description: '**Avatar 组件插槽**\n\n必须传入一个 Avatar 组件作为用户头像。\n\n使用方式：\n```tsx\n<AvatarButtonMenu\n  email="john.doe@company.com"\n  role="Administrator"\n>\n  <Avatar text="JD" />\n</AvatarButtonMenu>\n```\n\n💡 这是一个插槽（Slot），用于 Figma Code Connect 设计库绑定。',
+      table: {
+        category: 'Slots',
+        type: { summary: 'Avatar 组件' },
+        defaultValue: { summary: '必需' },
+      },
     },
     
     // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
@@ -55,7 +72,6 @@ const meta: Meta<typeof AvatarButtonMenu> = {
     onLogoutClick: { table: { disable: true } },
     className: { table: { disable: true } },
     'aria-label': { table: { disable: true } },
-    avatarSrc: { table: { disable: true } },
   },
 };
 
@@ -69,10 +85,12 @@ export const Default: Story = {
     expand: true,
     email: 'john.doe@company.com',
     role: 'Administrator',
-    avatarImage: false,
-    avatarInitials: false,
-    avatarText: 'JD',
   },
+  render: (args) => (
+    <AvatarButtonMenu {...args}>
+      <Avatar text="JD" />
+    </AvatarButtonMenu>
+  ),
 };
 
 // 收起状态（只显示头像）
@@ -82,10 +100,12 @@ export const Collapsed: Story = {
     expand: false,
     email: 'john.doe@company.com',
     role: 'Administrator',
-    avatarImage: false,
-    avatarInitials: false,
-    avatarText: 'JD',
   },
+  render: (args) => (
+    <AvatarButtonMenu {...args}>
+      <Avatar text="JD" />
+    </AvatarButtonMenu>
+  ),
 };
 
 // 非受控模式（自动交互）
@@ -100,7 +120,9 @@ export const Uncontrolled: Story = {
         role="Administrator"
         onProfileClick={() => console.log('Profile clicked')}
         onLogoutClick={() => console.log('Logout clicked')}
-      />
+      >
+        <Avatar text="JD" />
+      </AvatarButtonMenu>
     </div>
   ),
 };
@@ -113,10 +135,12 @@ export const HoverExpanded: Story = {
     expand: true,
     email: 'john.doe@company.com',
     role: 'Administrator',
-    avatarImage: false,
-    avatarInitials: false,
-    avatarText: 'JD',
   },
+  render: (args) => (
+    <AvatarButtonMenu {...args}>
+      <Avatar text="JD" />
+    </AvatarButtonMenu>
+  ),
 };
 
 // 悬停状态（收起）
@@ -127,10 +151,12 @@ export const HoverCollapsed: Story = {
     expand: false,
     email: 'john.doe@company.com',
     role: 'Administrator',
-    avatarImage: false,
-    avatarInitials: false,
-    avatarText: 'JD',
   },
+  render: (args) => (
+    <AvatarButtonMenu {...args}>
+      <Avatar text="JD" />
+    </AvatarButtonMenu>
+  ),
 };
 
 // 激活状态（展开，显示下拉菜单）
@@ -141,10 +167,12 @@ export const ActiveExpanded: Story = {
     expand: true,
     email: 'john.doe@company.com',
     role: 'Administrator',
-    avatarImage: false,
-    avatarInitials: false,
-    avatarText: 'JD',
   },
+  render: (args) => (
+    <AvatarButtonMenu {...args}>
+      <Avatar text="JD" />
+    </AvatarButtonMenu>
+  ),
 };
 
 // 激活状态（收起，显示下拉菜单）
@@ -155,10 +183,12 @@ export const ActiveCollapsed: Story = {
     expand: false,
     email: 'john.doe@company.com',
     role: 'Administrator',
-    avatarImage: false,
-    avatarInitials: false,
-    avatarText: 'JD',
   },
+  render: (args) => (
+    <AvatarButtonMenu {...args}>
+      <Avatar text="JD" />
+    </AvatarButtonMenu>
+  ),
 };
 
 // 聚焦状态
@@ -168,36 +198,27 @@ export const Focused: Story = {
     state: 'Default',
     email: 'john.doe@company.com',
     role: 'Administrator',
-    avatarImage: false,
-    avatarInitials: false,
-    avatarText: 'JD',
   },
+  render: (args) => (
+    <AvatarButtonMenu {...args}>
+      <Avatar text="JD" />
+    </AvatarButtonMenu>
+  ),
 };
 
-// 带首字母头像
-export const WithInitials: Story = {
+// 不同首字母
+export const DifferentInitials: Story = {
   args: {
     focused: false,
     state: 'Default',
     email: 'jane.smith@company.com',
     role: 'Developer',
-    avatarImage: false,
-    avatarInitials: true,
-    avatarText: 'JS',
   },
-};
-
-// 带图片头像
-export const WithImage: Story = {
-  args: {
-    focused: false,
-    state: 'Default',
-    email: 'alice.johnson@company.com',
-    role: 'Designer',
-    avatarImage: true,
-    avatarInitials: false,
-    avatarSrc: 'https://i.pravatar.cc/150?img=1',
-  },
+  render: (args) => (
+    <AvatarButtonMenu {...args}>
+      <Avatar text="JS" />
+    </AvatarButtonMenu>
+  ),
 };
 
 // 交互式示例（受控模式）
@@ -266,7 +287,9 @@ export const Controlled: Story = {
           onClick={handleClick}
           onProfileClick={handleProfileClick}
           onLogoutClick={handleLogoutClick}
-        />
+        >
+          <Avatar text="JD" />
+        </AvatarButtonMenu>
       </div>
     );
   },
@@ -279,27 +302,44 @@ export const DifferentUsers: Story = {
       <AvatarButtonMenu
         email="john.doe@company.com"
         role="Administrator"
-        avatarInitials={true}
-        avatarText="JD"
-      />
+      >
+        <Avatar text="JD" />
+      </AvatarButtonMenu>
       <AvatarButtonMenu
         email="jane.smith@company.com"
         role="Developer"
-        avatarInitials={true}
-        avatarText="JS"
-      />
+      >
+        <Avatar text="JS" />
+      </AvatarButtonMenu>
       <AvatarButtonMenu
         email="alice.johnson@company.com"
         role="Designer"
-        avatarInitials={true}
-        avatarText="AJ"
-      />
+      >
+        <Avatar text="AJ" />
+      </AvatarButtonMenu>
       <AvatarButtonMenu
         email="bob.wilson@company.com"
         role="Manager"
-        avatarImage={false}
-        avatarInitials={false}
-      />
+      >
+        <Avatar text="BW" />
+      </AvatarButtonMenu>
+    </div>
+  ),
+};
+
+// 使用自定义 children（从外部传入 Avatar）
+export const WithCustomChildren: Story = {
+  render: () => (
+    <div style={{ padding: '20px' }}>
+      <p style={{ color: 'white', marginBottom: '16px' }}>
+        使用 children 属性从外部传入 Avatar 组件
+      </p>
+      <AvatarButtonMenu
+        email="jane.smith@company.com"
+        role="Designer"
+      >
+        <Avatar text="JS" />
+      </AvatarButtonMenu>
     </div>
   ),
 };
@@ -315,7 +355,9 @@ export const AllStates: Story = {
           expand={true}
           email="john.doe@company.com"
           role="Administrator"
-        />
+        >
+          <Avatar text="JD" />
+        </AvatarButtonMenu>
       </div>
       <div>
         <h3 style={{ color: 'white', marginBottom: '8px' }}>Default (Collapsed)</h3>
@@ -324,7 +366,9 @@ export const AllStates: Story = {
           expand={false}
           email="john.doe@company.com"
           role="Administrator"
-        />
+        >
+          <Avatar text="JD" />
+        </AvatarButtonMenu>
       </div>
       <div>
         <h3 style={{ color: 'white', marginBottom: '8px' }}>Hover (Expanded)</h3>
@@ -333,7 +377,9 @@ export const AllStates: Story = {
           expand={true}
           email="john.doe@company.com"
           role="Administrator"
-        />
+        >
+          <Avatar text="JD" />
+        </AvatarButtonMenu>
       </div>
       <div>
         <h3 style={{ color: 'white', marginBottom: '8px' }}>Hover (Collapsed)</h3>
@@ -342,7 +388,9 @@ export const AllStates: Story = {
           expand={false}
           email="john.doe@company.com"
           role="Administrator"
-        />
+        >
+          <Avatar text="JD" />
+        </AvatarButtonMenu>
       </div>
       <div>
         <h3 style={{ color: 'white', marginBottom: '8px' }}>Active (Expanded with dropdown)</h3>
@@ -351,7 +399,9 @@ export const AllStates: Story = {
           expand={true}
           email="john.doe@company.com"
           role="Administrator"
-        />
+        >
+          <Avatar text="JD" />
+        </AvatarButtonMenu>
       </div>
       <div>
         <h3 style={{ color: 'white', marginBottom: '8px' }}>Active (Collapsed with dropdown)</h3>
@@ -360,7 +410,9 @@ export const AllStates: Story = {
           expand={false}
           email="john.doe@company.com"
           role="Administrator"
-        />
+        >
+          <Avatar text="JD" />
+        </AvatarButtonMenu>
       </div>
       <div>
         <h3 style={{ color: 'white', marginBottom: '8px' }}>Focused (Expanded)</h3>
@@ -370,7 +422,9 @@ export const AllStates: Story = {
           expand={true}
           email="john.doe@company.com"
           role="Administrator"
-        />
+        >
+          <Avatar text="JD" />
+        </AvatarButtonMenu>
       </div>
     </div>
   ),

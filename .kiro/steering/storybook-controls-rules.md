@@ -207,26 +207,52 @@ Slot 属性是用于插入子组件的插槽，需要在 Storybook 文档中显�
 - Slot 属性接收的是 React 组件，无法通过简单的控制器编辑
 - 设置 `control: false` 禁用控制器
 
+**Slot 属性命名规范：**
+
+为了让设计师更容易理解，Slot 属性应该使用描述性的名称：
+
+```typescript
+// ✅ 正确：使用 name 字段自定义显示名称
+children: {
+  name: 'avatarSlot (children)',  // 显示为 "avatarSlot (children)"
+  control: false,
+  description: '**Avatar 组件插槽**\n\n必须传入一个 Avatar 组件...',
+  table: {
+    category: 'Slots',
+    type: { summary: 'Avatar 组件' },  // 明确标注组件类型
+  },
+}
+
+// ❌ 错误：直接使用 children，不够清晰
+children: {
+  control: false,
+  description: '插槽',
+  table: {
+    category: 'Slots',
+    type: { summary: 'React.ReactNode' },  // 太泛泛
+  },
+}
+```
+
+**命名格式：**
+- 格式：`{组件名}Slot (children)`
+- 示例：
+  - `avatarSlot (children)` - 用于插入 Avatar 组件
+  - `menuItemsSlot (children)` - 用于插入 MenuItem 组件
+  - `iconSlot (children)` - 用于插入图标组件
+
 **Slot 属性配置示例：**
 ```typescript
 argTypes: {
   // ========== Slot 属性（用于设计库绑定） ==========
-  avatarSection: {
+  children: {
+    name: 'avatarSlot (children)',  // ⭐ 使用描述性名称
     control: false,  // 禁用控制器
-    description: '用户头像区域插槽（Slot）\n\n插入组件：AvatarButtonMenu\n用于设计库绑定',
+    description: '**Avatar 组件插槽**\n\n必须传入一个 Avatar 组件作为用户头像。\n\n使用方式：\n```tsx\n<AvatarButtonMenu>\n  <Avatar text="JD" />\n</AvatarButtonMenu>\n```\n\n💡 用于 Figma Code Connect 设计库绑定。',
     table: {
       category: 'Slots',  // 分类为 Slots
-      type: { summary: 'React.ReactNode' },
-      defaultValue: { summary: '<AvatarButtonMenu />' },
-    },
-  },
-  menuList: {
-    control: false,
-    description: '菜单项列表插槽（Slot）\n\n插入组件：MenuItem（多个）\n用于设计库绑定',
-    table: {
-      category: 'Slots',
-      type: { summary: 'React.ReactNode' },
-      defaultValue: { summary: '<MenuItem /> × N' },
+      type: { summary: 'Avatar 组件' },  // ⭐ 明确标注组件类型
+      defaultValue: { summary: '必需' },
     },
   },
 }
@@ -235,7 +261,9 @@ argTypes: {
 **Slot 属性的特点：**
 - ✅ 显示在文档表格中（`table` 配置）
 - ✅ 有清晰的分类（`category: 'Slots'`）
-- ✅ 说明插入的组件类型
+- ✅ 使用描述性名称（`name: 'xxxSlot (children)'`）
+- ✅ 明确标注插入的组件类型（`type: { summary: 'Avatar 组件' }`）
+- ✅ 提供完整的使用示例和说明
 - ✅ 标注"用于设计库绑定"
 - ❌ 不提供 Controls 控制器（`control: false`）
 

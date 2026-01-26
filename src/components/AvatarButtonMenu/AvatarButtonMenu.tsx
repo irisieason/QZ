@@ -1,5 +1,4 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
-import { Avatar } from '../Avatar';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import './AvatarButtonMenu.css';
 
@@ -26,17 +25,8 @@ interface AvatarButtonMenuExtendedProps {
   /** 用户角色 - 扩展属性，用于显示用户信息 */
   role?: string;
   
-  /** 用户头像 URL - 扩展属性，传递给 Avatar 组件 */
-  avatarSrc?: string;
-  
-  /** 用户首字母 - 扩展属性，传递给 Avatar 组件 */
-  avatarText?: string;
-  
-  /** 是否显示头像图片 - 扩展属性，传递给 Avatar 组件 */
-  avatarImage?: boolean;
-  
-  /** 是否显示首字母 - 扩展属性，传递给 Avatar 组件 */
-  avatarInitials?: boolean;
+  /** Avatar 子组件 - 从外部传入 Avatar 组件 */
+  children?: React.ReactNode;
   
   /** 点击事件处理 */
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
@@ -66,10 +56,7 @@ export const AvatarButtonMenu: React.FC<AvatarButtonMenuProps> = ({
   // 扩展属性
   email = 'john.doe@company.com',
   role = 'Administrator',
-  avatarSrc,
-  avatarText = 'JD',
-  avatarImage = false,
-  avatarInitials = false,
+  children,
   onClick,
   onProfileClick,
   onLogoutClick,
@@ -178,13 +165,7 @@ export const AvatarButtonMenu: React.FC<AvatarButtonMenuProps> = ({
       data-expand={expand}
     >
       <div className="avatar-button-menu__container">
-        <Avatar
-          image={avatarImage}
-          initials={avatarInitials}
-          text={avatarText}
-          src={avatarSrc}
-          className="avatar-button-menu__avatar"
-        />
+        {children}
         
         {expand && (
           <div className="avatar-button-menu__info">

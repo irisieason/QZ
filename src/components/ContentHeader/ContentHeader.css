@@ -1,0 +1,114 @@
+/* ContentHeader 组件样式 */
+
+.content-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: 100%;
+}
+
+.content-header__layout {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* 返回按钮 */
+.content-header__back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary);
+  transition: background-color 0.2s ease;
+}
+
+.content-header__back-button:hover {
+  background-color: var(--color-ghost--hover);
+}
+
+.content-header__back-button:active {
+  background-color: var(--color-ghost--active);
+}
+
+.content-header__back-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* 内容区域 */
+.content-header__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.content-header__title-frame {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.content-header__title {
+  flex: 1;
+  margin: 0;
+  font-family: var(--typography-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1.5;
+  color: var(--text-color-std-text, #ffffff);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.content-header__subtitle {
+  margin: 0;
+  font-family: var(--typography-font-sans, 'Siemens Sans Global', sans-serif);
+  font-weight: var(--font-weight-bold, 700);
+  font-size: var(--font-size-ms-minus-1, 12px);
+  line-height: 1.5;
+  letter-spacing: 0.144px;
+  color: var(--text-color-soft-text, rgba(255, 255, 255, 0.6));
+}
+
+/* 操作按钮区域 */
+.content-header__actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+/* Primary 变体 */
+.content-header--primary .content-header__title {
+  font-size: var(--font-size-ms-2, 20px);
+  letter-spacing: 0.12px;
+}
+
+.content-header--primary .content-header__title-frame {
+  overflow: hidden;
+}
+
+/* Secondary 变体 */
+.content-header--secondary .content-header__title {
+  font-size: var(--font-size-ms-1, 16px);
+  letter-spacing: 0.096px;
+}
+
+.content-header--secondary .content-header__content {
+  padding-bottom: 2px;
+}
+
+.content-header--secondary .content-header__title-frame {
+  padding: 4px 0;
+  margin-bottom: -2px;
+}
+
+.content-header--secondary .content-header__subtitle {
+  width: 100%;
+}

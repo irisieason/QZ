@@ -89,7 +89,7 @@
   min-height: 1px;
   min-width: 1px;
   overflow: hidden;
-  background-color: rgba(255, 0, 255, 0.15);
+  background-color: var(--color-component-7);
   padding: 8px;
 }
 
@@ -106,7 +106,7 @@
 .cardcontainer__placeholder-icon {
   width: 24px;
   height: 24px;
-  color: #f0f;
+  color: var(--color-primary);
 }
 
 .cardcontainer__placeholder-text {
@@ -114,7 +114,7 @@
   font-weight: var(--font-weight-font-weight-bold, 700);
   font-size: 16px;
   line-height: 24px;
-  color: #f0f;
+  color: var(--color-primary);
   text-align: center;
   min-width: 100%;
   width: min-content;

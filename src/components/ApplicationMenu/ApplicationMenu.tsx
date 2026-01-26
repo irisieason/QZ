@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import './ApplicationMenu.css';
 
-// Figma 定义的属性（严格遵循 Figma 设计）
-interface ApplicationMenuFigmaProps {
+// ========== 视觉属性（来自 Figma） ==========
+interface ApplicationMenuVisualProps {
   /** 是否显示新闻弹窗 */
   popoverNews?: boolean;
   
@@ -13,41 +13,48 @@ interface ApplicationMenuFigmaProps {
   overflow?: 'False';
 }
 
-// 扩展属性（React 特定，非 Figma 定义）
+// ========== 扩展属性（React 标准） ==========
 interface ApplicationMenuExtendedProps {
-  /** 展开/折叠按钮插槽 - 扩展属性 */
+  /** 展开/折叠按钮插槽（Slot） */
   toggleButton?: React.ReactNode;
   
-  /** 用户头像区域插槽 - 扩展属性 */
+  /** 用户头像区域插槽（Slot） */
   avatarSection?: React.ReactNode;
   
-  /** 菜单项列表插槽 - 扩展属性 */
+  /** 菜单项列表插槽（Slot） */
   menuList?: React.ReactNode;
   
-  /** 展开/折叠切换事件 - 扩展属性 */
-  onToggleExpand?: () => void;
+  /** 展开/折叠切换事件回调 */
+  onToggleExpand?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   
-  /** 自定义类名 */
+  /** 自定义 CSS 类名 */
   className?: string;
+  
+  /** 自定义样式 */
+  style?: React.CSSProperties;
+  
+  /** 可访问性标签 */
+  'aria-label'?: string;
 }
 
-// 最终组件属性
-export interface ApplicationMenuProps extends ApplicationMenuFigmaProps, ApplicationMenuExtendedProps {}
+export interface ApplicationMenuProps extends ApplicationMenuVisualProps, ApplicationMenuExtendedProps {}
 
 export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
-  // Figma 属性
+  // 视觉属性
   // @ts-expect-error - TODO: 实现新闻弹窗功能
   popoverNews = false,
   expanded: controlledExpanded,
   // @ts-expect-error - TODO: 实现溢出处理
   overflow = 'False',
   
-  // 扩展属性（Slots）
+  // 扩展属性
   toggleButton,
   avatarSection,
   menuList,
   onToggleExpand,
   className = '',
+  style,
+  'aria-label': ariaLabel,
 }) => {
   // 内部状态管理
   const [internalExpanded, setInternalExpanded] = useState(true);
@@ -56,11 +63,11 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
   const expanded = controlledExpanded !== undefined ? controlledExpanded : internalExpanded;
 
   // ✅ 性能优化：使用 useCallback 缓存事件处理器
-  const handleToggleExpand = useCallback(() => {
+  const handleToggleExpand = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     if (controlledExpanded === undefined) {
       setInternalExpanded(!expanded);
     }
-    onToggleExpand?.();
+    onToggleExpand?.(event);
   }, [controlledExpanded, expanded, onToggleExpand]);
 
   // ✅ 性能优化：使用 useMemo 缓存类名计算
@@ -98,9 +105,10 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
   return (
     <div 
       className={menuClasses} 
+      style={style}
       data-expanded={expanded}
       role="navigation"
-      aria-label="Application menu"
+      aria-label={ariaLabel || 'Application menu'}
     >
       <div className="application-menu__container">
         {/* 展开/折叠按钮插槽 */}

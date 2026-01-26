@@ -144,6 +144,18 @@ argTypes: {
   style: { table: { disable: true } },
   id: { table: { disable: true } },
   'aria-label': { table: { disable: true } },
+  
+  // ========== Slot 属性（显示在文档中，用于设计库绑定） ==========
+  // 注意：Slot 属性不隐藏，但设置 control: false
+  // 示例：
+  // avatarSection: {
+  //   control: false,
+  //   description: '用户头像区域插槽（Slot）\n\n插入组件：AvatarButtonMenu\n用于设计库绑定',
+  //   table: {
+  //     category: 'Slots',
+  //     type: { summary: 'React.ReactNode' },
+  //   },
+  // },
 }
 ```
 
@@ -179,6 +191,53 @@ argTypes: {
 3. **Figma 设计属性** - 来自 Figma 的设计规范
    - 所有 Figma 定义的可视化属性
    - 用于在 Storybook 中重现 Figma 设计
+
+### 📋 Slot 属性（显示在文档中，用于设计库绑定）
+
+**特殊处理：Slot 属性**
+
+Slot 属性是用于插入子组件的插槽，需要在 Storybook 文档中显示，但不提供 Controls 控制器：
+
+✅ **应该显示在文档表格中：**
+- 让设计师了解组件的插槽结构
+- 方便后续与设计库（Figma Code Connect）绑定
+- 标注清楚插入的组件类型
+
+❌ **不应该在 Controls 面板中控制：**
+- Slot 属性接收的是 React 组件，无法通过简单的控制器编辑
+- 设置 `control: false` 禁用控制器
+
+**Slot 属性配置示例：**
+```typescript
+argTypes: {
+  // ========== Slot 属性（用于设计库绑定） ==========
+  avatarSection: {
+    control: false,  // 禁用控制器
+    description: '用户头像区域插槽（Slot）\n\n插入组件：AvatarButtonMenu\n用于设计库绑定',
+    table: {
+      category: 'Slots',  // 分类为 Slots
+      type: { summary: 'React.ReactNode' },
+      defaultValue: { summary: '<AvatarButtonMenu />' },
+    },
+  },
+  menuList: {
+    control: false,
+    description: '菜单项列表插槽（Slot）\n\n插入组件：MenuItem（多个）\n用于设计库绑定',
+    table: {
+      category: 'Slots',
+      type: { summary: 'React.ReactNode' },
+      defaultValue: { summary: '<MenuItem /> × N' },
+    },
+  },
+}
+```
+
+**Slot 属性的特点：**
+- ✅ 显示在文档表格中（`table` 配置）
+- ✅ 有清晰的分类（`category: 'Slots'`）
+- ✅ 说明插入的组件类型
+- ✅ 标注"用于设计库绑定"
+- ❌ 不提供 Controls 控制器（`control: false`）
 
 ### ❌ 应该隐藏的属性（不在 Controls 面板显示）
 
@@ -289,6 +348,9 @@ const meta = {
 - [ ] `value`, `defaultValue` 等数据属性都已隐藏
 - [ ] `aria-*`, `data-*` 等可访问性属性都已隐藏
 - [ ] 内部状态属性（如 `focused`, `filled`）都已隐藏
+- [ ] Slot 属性显示在文档中但设置 `control: false`
+- [ ] Slot 属性有清晰的分类（`category: 'Slots'`）
+- [ ] Slot 属性标注了插入的组件类型
 - [ ] 每个可见属性都有清晰的中文描述
 
 ## 如何告诉 AI
@@ -335,5 +397,10 @@ AI 会自动：
 3. **不要混淆：**
    - ❌ 错误：根据 Storybook 需要什么来设计组件
    - ✅ 正确：设计完整的组件，然后在 Storybook 中选择性展示
+
+4. **Slot 属性的特殊处理：**
+   - ✅ 显示在文档表格中（方便设计库绑定）
+   - ❌ 不提供 Controls 控制器（`control: false`）
+   - ✅ 清晰标注插入的组件类型
 
 **记住：Storybook 是展示工具，不是组件设计的依据。**

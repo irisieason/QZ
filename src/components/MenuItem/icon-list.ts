@@ -4,7 +4,7 @@ export const availableIcons = [
   'dashboard',
   'settings',
   'user',
-  'users',
+  'user-management',
   'calendar',
   'clock',
   'search',
@@ -30,6 +30,9 @@ export const availableIcons = [
   'chevron-right',
   'chevron-up',
   'chevron-down',
+  'alarm-bell',
+  'maintenance',
+  'cogwheel',
 ] as const;
 
 export type AvailableIcon = typeof availableIcons[number];

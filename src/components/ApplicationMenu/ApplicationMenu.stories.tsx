@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { ApplicationMenu } from './ApplicationMenu';
 import { AvatarButtonMenu } from '../AvatarButtonMenu';
@@ -39,9 +39,10 @@ const meta: Meta<typeof ApplicationMenu> = {
         category: 'Figma Props',
       },
     },
+    // ========== Slot 属性（用于设计库绑定） ==========
     toggleButton: {
-      control: 'text',
-      description: '展开/折叠按钮插槽（扩展属性 - Slot）',
+      control: false,
+      description: '展开/折叠按钮插槽（Slot）\n\n用于自定义切换按钮\n用于设计库绑定',
       table: {
         category: 'Slots',
         type: { summary: 'React.ReactNode' },
@@ -49,8 +50,8 @@ const meta: Meta<typeof ApplicationMenu> = {
       },
     },
     avatarSection: {
-      control: 'text',
-      description: '用户头像区域插槽（扩展属性 - Slot）\n\n插入组件：AvatarButtonMenu',
+      control: false,
+      description: '用户头像区域插槽（Slot）\n\n插入组件：AvatarButtonMenu\n用于设计库绑定',
       table: {
         category: 'Slots',
         type: { summary: 'React.ReactNode' },
@@ -58,8 +59,8 @@ const meta: Meta<typeof ApplicationMenu> = {
       },
     },
     menuList: {
-      control: 'text',
-      description: '菜单项列表插槽（扩展属性 - Slot）\n\n插入组件：MenuItem（多个）',
+      control: false,
+      description: '菜单项列表插槽（Slot）\n\n插入组件：MenuItem（多个）\n用于设计库绑定',
       table: {
         category: 'Slots',
         type: { summary: 'React.ReactNode' },
@@ -70,6 +71,8 @@ const meta: Meta<typeof ApplicationMenu> = {
     // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
     onToggleExpand: { table: { disable: true } },
     className: { table: { disable: true } },
+    style: { table: { disable: true } },
+    'aria-label': { table: { disable: true } },
   },
 };
 
@@ -81,7 +84,7 @@ export const Expanded: Story = {
   args: {
     expanded: true,
     avatarSection: '<AvatarButtonMenu email="john.doe@company.com" role="Administrator" />',
-    menuList: '<MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="wrench" label="Maintenance" expanded={expanded} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="users" label="User management" expanded={expanded} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
+    menuList: '<MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="alarm-bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="maintenance" label="Maintenance" expanded={expanded} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="user-management" label="User management" expanded={expanded} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
   },
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -104,11 +107,11 @@ export const Expanded: Story = {
           menuList={
             <>
               <MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === 'Home'} onClick={() => setSelectedItem('Home')} />
-              <MenuItem icon="bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === 'Event list'} onClick={() => setSelectedItem('Event list')} />
+              <MenuItem icon="alarm-bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === 'Event list'} onClick={() => setSelectedItem('Event list')} />
               <MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === 'Dashboard'} onClick={() => setSelectedItem('Dashboard')} />
-              <MenuItem icon="wrench" label="Maintenance" expanded={expanded} selected={selectedItem === 'Maintenance'} onClick={() => setSelectedItem('Maintenance')} />
+              <MenuItem icon="maintenance" label="Maintenance" expanded={expanded} selected={selectedItem === 'Maintenance'} onClick={() => setSelectedItem('Maintenance')} />
               <MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === 'Scheduler'} onClick={() => setSelectedItem('Scheduler')} />
-              <MenuItem icon="users" label="User management" expanded={expanded} selected={selectedItem === 'User management'} onClick={() => setSelectedItem('User management')} />
+              <MenuItem icon="user-management" label="User management" expanded={expanded} selected={selectedItem === 'User management'} onClick={() => setSelectedItem('User management')} />
             </>
           }
         />
@@ -122,7 +125,7 @@ export const Collapsed: Story = {
   args: {
     expanded: false,
     avatarSection: '<AvatarButtonMenu expand={false} email="john.doe@company.com" role="Administrator" />',
-    menuList: '<MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="wrench" label="Maintenance" expanded={expanded} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="users" label="User management" expanded={expanded} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
+    menuList: '<MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="alarm-bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="maintenance" label="Maintenance" expanded={expanded} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="user-management" label="User management" expanded={expanded} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
   },
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -145,11 +148,11 @@ export const Collapsed: Story = {
           menuList={
             <>
               <MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === 'Home'} onClick={() => setSelectedItem('Home')} />
-              <MenuItem icon="bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === 'Event list'} onClick={() => setSelectedItem('Event list')} />
+              <MenuItem icon="alarm-bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === 'Event list'} onClick={() => setSelectedItem('Event list')} />
               <MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === 'Dashboard'} onClick={() => setSelectedItem('Dashboard')} />
-              <MenuItem icon="wrench" label="Maintenance" expanded={expanded} selected={selectedItem === 'Maintenance'} onClick={() => setSelectedItem('Maintenance')} />
+              <MenuItem icon="maintenance" label="Maintenance" expanded={expanded} selected={selectedItem === 'Maintenance'} onClick={() => setSelectedItem('Maintenance')} />
               <MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === 'Scheduler'} onClick={() => setSelectedItem('Scheduler')} />
-              <MenuItem icon="users" label="User management" expanded={expanded} selected={selectedItem === 'User management'} onClick={() => setSelectedItem('User management')} />
+              <MenuItem icon="user-management" label="User management" expanded={expanded} selected={selectedItem === 'User management'} onClick={() => setSelectedItem('User management')} />
             </>
           }
         />
@@ -214,7 +217,7 @@ export const CustomToggleButton: Story = {
 export const Interactive: Story = {
   args: {
     avatarSection: '<AvatarButtonMenu expand={expanded} email="john.doe@company.com" role="Administrator" onProfileClick={() => console.log("Open profile")} onLogoutClick={() => console.log("Logout")} />',
-    menuList: '<MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="wrench" label="Maintenance" expanded={expanded} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="users" label="User management" expanded={expanded} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
+    menuList: '<MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="alarm-bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="maintenance" label="Maintenance" expanded={expanded} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="user-management" label="User management" expanded={expanded} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
   },
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -246,7 +249,7 @@ export const Interactive: Story = {
                 onClick={() => setSelectedItem('Home')}
               />
               <MenuItem
-                icon="bell"
+                icon="alarm-bell"
                 label="Event list"
                 expanded={expanded}
                 notification={true}
@@ -262,7 +265,7 @@ export const Interactive: Story = {
                 onClick={() => setSelectedItem('Dashboard')}
               />
               <MenuItem
-                icon="wrench"
+                icon="maintenance"
                 label="Maintenance"
                 expanded={expanded}
                 selected={selectedItem === 'Maintenance'}
@@ -276,7 +279,7 @@ export const Interactive: Story = {
                 onClick={() => setSelectedItem('Scheduler')}
               />
               <MenuItem
-                icon="users"
+                icon="user-management"
                 label="User management"
                 expanded={expanded}
                 selected={selectedItem === 'User management'}
@@ -311,7 +314,7 @@ export const Interactive: Story = {
             borderRadius: '4px',
           }}>
             <p style={{ color: '#9d9d96', margin: 0 }}>
-              💡 这是<strong style={{ color: 'white' }}>受控模式</strong>：
+              💡 这是<strong style={{ color: 'white' }}>受控模式</strong>。
               组件通过 <code style={{ color: '#0cc' }}>expanded</code> 和 <code style={{ color: '#0cc' }}>onToggleExpand</code> 
               实现展开/折叠交互，通过 <code style={{ color: '#0cc' }}>selected</code> 和 <code style={{ color: '#0cc' }}>onClick</code> 
               实现 MenuItem 互斥选中。
@@ -328,7 +331,7 @@ export const Controlled: Story = {
   args: {
     expanded: true,
     avatarSection: '<AvatarButtonMenu expand={expanded} email="john.doe@company.com" role="Administrator" onProfileClick={() => console.log("Open profile")} onLogoutClick={() => console.log("Logout")} />',
-    menuList: '<MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="wrench" label="Maintenance" expanded={expanded} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="users" label="User management" expanded={expanded} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
+    menuList: '<MenuItem icon="home" label="Home" expanded={expanded} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="alarm-bell" label="Event list" expanded={expanded} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={expanded} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="maintenance" label="Maintenance" expanded={expanded} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={expanded} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="user-management" label="User management" expanded={expanded} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
   },
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -360,7 +363,7 @@ export const Controlled: Story = {
                 onClick={() => setSelectedItem('Home')}
               />
               <MenuItem
-                icon="bell"
+                icon="alarm-bell"
                 label="Event list"
                 expanded={expanded}
                 notification={true}
@@ -376,7 +379,7 @@ export const Controlled: Story = {
                 onClick={() => setSelectedItem('Dashboard')}
               />
               <MenuItem
-                icon="wrench"
+                icon="maintenance"
                 label="Maintenance"
                 expanded={expanded}
                 selected={selectedItem === 'Maintenance'}
@@ -390,7 +393,7 @@ export const Controlled: Story = {
                 onClick={() => setSelectedItem('Scheduler')}
               />
               <MenuItem
-                icon="users"
+                icon="user-management"
                 label="User management"
                 expanded={expanded}
                 selected={selectedItem === 'User management'}
@@ -523,7 +526,7 @@ export const DifferentUsers: Story = {
         <div style={{ flex: 1, padding: '40px', color: 'white' }}>
           <h1>不同用户示例</h1>
           <p style={{ color: '#9d9d96', marginBottom: '16px' }}>
-            切换不同用户查看头像显示效果：
+            切换不同用户查看头像显示效果。
           </p>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
             {users.map((u, index) => (
@@ -610,7 +613,7 @@ export const SlotContent: Story = {
   args: {
     expanded: true,
     avatarSection: '<AvatarButtonMenu email="john.doe@company.com" role="Administrator" />',
-    menuList: '<MenuItem icon="home" label="Home" expanded={true} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="bell" label="Event list" expanded={true} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={true} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="wrench" label="Maintenance" expanded={true} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={true} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="users" label="User management" expanded={true} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
+    menuList: '<MenuItem icon="home" label="Home" expanded={true} selected={selectedItem === "Home"} onClick={() => setSelectedItem("Home")} /><MenuItem icon="alarm-bell" label="Event list" expanded={true} notification={true} notificationCount={12} selected={selectedItem === "Event list"} onClick={() => setSelectedItem("Event list")} /><MenuItem icon="dashboard" label="Dashboard" expanded={true} selected={selectedItem === "Dashboard"} onClick={() => setSelectedItem("Dashboard")} /><MenuItem icon="maintenance" label="Maintenance" expanded={true} selected={selectedItem === "Maintenance"} onClick={() => setSelectedItem("Maintenance")} /><MenuItem icon="calendar" label="Scheduler" expanded={true} selected={selectedItem === "Scheduler"} onClick={() => setSelectedItem("Scheduler")} /><MenuItem icon="user-management" label="User management" expanded={true} selected={selectedItem === "User management"} onClick={() => setSelectedItem("User management")} />',
   },
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -630,21 +633,21 @@ export const SlotContent: Story = {
           menuList={
             <>
               <MenuItem icon="home" label="Home" expanded={true} selected={selectedItem === 'Home'} onClick={() => setSelectedItem('Home')} />
-              <MenuItem icon="bell" label="Event list" expanded={true} notification={true} notificationCount={12} selected={selectedItem === 'Event list'} onClick={() => setSelectedItem('Event list')} />
+              <MenuItem icon="alarm-bell" label="Event list" expanded={true} notification={true} notificationCount={12} selected={selectedItem === 'Event list'} onClick={() => setSelectedItem('Event list')} />
               <MenuItem icon="dashboard" label="Dashboard" expanded={true} selected={selectedItem === 'Dashboard'} onClick={() => setSelectedItem('Dashboard')} />
-              <MenuItem icon="wrench" label="Maintenance" expanded={true} selected={selectedItem === 'Maintenance'} onClick={() => setSelectedItem('Maintenance')} />
+              <MenuItem icon="maintenance" label="Maintenance" expanded={true} selected={selectedItem === 'Maintenance'} onClick={() => setSelectedItem('Maintenance')} />
               <MenuItem icon="calendar" label="Scheduler" expanded={true} selected={selectedItem === 'Scheduler'} onClick={() => setSelectedItem('Scheduler')} />
-              <MenuItem icon="users" label="User management" expanded={true} selected={selectedItem === 'User management'} onClick={() => setSelectedItem('User management')} />
+              <MenuItem icon="user-management" label="User management" expanded={true} selected={selectedItem === 'User management'} onClick={() => setSelectedItem('User management')} />
             </>
           }
         />
-      <div style={{ flex: 1, padding: '40px', color: 'white' }}>
-        <h1 style={{ marginBottom: '24px' }}>Slot 内容说明</h1>
+        <div style={{ flex: 1, padding: '40px', color: 'white' }}>
+          <h1 style={{ marginBottom: '24px' }}>Slot 内容说明</h1>
         
         <div style={{ marginBottom: '32px' }}>
           <h2 style={{ marginBottom: '16px', color: '#0cc' }}>children Slot</h2>
           <p style={{ color: '#9d9d96', marginBottom: '12px' }}>
-            ApplicationMenu 使用 children slot 接收所有子组件：
+            ApplicationMenu 使用 children slot 接收所有子组件。
           </p>
           <div style={{ 
             backgroundColor: 'rgba(255, 255, 255, 0.05)', 
@@ -668,19 +671,19 @@ export const SlotContent: Story = {
               {'<MenuItem icon="home" label="Home" />'}
             </div>
             <div style={{ paddingLeft: '20px' }}>
-              {'<MenuItem icon="bell" label="Event list" notification />'}
+              {'<MenuItem icon="alarm-bell" label="Event list" notification />'}
             </div>
             <div style={{ paddingLeft: '20px' }}>
               {'<MenuItem icon="dashboard" label="Dashboard" />'}
             </div>
             <div style={{ paddingLeft: '20px' }}>
-              {'<MenuItem icon="wrench" label="Maintenance" />'}
+              {'<MenuItem icon="maintenance" label="Maintenance" />'}
             </div>
             <div style={{ paddingLeft: '20px' }}>
               {'<MenuItem icon="calendar" label="Scheduler" />'}
             </div>
             <div style={{ paddingLeft: '20px' }}>
-              {'<MenuItem icon="users" label="User management" />'}
+              {'<MenuItem icon="user-management" label="User management" />'}
             </div>
             <div>{'</ApplicationMenu>'}</div>
           </div>
@@ -741,3 +744,4 @@ export const SlotContent: Story = {
     },
   },
 };
+

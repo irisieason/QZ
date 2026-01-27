@@ -36,3 +36,6 @@ yarn-error.log*
 *.swp
 *.swo
 *~
+
+# Kiro steering files with sensitive information
+.kiro/steering/github-packages-publish.md

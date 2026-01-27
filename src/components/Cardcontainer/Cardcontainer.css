@@ -2,12 +2,13 @@
 @import '../../tokens/tokens.css';
 
 .cardcontainer {
-  display: flex;
+  display: inline-flex;  /* ✅ 改为 inline-flex，更好地适应内容 */
   flex-direction: column;
-  align-items: flex-end;
+  align-items: stretch;
   position: relative;
-  width: 214px;
-  height: 120px;
+  /* ✅ 移除 fit-content，让 flex 自然撑开 */
+  min-width: 120px;  /* 最小宽度 */
+  min-height: 80px;  /* 最小高度 */
   padding: 1px;
   border-radius: 4px;
   border: 1px solid var(--color-soft-bdr, rgba(211, 236, 248, 0.4));
@@ -68,13 +69,9 @@
 /* 内容区域 */
 .cardcontainer__content {
   display: flex;
-  flex: 1 0 0;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
-  min-height: 1px;
-  min-width: 1px;
-  overflow: hidden;
+  flex: 1;  /* ✅ 简化为 flex: 1 */
   border-radius: 3px;
   position: relative;
 }
@@ -82,31 +79,27 @@
 /* 占位符样式 */
 .cardcontainer__placeholder {
   display: flex;
-  flex: 1 0 0;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  min-height: 1px;
-  min-width: 1px;
-  overflow: hidden;
+  flex: 1;  /* ✅ 简化 */
   background-color: var(--color-component-7);
-  padding: 8px;
+  padding: 16px;
+  border-radius: 3px;
 }
 
 .cardcontainer__placeholder-content {
   display: flex;
-  flex: 1 0 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 1px;
-  min-width: 1px;
+  gap: 8px;
 }
 
 .cardcontainer__placeholder-icon {
   width: 24px;
   height: 24px;
   color: var(--color-primary);
+  flex-shrink: 0;  /* ✅ 防止图标被压缩 */
 }
 
 .cardcontainer__placeholder-text {
@@ -116,6 +109,5 @@
   line-height: 24px;
   color: var(--color-primary);
   text-align: center;
-  min-width: 100%;
-  width: min-content;
+  white-space: normal;  /* ✅ 允许换行 */
 }

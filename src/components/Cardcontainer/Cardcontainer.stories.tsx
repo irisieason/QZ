@@ -105,6 +105,78 @@ const CustomContent = () => (
   </div>
 );
 
+// 小内容示例
+const SmallContent = () => (
+  <div style={{
+    padding: '12px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  }}>
+    <ix-icon name="check" size="16" />
+    <span style={{ fontSize: '12px' }}>Small</span>
+  </div>
+);
+
+// 大内容示例
+const LargeContent = () => (
+  <div style={{
+    padding: '24px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    maxWidth: '400px',
+  }}>
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+    }}>
+      <ix-icon name="info" size="32" />
+      <div style={{
+        fontFamily: 'var(--typography-family-font-sans)',
+        fontSize: '18px',
+        fontWeight: 700,
+        color: 'var(--color-std-text)',
+      }}>
+        Large Content Card
+      </div>
+    </div>
+    <div style={{
+      fontFamily: 'var(--typography-family-font-sans)',
+      fontSize: '14px',
+      color: 'var(--color-soft-text)',
+      lineHeight: '1.5',
+    }}>
+      This card container automatically adjusts its size based on the content inside. 
+      You can put any content here, and the container will expand to fit it perfectly.
+    </div>
+    <div style={{
+      display: 'flex',
+      gap: '8px',
+      marginTop: '8px',
+    }}>
+      <div style={{
+        padding: '6px 12px',
+        borderRadius: '4px',
+        backgroundColor: 'var(--color-primary)',
+        color: 'white',
+        fontSize: '12px',
+      }}>
+        Action 1
+      </div>
+      <div style={{
+        padding: '6px 12px',
+        borderRadius: '4px',
+        border: '1px solid var(--color-soft-bdr)',
+        fontSize: '12px',
+      }}>
+        Action 2
+      </div>
+    </div>
+  </div>
+);
+
 // 默认状态
 export const Default: Story = {
   args: {
@@ -167,6 +239,58 @@ export const WithCustomContent: Story = {
     <Cardcontainer {...args}>
       <CustomContent />
     </Cardcontainer>
+  ),
+};
+
+// 小内容 - 容器自适应
+export const WithSmallContent: Story = {
+  args: {
+    selected: false,
+    focused: false,
+  },
+  render: (args) => (
+    <Cardcontainer {...args}>
+      <SmallContent />
+    </Cardcontainer>
+  ),
+};
+
+// 大内容 - 容器自适应
+export const WithLargeContent: Story = {
+  args: {
+    selected: false,
+    focused: false,
+  },
+  render: (args) => (
+    <Cardcontainer {...args}>
+      <LargeContent />
+    </Cardcontainer>
+  ),
+};
+
+// 不同尺寸内容对比
+export const DifferentSizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <div>
+        <div style={{ marginBottom: '8px', fontSize: '12px', color: 'var(--color-soft-text)' }}>Small Content</div>
+        <Cardcontainer>
+          <SmallContent />
+        </Cardcontainer>
+      </div>
+      <div>
+        <div style={{ marginBottom: '8px', fontSize: '12px', color: 'var(--color-soft-text)' }}>Medium Content</div>
+        <Cardcontainer>
+          <CustomContent />
+        </Cardcontainer>
+      </div>
+      <div>
+        <div style={{ marginBottom: '8px', fontSize: '12px', color: 'var(--color-soft-text)' }}>Large Content</div>
+        <Cardcontainer>
+          <LargeContent />
+        </Cardcontainer>
+      </div>
+    </div>
   ),
 };
 

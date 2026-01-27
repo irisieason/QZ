@@ -15,6 +15,8 @@ export { DeviceStatusChart } from './DeviceStatusChart';
 export { EventItemContent } from './EventItemContent';
 export { EventListItem } from './EventListItem';
 export { StatusHistoryChart } from './StatusHistoryChart';
+export { ToggleButton } from './ToggleButton';
+export { Tooltip } from './Tooltip';
 
 // Types
 export type { ButtonProps, ButtonVariant, ButtonState } from './Button';
@@ -33,3 +35,5 @@ export type { DeviceStatusChartProps, ChartDataItem, LegendItem } from './Device
 export type { EventItemContentProps } from './EventItemContent';
 export type { EventListItemProps, SeverityColor } from './EventListItem';
 export type { StatusHistoryChartProps, DataPoint, DataSeries } from './StatusHistoryChart';
+export type { ToggleButtonProps } from './ToggleButton';
+export type { TooltipProps } from './Tooltip';

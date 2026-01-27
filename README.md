@@ -2,11 +2,52 @@
 
 React 组件设计系统
 
-## 安装依赖
+## 安装
 
 ```bash
-npm install
+npm install @irisieason/qz-react
+# 或
+pnpm install @irisieason/qz-react
 ```
+
+## 快速开始
+
+### 1. 注册图标
+
+在应用入口文件（如 `main.tsx` 或 `App.tsx`）中注册你需要的图标：
+
+```tsx
+import { addIcons } from '@irisieason/qz-react';
+import { iconHome, iconSettings, iconUser } from '@irisieason/ix-icons/icons';
+
+// 注册图标
+addIcons({
+  home: iconHome,
+  settings: iconSettings,
+  user: iconUser,
+});
+```
+
+### 2. 使用组件
+
+```tsx
+import { Button, MenuItem, CategoryFilter } from '@irisieason/qz-react';
+
+function App() {
+  return (
+    <div>
+      {/* 组件内部图标自动工作 */}
+      <CategoryFilter searchIcon={true} clearable={true} />
+      
+      {/* 用户传入的图标需要先注册 */}
+      <Button icon="home" showIcon={true}>Home</Button>
+      <MenuItem icon="settings" label="Settings" />
+    </div>
+  );
+}
+```
+
+📖 **详细说明：** [图标注册指南](docs/ICON_REGISTRATION_GUIDE.md)
 
 ## 开发
 

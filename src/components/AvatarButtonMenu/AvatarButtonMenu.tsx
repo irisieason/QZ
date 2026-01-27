@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { useApplicationMenuContext } from '../ApplicationMenu/ApplicationMenuContext';
 import './AvatarButtonMenu.css';
 
 // Figma 定义的状态类型
@@ -51,7 +52,7 @@ export const AvatarButtonMenu: React.FC<AvatarButtonMenuProps> = ({
   // Figma 属性
   focused = false,
   state: controlledState,
-  expand = true,
+  expand: propExpand,
   
   // 扩展属性
   email = 'john.doe@company.com',
@@ -65,6 +66,12 @@ export const AvatarButtonMenu: React.FC<AvatarButtonMenuProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  // 尝试从 ApplicationMenu Context 获取 expanded 状态
+  const menuContext = useApplicationMenuContext();
+  
+  // 优先使用 Context 中的 expanded，其次使用 prop，最后默认为 true
+  const expand = menuContext?.expanded ?? propExpand ?? true;
   
   // 内部状态管理（如果外部没有提供 state）
   const [internalState, setInternalState] = useState<AvatarButtonMenuState>('Default');

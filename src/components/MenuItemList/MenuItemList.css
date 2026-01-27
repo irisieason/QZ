@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 100%;
   background-color: transparent;
+  overflow: visible; /* 允许 tooltip 溢出 */
 }
 
 .menu-item-list__items {
@@ -14,9 +15,12 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  overflow: visible; /* 允许 tooltip 溢出 */
 }
 
 .menu-item-list__item {
   margin: 0;
   padding: 0;
+  /* 移除 position: relative，让 MenuItem 内部的绝对定位元素相对于 MenuItem 自身定位 */
+  overflow: visible; /* 允许 tooltip 溢出 */
 }

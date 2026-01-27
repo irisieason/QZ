@@ -10,13 +10,35 @@
 /**
  * ix-icons initialization
  * 
- * This file registers the ix-icon web component and commonly used icons
+ * This file registers the ix-icon web component and all icons used by components
  */
 
 import { defineCustomElements } from '@irisieason/ix-icons/loader';
+import { addIcons } from '@irisieason/ix-icons';
+
+// Import all icons used by components
+import {
+  iconSearch,
+  iconClose,
+  iconChevronRightSmall,
+  iconArrowLeft,
+  iconDoubleChevronLeft,
+  iconDoubleChevronRight,
+} from '@irisieason/ix-icons/icons';
 
 // Register the <ix-icon> web component
 defineCustomElements();
+
+// Auto-register all icons used by components
+// This ensures icons work out of the box without manual registration
+addIcons({
+  search: iconSearch,
+  close: iconClose,
+  'chevron-right-small': iconChevronRightSmall,
+  'arrow-left': iconArrowLeft,
+  'double-chevron-left': iconDoubleChevronLeft,
+  'double-chevron-right': iconDoubleChevronRight,
+});
 
 // Export addIcons for registering additional icons
 export { addIcons } from '@irisieason/ix-icons';

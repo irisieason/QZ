@@ -1,0 +1,108 @@
+/* Import design tokens */
+@import '../../tokens/tokens.css';
+
+.tooltip {
+  display: inline-flex;
+  align-items: stretch;
+  position: relative;
+}
+
+/* 尖角箭头容器 */
+.tooltip__spike-frame {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  align-self: stretch;
+}
+
+/* 尖角箭头 */
+.tooltip__spike {
+  width: 6px;
+  height: 10px;
+  background-color: var(--color-2);
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  box-shadow: 
+    0px 0px 2px 0px var(--color-shadow-2),
+    0px 4px 8px 0px var(--color-shadow-1),
+    0px 12px 18px 0px var(--color-shadow-1);
+}
+
+/* 提示框主体 */
+.tooltip__bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 4px;
+  background-color: var(--color-2);
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 
+    0px 0px 2px 0px var(--color-shadow-2),
+    0px 4px 8px 0px var(--color-shadow-1),
+    0px 12px 18px 0px var(--color-shadow-1);
+}
+
+/* 内容框架 */
+.tooltip__content-frame {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px 2px 2px;
+  flex-shrink: 0;
+}
+
+/* 内容区域 */
+.tooltip__content {
+  display: flex;
+  align-items: flex-start;
+  padding: 0 4px;
+  flex-shrink: 0;
+  min-height: 20px;
+}
+
+/* 最小高度占位（隐藏，通过 min-height 实现） */
+.tooltip__min-height {
+  display: none;
+}
+
+/* 图标框架 */
+.tooltip__icon-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 20px;
+  padding-top: 2px;
+  flex-shrink: 0;
+  color: var(--color-std-text);
+}
+
+/* 文本内容区域 */
+.tooltip__text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 4px;
+  flex-shrink: 0;
+}
+
+/* 标题文本 */
+.tooltip__header {
+  margin: 0;
+  color: var(--color-std-text);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-font-weight-bold);
+  font-size: var(--font-size-ms-0);
+  line-height: 1.429;
+  white-space: nowrap;
+}
+
+/* 提示文本 */
+.tooltip__text {
+  margin: 0;
+  color: var(--color-std-text);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-font-weight-normal);
+  font-size: var(--font-size-ms-0);
+  line-height: 1.429;
+  white-space: nowrap;
+}

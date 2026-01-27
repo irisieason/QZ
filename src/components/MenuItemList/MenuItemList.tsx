@@ -1,5 +1,19 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, createContext, useContext } from 'react';
 import './MenuItemList.css';
+
+// 创建 Context 用于传递状态
+interface MenuItemListContextValue {
+  expanded: boolean;
+  selectedIndex: number;
+  onItemClick: (index: number) => void;
+}
+
+const MenuItemListContext = createContext<MenuItemListContextValue | undefined>(undefined);
+
+// 导出 Hook 供 MenuItem 使用
+export const useMenuItemListContext = () => {
+  return useContext(MenuItemListContext);
+};
 
 // Figma 定义的属性（严格遵循 Figma 设计）
 interface MenuItemListFigmaProps {
@@ -67,49 +81,58 @@ export const MenuItemList: React.FC<MenuItemListProps> = ({
     className,
   ].filter(Boolean).join(' ');
 
-  return (
-    <nav
-      className={containerClasses}
-      role="navigation"
-      aria-label={ariaLabel || 'Menu'}
-      data-expanded={expanded}
-    >
-      <ul className="menu-item-list__items">
-        {React.Children.map(children, (child, index) => {
-          if (!React.isValidElement(child)) {
-            return (
-              <li key={index} className="menu-item-list__item">
-                {child}
-              </li>
-            );
-          }
+  // Context 值
+  const contextValue: MenuItemListContextValue = {
+    expanded,
+    selectedIndex,
+    onItemClick: handleItemClick,
+  };
 
-          // 克隆子组件，注入 expanded、selected 和 onClick 属性
-          const isSelected = selectedIndex === index;
-          const clonedChild = React.cloneElement(child, {
-            // 强制使用父组件的 expanded 状态
-            expanded,
-            // 排他选择：只有当前索引的项被选中
-            selected: isSelected,
-            // 注入点击处理器
-            onClick: (event: React.MouseEvent) => {
+  return (
+    <MenuItemListContext.Provider value={contextValue}>
+      <nav
+        className={containerClasses}
+        role="navigation"
+        aria-label={ariaLabel || 'Menu'}
+        data-expanded={expanded}
+      >
+        <ul className="menu-item-list__items">
+          {React.Children.map(children, (child, index) => {
+            if (!React.isValidElement(child)) {
+              return (
+                <li key={index} className="menu-item-list__item">
+                  {child}
+                </li>
+              );
+            }
+
+            // 包装点击处理器
+            const handleChildClick = (event: React.MouseEvent) => {
               // 调用原有的 onClick（如果有）
               if (child.props.onClick) {
                 child.props.onClick(event);
               }
               // 触发选择变化
               handleItemClick(index);
-            },
-          } as any);
+            };
 
-          return (
-            <li key={index} className="menu-item-list__item">
-              {clonedChild}
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+            // 克隆子组件，只注入 onClick 和 selected
+            const isSelected = selectedIndex === index;
+            const clonedChild = React.cloneElement(child, {
+              ...child.props,
+              selected: isSelected,
+              onClick: handleChildClick,
+            } as any);
+
+            return (
+              <li key={index} className="menu-item-list__item" data-index={index}>
+                {clonedChild}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </MenuItemListContext.Provider>
   );
 };
 

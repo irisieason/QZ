@@ -42,7 +42,9 @@
 | [QUICK_START.md](docs/QUICK_START.md) | 快速开始指南 |
 | [QUICK_REFERENCE.md](docs/QUICK_REFERENCE.md) | 快速参考 |
 | [QUICK_PUBLISH.md](docs/QUICK_PUBLISH.md) | 快速发布指南 ⭐ |
-| [ICON_USAGE_GUIDE.md](docs/ICON_USAGE_GUIDE.md) | 图标使用指南 |
+| [ICON_USAGE.md](docs/ICON_USAGE.md) | 图标使用说明（技术文档） |
+| [ICON_REGISTRATION_GUIDE.md](docs/ICON_REGISTRATION_GUIDE.md) | 图标注册指南（用户手册）⭐ |
+| [ICON_AUTO_REGISTRATION_TEST.md](docs/ICON_AUTO_REGISTRATION_TEST.md) | 图标自动注册测试指南 |
 | [GITHUB_PACKAGES_SETUP.md](docs/GITHUB_PACKAGES_SETUP.md) | GitHub Packages 配置 |
 | [QUICK_SETUP_GITHUB_TOKEN.md](docs/QUICK_SETUP_GITHUB_TOKEN.md) | GitHub Token 快速配置 |
 

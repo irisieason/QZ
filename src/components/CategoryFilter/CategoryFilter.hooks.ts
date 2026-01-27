@@ -24,10 +24,11 @@ export function useCategoryFilter(props: CategoryFilterProps) {
   } = props;
   
   // 受控/非受控值管理
+  // 注意：不传 onChange 给 useControlledState，因为我们需要在 handleChange 中传递完整的 event 对象
   const [inputValue, setInputValue] = useControlledState(
     value,
     defaultValue || '',
-    undefined // onChange 在 handleChange 中单独处理
+    undefined
   );
   
   // 聚焦状态管理
@@ -52,10 +53,18 @@ export function useCategoryFilter(props: CategoryFilterProps) {
   
   // 值变化处理
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    if (disabled || readOnly) {
+      return; // 禁用或只读时不处理输入
+    }
+    
     const newValue = event.target.value;
-    setInputValue(newValue);
+    
+    // 先调用 onChange（让父组件更新 value）
     onChangeRef.current?.(newValue, event);
-  }, [setInputValue]);
+    
+    // 然后更新内部状态（仅在非受控模式下生效）
+    setInputValue(newValue);
+  }, [setInputValue, disabled, readOnly]);
   
   // 聚焦处理
   const handleFocus = useCallback((event: FocusEvent<HTMLInputElement>) => {

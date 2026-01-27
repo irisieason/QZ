@@ -1,4 +1,7 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { Tooltip } from '../Tooltip';
+import { useMenuItemListContext } from '../MenuItemList/MenuItemList';
 import './MenuItem.css';
 
 // Figma 定义的变体类型
@@ -58,9 +61,9 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   focused = false,
   notification = false,
   variant = 'Main Item',
-  expanded = true,
+  expanded: propExpanded,
   state: controlledState,
-  selected: controlledSelected,
+  selected: propSelected,
   icon = 'home',
   
   // 扩展属性
@@ -69,13 +72,35 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   'aria-label': ariaLabel,
   notificationCount = 12,
 }) => {
+  // 从 Context 获取状态（如果在 MenuItemList 中）
+  const context = useMenuItemListContext();
+  
+  // 优先使用 Context 的 expanded 状态，其次使用 prop
+  const expanded = context?.expanded ?? propExpanded ?? true;
+  
   // 内部状态管理（如果外部没有提供 state）
   const [internalState, setInternalState] = useState<MenuItemState>('Default');
   const [internalSelected, setInternalSelected] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+  
+  // 引用 MenuItem 元素以计算 tooltip 位置
+  const menuItemRef = useRef<HTMLDivElement>(null);
   
   // 使用受控状态或内部状态
   const state = controlledState !== undefined ? controlledState : internalState;
-  const selected = controlledSelected !== undefined ? controlledSelected : internalSelected;
+  const selected = propSelected !== undefined ? propSelected : internalSelected;
+
+  // 计算 tooltip 位置
+  useEffect(() => {
+    if (showTooltip && menuItemRef.current) {
+      const rect = menuItemRef.current.getBoundingClientRect();
+      setTooltipPosition({
+        top: rect.top + rect.height / 2,
+        left: rect.right + 4, // 4px 间隙
+      });
+    }
+  }, [showTooltip]);
 
   // ✅ 性能优化：使用 useMemo 缓存类名计算
   const menuItemClasses = useMemo(() => {
@@ -136,37 +161,32 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     );
   };
 
-  const renderTooltip = () => {
-    if (expanded) return null;
-    
-    return (
-      <span className="menu-item__tooltip">
-        <span className="menu-item__tooltip-spike" />
-        <span className="menu-item__tooltip-bubble">
-          {label}
-        </span>
-      </span>
-    );
-  };
-
   // ✅ 性能优化：使用 useCallback 缓存事件处理器
   const handleMouseEnter = useCallback(() => {
     // 只在非受控模式且未选中时更新 hover 状态
     if (controlledState === undefined && !selected) {
       setInternalState('Hover');
     }
-  }, [controlledState, selected]);
+    
+    // 在收起状态且未选中时显示 tooltip
+    if (!expanded && !selected) {
+      setShowTooltip(true);
+    }
+  }, [controlledState, selected, expanded]);
 
   const handleMouseLeave = useCallback(() => {
     // 只在非受控模式且未选中时恢复默认状态
     if (controlledState === undefined && !selected) {
       setInternalState('Default');
     }
+    
+    // 隐藏 tooltip
+    setShowTooltip(false);
   }, [controlledState, selected]);
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     // 只在非受控模式下更新内部状态（切换选中状态）
-    if (controlledSelected === undefined) {
+    if (propSelected === undefined) {
       setInternalSelected(!internalSelected);
     }
     if (controlledState === undefined) {
@@ -174,31 +194,65 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     }
     
     onClick?.(event);
-  }, [controlledSelected, controlledState, internalSelected, onClick]);
+  }, [propSelected, controlledState, internalSelected, onClick]);
+
+  // 渲染 Tooltip（使用 Portal 渲染到 body，避免被父容器的 overflow 裁剪）
+  const renderTooltip = () => {
+    if (!expanded && !selected && showTooltip) {
+      return createPortal(
+        <div 
+          className="menu-item__tooltip-portal"
+          style={{
+            position: 'fixed',
+            top: `${tooltipPosition.top}px`,
+            left: `${tooltipPosition.left}px`,
+            transform: 'translateY(-50%)',
+            zIndex: 10000,
+            pointerEvents: 'none',
+          }}
+        >
+          <Tooltip
+            open={showTooltip}
+            header={label}
+            textlabel=""
+            closable={false}
+            showIcon={false}
+          />
+        </div>,
+        document.body
+      );
+    }
+    return null;
+  };
 
   return (
-    <div
-      className={menuItemClasses}
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      role="menuitem"
-      aria-label={ariaLabel || label}
-      aria-selected={selected}
-      aria-expanded={expanded}
-      data-variant={variant}
-      data-state={state}
-      data-expanded={expanded}
-      data-selected={selected}
-    >
-      <div className="menu-item__container">
-        {renderIcon()}
-        {renderNotification()}
-        {expanded && <span className="menu-item__label">{label}</span>}
-        {focused && <span className="menu-item__focus-outline" />}
+    <>
+      <div
+        ref={menuItemRef}
+        className={menuItemClasses}
+        onClick={handleClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        role="menuitem"
+        aria-label={ariaLabel || label}
+        aria-selected={selected}
+        aria-expanded={expanded}
+        data-variant={variant}
+        data-state={state}
+        data-expanded={expanded}
+        data-selected={selected}
+      >
+        <div className="menu-item__container">
+          {renderIcon()}
+          {renderNotification()}
+          {expanded && <span className="menu-item__label">{label}</span>}
+          {focused && <span className="menu-item__focus-outline" />}
+        </div>
       </div>
+      
+      {/* Tooltip 使用 Portal 渲染到 body */}
       {renderTooltip()}
-    </div>
+    </>
   );
 };
 

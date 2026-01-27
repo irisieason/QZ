@@ -8,6 +8,7 @@
   height: 100vh; /* 自适应浏览器高度 */
   background-color: var(--color-2);
   transition: width 0.1s ease;
+  overflow: visible; /* 允许 tooltip 溢出 */
 }
 
 .application-menu--expanded {
@@ -25,6 +26,7 @@
   flex: 1;
   padding-top: 60px;
   width: 100%;
+  overflow: visible; /* 允许 tooltip 溢出 */
 }
 
 /* 展开/折叠按钮 */
@@ -59,7 +61,7 @@
   flex-direction: column;
   flex: 1;
   width: 100%;
-  overflow: visible; /* 允许 dropdown 溢出显示 */
+  overflow: visible; /* 允许 dropdown 和 tooltip 溢出显示 */
 }
 
 /* 用户头像区域 */
@@ -96,7 +98,8 @@
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: clip; /* 防止水平滚动条，但不影响绝对定位的 tooltip */
+  position: relative; /* 为绝对定位的 tooltip 提供参考 */
 }
 
 /* 滚动条样式 */

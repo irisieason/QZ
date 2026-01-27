@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
+import { ApplicationMenuProvider } from './ApplicationMenuContext';
 import './ApplicationMenu.css';
 
 // ========== 视觉属性（来自 Figma） ==========
@@ -97,35 +98,37 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
   );
 
   return (
-    <div 
-      className={menuClasses} 
-      style={style}
-      data-expanded={expanded}
-      role="navigation"
-      aria-label={ariaLabel || 'Application menu'}
-    >
-      <div className="application-menu__container">
-        {/* 展开/折叠按钮插槽 */}
-        {toggleButton || defaultToggleButton}
+    <ApplicationMenuProvider expanded={expanded}>
+      <div 
+        className={menuClasses} 
+        style={style}
+        data-expanded={expanded}
+        role="navigation"
+        aria-label={ariaLabel || 'Application menu'}
+      >
+        <div className="application-menu__container">
+          {/* 展开/折叠按钮插槽 */}
+          {toggleButton || defaultToggleButton}
 
-        {/* 内容区域 */}
-        <div className="application-menu__content">
-          {/* 用户头像区域插槽 */}
-          {avatar && avatarSection && (
-            <div className="application-menu__avatar-section">
-              {avatarSection}
-            </div>
-          )}
+          {/* 内容区域 */}
+          <div className="application-menu__content">
+            {/* 用户头像区域插槽 */}
+            {avatar && avatarSection && (
+              <div className="application-menu__avatar-section">
+                {avatarSection}
+              </div>
+            )}
 
-          {/* 菜单项列表插槽 */}
-          {menuList && (
-            <div className="application-menu__menu-list">
-              {menuList}
-            </div>
-          )}
+            {/* 菜单项列表插槽 */}
+            {menuList && (
+              <div className="application-menu__menu-list">
+                {menuList}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </ApplicationMenuProvider>
   );
 };
 

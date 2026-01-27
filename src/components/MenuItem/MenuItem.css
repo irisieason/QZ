@@ -8,6 +8,14 @@
   align-items: flex-start;
   width: 256px;
   transition: background-color 0.2s ease, border-color 0.2s ease;
+  overflow: visible; /* 允许 tooltip 溢出 */
+  z-index: 1; /* 默认层级 */
+  isolation: isolate; /* 创建新的层叠上下文，防止 tooltip 被其他元素遮挡 */
+}
+
+/* hover 时提升 z-index，确保 tooltip 在最上层 */
+.menu-item:hover {
+  z-index: 100;
 }
 
 .menu-item--collapsed {
@@ -23,6 +31,7 @@
   background-color: var(--color-ghost);
   border-left: 4px solid transparent;
   box-sizing: border-box; /* 确保边框包含在宽度内 */
+  overflow: visible; /* 允许 tooltip 溢出 */
 }
 
 /* 图标 - 距离左侧 14px（包含 4px 边框，所以 left: 10px） */
@@ -113,60 +122,4 @@
 /* Active 状态 */
 .menu-item--active .menu-item__container {
   background-color: var(--color-ghost--active);
-}
-
-/* 折叠状态的 Tooltip */
-.menu-item__tooltip {
-  position: absolute;
-  left: 52px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: none;
-  align-items: center;
-  box-shadow: 
-    0px 0px 2px 0px var(--color-shadow-2),
-    0px 4px 8px 0px var(--color-shadow-1),
-    0px 12px 18px 0px var(--color-shadow-1);
-  z-index: 1000;
-}
-
-.menu-item--collapsed.menu-item--hover .menu-item__tooltip {
-  display: flex;
-}
-
-.menu-item__tooltip-spike {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 6px;
-  height: 10px;
-  align-self: stretch;
-}
-
-.menu-item__tooltip-spike::before {
-  content: '';
-  width: 10px;
-  height: 6px;
-  background-color: var(--color-2);
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
-  transform: rotate(90deg);
-}
-
-.menu-item__tooltip-bubble {
-  display: flex;
-  align-items: center;
-  padding: 6px 10px;
-  background-color: var(--color-2);
-  color: var(--color-std-text);
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: var(--font-size-ms-0);
-  line-height: 1.429;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-
-/* 折叠状态的 Tooltip 位置调整 */
-.menu-item--collapsed.menu-item--hover .menu-item__tooltip {
-  display: flex;
 }

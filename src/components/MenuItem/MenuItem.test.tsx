@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MenuItem } from './MenuItem';
 import { addIcons } from '@irisieason/ix-icons';
@@ -110,14 +110,24 @@ describe('MenuItem', () => {
 
   describe('Tooltip', () => {
     it('shows tooltip when collapsed and hovered', () => {
-      const { container } = render(<MenuItem expanded={false} state="Hover" label="Dashboard" />);
-      const tooltip = container.querySelector('.menu-item__tooltip');
+      const { container } = render(<MenuItem expanded={false} label="Dashboard" />);
+      const menuItem = container.querySelector('.menu-item');
+      
+      // Simulate mouse enter
+      fireEvent.mouseEnter(menuItem!);
+      
+      const tooltip = container.querySelector('.menu-item__tooltip-wrapper');
       expect(tooltip).toBeInTheDocument();
     });
 
     it('hides tooltip when expanded', () => {
-      const { container } = render(<MenuItem expanded={true} state="Hover" label="Dashboard" />);
-      const tooltip = container.querySelector('.menu-item__tooltip');
+      const { container } = render(<MenuItem expanded={true} label="Dashboard" />);
+      const menuItem = container.querySelector('.menu-item');
+      
+      // Simulate mouse enter
+      fireEvent.mouseEnter(menuItem!);
+      
+      const tooltip = container.querySelector('.menu-item__tooltip-wrapper');
       // Tooltip is not rendered when expanded
       expect(tooltip).not.toBeInTheDocument();
     });

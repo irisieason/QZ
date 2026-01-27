@@ -1,0 +1,219 @@
+/* ========== Toggle Button 基础样式 ========== */
+.toggle-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  height: 32px;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-family: var(--typography-font-sans, 'Siemens_Sans_Global', sans-serif);
+  font-size: var(--font-size-ms-0, 14px);
+  font-weight: var(--font-weight-font-weight-bold, 700);
+  line-height: 1.429;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  background-color: transparent;
+}
+
+.toggle-button__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.toggle-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggle-button__label {
+  padding: 2px 0;
+  white-space: nowrap;
+}
+
+.toggle-button__spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+/* ========== Focus Outline ========== */
+.toggle-button:focus-visible {
+  outline: 2px solid var(--color-focus-bdr);
+  outline-offset: 2px;
+}
+
+/* ========== Primary Outline ========== */
+.toggle-button--primary-outline {
+  border-color: var(--color-primary);
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+.toggle-button--primary-outline:hover:not(:disabled) {
+  background-color: var(--color-secondary--hover);
+  border-color: var(--color-dynamic);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--primary-outline:active:not(:disabled) {
+  background-color: var(--color-secondary--active);
+  border-color: var(--color-dynamic);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--primary-outline.toggle-button--toggled {
+  border-color: var(--color-dynamic);
+  background-color: var(--color-ghost--selected);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--primary-outline.toggle-button--toggled:hover:not(:disabled) {
+  background-color: var(--color-ghost--selected-hover);
+}
+
+.toggle-button--primary-outline.toggle-button--toggled:active:not(:disabled) {
+  background-color: var(--color-ghost--selected-active);
+}
+
+/* ========== Secondary Outline ========== */
+.toggle-button--secondary-outline {
+  border-color: var(--color-component-4);
+  background-color: transparent;
+  color: var(--color-std-text);
+}
+
+.toggle-button--secondary-outline:hover:not(:disabled) {
+  background-color: var(--color-ghost--hover);
+  border-color: var(--color-component-4);
+}
+
+.toggle-button--secondary-outline:active:not(:disabled) {
+  background-color: var(--color-ghost--active);
+  border-color: var(--color-component-4);
+}
+
+.toggle-button--secondary-outline.toggle-button--toggled {
+  border-color: var(--color-std-bdr);
+  background-color: var(--color-ghost--selected);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--secondary-outline.toggle-button--toggled:hover:not(:disabled) {
+  background-color: var(--color-ghost--selected-hover);
+}
+
+.toggle-button--secondary-outline.toggle-button--toggled:active:not(:disabled) {
+  background-color: var(--color-ghost--selected-active);
+}
+
+/* ========== Primary Ghost ========== */
+.toggle-button--primary-ghost {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.toggle-button--primary-ghost:hover:not(:disabled) {
+  background-color: var(--color-ghost-primary--hover);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--primary-ghost:active:not(:disabled) {
+  background-color: var(--color-ghost-primary--active);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--primary-ghost.toggle-button--toggled {
+  background-color: var(--color-ghost--selected);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--primary-ghost.toggle-button--toggled:hover:not(:disabled) {
+  background-color: var(--color-ghost--selected-hover);
+}
+
+.toggle-button--primary-ghost.toggle-button--toggled:active:not(:disabled) {
+  background-color: var(--color-ghost--selected-active);
+}
+
+/* ========== Secondary ========== */
+.toggle-button--secondary {
+  border-color: transparent;
+  background-color: var(--color-component-1);
+  color: var(--color-std-text);
+}
+
+.toggle-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-component-1--hover);
+}
+
+.toggle-button--secondary:active:not(:disabled) {
+  background-color: var(--color-component-1--active);
+}
+
+.toggle-button--secondary.toggle-button--toggled {
+  background-color: var(--color-ghost--selected);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--secondary.toggle-button--toggled:hover:not(:disabled) {
+  background-color: var(--color-ghost--selected-hover);
+}
+
+.toggle-button--secondary.toggle-button--toggled:active:not(:disabled) {
+  background-color: var(--color-ghost--selected-active);
+}
+
+/* ========== Secondary Ghost ========== */
+.toggle-button--secondary-ghost {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--color-std-text);
+}
+
+.toggle-button--secondary-ghost:hover:not(:disabled) {
+  background-color: var(--color-ghost--hover);
+}
+
+.toggle-button--secondary-ghost:active:not(:disabled) {
+  background-color: var(--color-ghost--active);
+}
+
+.toggle-button--secondary-ghost.toggle-button--toggled {
+  background-color: var(--color-ghost--selected);
+  color: var(--color-dynamic);
+}
+
+.toggle-button--secondary-ghost.toggle-button--toggled:hover:not(:disabled) {
+  background-color: var(--color-ghost--selected-hover);
+}
+
+.toggle-button--secondary-ghost.toggle-button--toggled:active:not(:disabled) {
+  background-color: var(--color-ghost--selected-active);
+}
+
+/* ========== Disabled State ========== */
+.toggle-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: var(--color-weak-text);
+}
+
+/* ========== Loading State ========== */
+.toggle-button--loading {
+  cursor: wait;
+  color: var(--color-weak-text);
+}

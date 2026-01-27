@@ -11,7 +11,7 @@ const meta = {
   title: 'Components/DeviceStatusChart',
   component: DeviceStatusChart,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen', // 改为 fullscreen，让组件填充整个浏览器窗口
     docs: {
       description: {
         component: 'Device status chart component showing horizontal bar chart with device status distribution across IP ranges.',

@@ -52,7 +52,7 @@ const meta: Meta<typeof Button> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    // ========== 可控制的属性（设计师需要的） ==========
+    // ========== 可控制的属性（Figma 设计属性） ==========
     variant: {
       control: 'select',
       options: [
@@ -68,39 +68,68 @@ const meta: Meta<typeof Button> = {
         'Content action',
       ],
       description: '按钮变体类型',
+      table: {
+        category: 'Figma 属性',
+      },
     },
     state: {
       control: 'select',
       options: ['Default', 'Hover', 'Active', 'Disabled', 'Loading'],
       description: '按钮状态',
+      table: {
+        category: 'Figma 属性',
+      },
     },
     disabled: {
       control: 'boolean',
       description: '是否禁用按钮（便捷属性，会自动设置 state="Disabled"）',
-    },
-    label: {
-      control: 'text',
-      description: '按钮文本内容',
+      table: {
+        category: 'Figma 属性',
+      },
     },
     showIcon: {
       control: 'boolean',
       description: '是否显示图标',
+      table: {
+        category: 'Figma 属性',
+      },
     },
     icon: {
       control: 'select',
       options: availableIcons,
-      description: '图标名称（ix-icon name）- 共 1415 个图标可选',
+      description: '图标名称（ix-icon name）',
+      table: {
+        category: 'Figma 属性',
+      },
     },
     focused: {
       control: 'boolean',
       description: '是否显示聚焦状态',
+      table: {
+        category: 'Figma 属性',
+      },
     },
     
-    // ========== 隐藏的属性（开发者需要但设计师不需要） ==========
+    // ========== Slot 属性 ==========
+    children: {
+      name: 'defaultSlot (children)',
+      control: 'text',
+      description: '**按钮内容插槽（defaultSlot）**\n\n按钮上显示的文本或任意 React 元素。\n\n使用方式：\n```tsx\n<Button variant="Primary">Save</Button>\n```\n\n💡 这是 React 标准做法。',
+      table: {
+        category: 'Slots',
+        type: { summary: 'React.ReactNode' },
+        defaultValue: { summary: 'Button' },
+      },
+    },
+    
+    // ========== 隐藏的属性（开发者属性） ==========
     onClick: { table: { disable: true } },
     type: { table: { disable: true } },
     className: { table: { disable: true } },
     'aria-label': { table: { disable: true } },
+    
+    // ========== 隐藏误识别的内部属性 ==========
+    label: { table: { disable: true } },  // CSS 类名，不是属性
   },
 };
 
@@ -110,7 +139,7 @@ type Story = StoryObj<typeof Button>;
 // 默认按钮
 export const Default: Story = {
   args: {
-    label: 'Button',
+    children: 'Button',
     variant: 'Primary',
     state: 'Default',
     showIcon: false,
@@ -121,21 +150,21 @@ export const Default: Story = {
 // Primary 变体
 export const Primary: Story = {
   args: {
-    label: 'Primary Button',
+    children: 'Primary Button',
     variant: 'Primary',
   },
 };
 
 export const PrimaryOutline: Story = {
   args: {
-    label: 'Primary Outline',
+    children: 'Primary Outline',
     variant: 'Primary outline',
   },
 };
 
 export const PrimaryGhost: Story = {
   args: {
-    label: 'Primary Ghost',
+    children: 'Primary Ghost',
     variant: 'Primary ghost',
   },
 };
@@ -143,21 +172,21 @@ export const PrimaryGhost: Story = {
 // Secondary 变体
 export const Secondary: Story = {
   args: {
-    label: 'Secondary Button',
+    children: 'Secondary Button',
     variant: 'Secondary',
   },
 };
 
 export const SecondaryOutline: Story = {
   args: {
-    label: 'Secondary Outline',
+    children: 'Secondary Outline',
     variant: 'Secondary outline',
   },
 };
 
 export const SecondaryGhost: Story = {
   args: {
-    label: 'Secondary Ghost',
+    children: 'Secondary Ghost',
     variant: 'Secondary ghost',
   },
 };
@@ -165,21 +194,21 @@ export const SecondaryGhost: Story = {
 // Danger 变体
 export const Danger: Story = {
   args: {
-    label: 'Danger Button',
+    children: 'Danger Button',
     variant: 'Danger',
   },
 };
 
 export const DangerOutline: Story = {
   args: {
-    label: 'Danger Outline',
+    children: 'Danger Outline',
     variant: 'Danger outline',
   },
 };
 
 export const DangerGhost: Story = {
   args: {
-    label: 'Danger Ghost',
+    children: 'Danger Ghost',
     variant: 'Danger ghost',
   },
 };
@@ -187,7 +216,7 @@ export const DangerGhost: Story = {
 // Content Action
 export const ContentAction: Story = {
   args: {
-    label: 'Content Action',
+    children: 'Content Action',
     variant: '🔶 Content action',
   },
 };
@@ -195,7 +224,7 @@ export const ContentAction: Story = {
 // 带图标的按钮
 export const WithIcon: Story = {
   args: {
-    label: 'Confirm',
+    children: 'Confirm',
     variant: 'Primary',
     showIcon: true,
     icon: 'check',
@@ -212,20 +241,20 @@ export const IconExamples: Story = {
       background: '#0f1619'
     }}>
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        <Button variant="Primary" showIcon icon="check" label="Confirm" />
-        <Button variant="Secondary" showIcon icon="add" label="Add" />
-        <Button variant="Danger" showIcon icon="trashcan" label="Delete" />
+        <Button variant="Primary" showIcon icon="check">Confirm</Button>
+        <Button variant="Secondary" showIcon icon="add">Add</Button>
+        <Button variant="Danger" showIcon icon="trashcan">Delete</Button>
       </div>
       
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        <Button variant="Primary outline" showIcon icon="download" label="Download" />
-        <Button variant="Secondary outline" showIcon icon="search" label="Search" />
+        <Button variant="Primary outline" showIcon icon="download">Download</Button>
+        <Button variant="Secondary outline" showIcon icon="search">Search</Button>
       </div>
       
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        <Button variant="🔶 Content action" showIcon icon="search" label="" />
-        <Button variant="🔶 Content action" showIcon icon="edit-document" label="" />
-        <Button variant="🔶 Content action" showIcon icon="close" label="" />
+        <Button variant="🔶 Content action" showIcon icon="search"></Button>
+        <Button variant="🔶 Content action" showIcon icon="edit-document"></Button>
+        <Button variant="🔶 Content action" showIcon icon="close"></Button>
       </div>
     </div>
   ),
@@ -234,7 +263,7 @@ export const IconExamples: Story = {
 // 状态示例
 export const LoadingState: Story = {
   args: {
-    label: 'Loading',
+    children: 'Loading',
     variant: 'Primary',
     state: 'Loading',
   },
@@ -242,7 +271,7 @@ export const LoadingState: Story = {
 
 export const DisabledState: Story = {
   args: {
-    label: 'Disabled',
+    children: 'Disabled',
     variant: 'Primary',
     state: 'Disabled',
   },
@@ -250,7 +279,7 @@ export const DisabledState: Story = {
 
 export const FocusedState: Story = {
   args: {
-    label: 'Focused',
+    children: 'Focused',
     variant: 'Primary',
     focused: true,
   },
@@ -266,65 +295,161 @@ export const AllVariants: Story = {
       padding: '24px',
       background: '#0f1619'
     }}>
-      <Button variant="Primary" label="Primary" />
-      <Button variant="Primary" state="Hover" label="Hover" />
-      <Button variant="Primary" state="Active" label="Active" />
-      <Button variant="Primary" state="Disabled" label="Disabled" />
-      <Button variant="Primary" state="Loading" label="Loading" />
+      <Button variant="Primary">Primary</Button>
+      <Button variant="Primary" state="Hover">Hover</Button>
+      <Button variant="Primary" state="Active">Active</Button>
+      <Button variant="Primary" state="Disabled">Disabled</Button>
+      <Button variant="Primary" state="Loading">Loading</Button>
       
-      <Button variant="Primary outline" label="Outline" />
-      <Button variant="Primary outline" state="Hover" label="Hover" />
-      <Button variant="Primary outline" state="Active" label="Active" />
-      <Button variant="Primary outline" state="Disabled" label="Disabled" />
-      <Button variant="Primary outline" state="Loading" label="Loading" />
+      <Button variant="Primary outline">Outline</Button>
+      <Button variant="Primary outline" state="Hover">Hover</Button>
+      <Button variant="Primary outline" state="Active">Active</Button>
+      <Button variant="Primary outline" state="Disabled">Disabled</Button>
+      <Button variant="Primary outline" state="Loading">Loading</Button>
       
-      <Button variant="Primary ghost" label="Ghost" />
-      <Button variant="Primary ghost" state="Hover" label="Hover" />
-      <Button variant="Primary ghost" state="Active" label="Active" />
-      <Button variant="Primary ghost" state="Disabled" label="Disabled" />
-      <Button variant="Primary ghost" state="Loading" label="Loading" />
+      <Button variant="Primary ghost">Ghost</Button>
+      <Button variant="Primary ghost" state="Hover">Hover</Button>
+      <Button variant="Primary ghost" state="Active">Active</Button>
+      <Button variant="Primary ghost" state="Disabled">Disabled</Button>
+      <Button variant="Primary ghost" state="Loading">Loading</Button>
       
-      <Button variant="Secondary" label="Secondary" />
-      <Button variant="Secondary" state="Hover" label="Hover" />
-      <Button variant="Secondary" state="Active" label="Active" />
-      <Button variant="Secondary" state="Disabled" label="Disabled" />
-      <Button variant="Secondary" state="Loading" label="Loading" />
+      <Button variant="Secondary">Secondary</Button>
+      <Button variant="Secondary" state="Hover">Hover</Button>
+      <Button variant="Secondary" state="Active">Active</Button>
+      <Button variant="Secondary" state="Disabled">Disabled</Button>
+      <Button variant="Secondary" state="Loading">Loading</Button>
       
-      <Button variant="Secondary outline" label="Outline" />
-      <Button variant="Secondary outline" state="Hover" label="Hover" />
-      <Button variant="Secondary outline" state="Active" label="Active" />
-      <Button variant="Secondary outline" state="Disabled" label="Disabled" />
-      <Button variant="Secondary outline" state="Loading" label="Loading" />
+      <Button variant="Secondary outline">Outline</Button>
+      <Button variant="Secondary outline" state="Hover">Hover</Button>
+      <Button variant="Secondary outline" state="Active">Active</Button>
+      <Button variant="Secondary outline" state="Disabled">Disabled</Button>
+      <Button variant="Secondary outline" state="Loading">Loading</Button>
       
-      <Button variant="Secondary ghost" label="Ghost" />
-      <Button variant="Secondary ghost" state="Hover" label="Hover" />
-      <Button variant="Secondary ghost" state="Active" label="Active" />
-      <Button variant="Secondary ghost" state="Disabled" label="Disabled" />
-      <Button variant="Secondary ghost" state="Loading" label="Loading" />
+      <Button variant="Secondary ghost">Ghost</Button>
+      <Button variant="Secondary ghost" state="Hover">Hover</Button>
+      <Button variant="Secondary ghost" state="Active">Active</Button>
+      <Button variant="Secondary ghost" state="Disabled">Disabled</Button>
+      <Button variant="Secondary ghost" state="Loading">Loading</Button>
       
-      <Button variant="Danger" label="Danger" />
-      <Button variant="Danger" state="Hover" label="Hover" />
-      <Button variant="Danger" state="Active" label="Active" />
-      <Button variant="Danger" state="Disabled" label="Disabled" />
-      <Button variant="Danger" state="Loading" label="Loading" />
+      <Button variant="Danger">Danger</Button>
+      <Button variant="Danger" state="Hover">Hover</Button>
+      <Button variant="Danger" state="Active">Active</Button>
+      <Button variant="Danger" state="Disabled">Disabled</Button>
+      <Button variant="Danger" state="Loading">Loading</Button>
       
-      <Button variant="Danger outline" label="Outline" />
-      <Button variant="Danger outline" state="Hover" label="Hover" />
-      <Button variant="Danger outline" state="Active" label="Active" />
-      <Button variant="Danger outline" state="Disabled" label="Disabled" />
-      <Button variant="Danger outline" state="Loading" label="Loading" />
+      <Button variant="Danger outline">Outline</Button>
+      <Button variant="Danger outline" state="Hover">Hover</Button>
+      <Button variant="Danger outline" state="Active">Active</Button>
+      <Button variant="Danger outline" state="Disabled">Disabled</Button>
+      <Button variant="Danger outline" state="Loading">Loading</Button>
       
-      <Button variant="Danger ghost" label="Ghost" />
-      <Button variant="Danger ghost" state="Hover" label="Hover" />
-      <Button variant="Danger ghost" state="Active" label="Active" />
-      <Button variant="Danger ghost" state="Disabled" label="Disabled" />
-      <Button variant="Danger ghost" state="Loading" label="Loading" />
+      <Button variant="Danger ghost">Ghost</Button>
+      <Button variant="Danger ghost" state="Hover">Hover</Button>
+      <Button variant="Danger ghost" state="Active">Active</Button>
+      <Button variant="Danger ghost" state="Disabled">Disabled</Button>
+      <Button variant="Danger ghost" state="Loading">Loading</Button>
       
-      <Button variant="🔶 Content action" label="Action" />
-      <Button variant="🔶 Content action" state="Hover" label="Hover" />
-      <Button variant="🔶 Content action" state="Active" label="Active" />
-      <Button variant="🔶 Content action" state="Disabled" label="Disabled" />
-      <Button variant="🔶 Content action" state="Loading" label="Loading" />
+      <Button variant="🔶 Content action">Action</Button>
+      <Button variant="🔶 Content action" state="Hover">Hover</Button>
+      <Button variant="🔶 Content action" state="Active">Active</Button>
+      <Button variant="🔶 Content action" state="Disabled">Disabled</Button>
+      <Button variant="🔶 Content action" state="Loading">Loading</Button>
+    </div>
+  ),
+};
+
+// ========== React 最佳实践示例 ==========
+
+// 使用 children（推荐）
+export const WithChildren: Story = {
+  render: () => (
+    <div style={{ 
+      display: 'flex', 
+      gap: '16px',
+      padding: '24px',
+      background: '#0f1619'
+    }}>
+      <Button variant="Primary">Save</Button>
+      <Button variant="Secondary">Cancel</Button>
+      <Button variant="Danger">Delete</Button>
+    </div>
+  ),
+};
+
+// 使用 showIcon + icon（Figma 标准）
+export const WithIconFromFigma: Story = {
+  render: () => (
+    <div style={{ 
+      display: 'flex', 
+      gap: '16px',
+      padding: '24px',
+      background: '#0f1619'
+    }}>
+      <Button variant="Primary" showIcon icon="check">
+        Confirm
+      </Button>
+      <Button variant="Secondary" showIcon icon="add">
+        Add Item
+      </Button>
+      <Button variant="Danger" showIcon icon="trashcan">
+        Delete
+      </Button>
+    </div>
+  ),
+};
+
+// 复杂内容示例
+export const WithComplexContent: Story = {
+  render: () => (
+    <div style={{ 
+      display: 'flex', 
+      gap: '16px',
+      padding: '24px',
+      background: '#0f1619'
+    }}>
+      <Button variant="Primary">
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <span style={{ fontSize: '14px', fontWeight: 'bold' }}>Save Changes</span>
+          <span style={{ fontSize: '11px', opacity: 0.8 }}>Ctrl+S</span>
+        </div>
+      </Button>
+      <Button variant="Secondary" showIcon icon="download">
+        <span>Download <strong>PDF</strong></span>
+      </Button>
+    </div>
+  ),
+};
+
+
+// 向后兼容示例（旧 API 仍然有效）
+export const BackwardCompatible: Story = {
+  render: () => (
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column',
+      gap: '16px',
+      padding: '24px',
+      background: '#0f1619'
+    }}>
+      <div>
+        <h3 style={{ color: '#fff', marginBottom: '8px' }}>旧 API（仍然有效）</h3>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Button variant="Primary" showIcon icon="check">Save</Button>
+          <Button variant="Secondary" showIcon icon="add">Add</Button>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style={{ color: '#fff', marginBottom: '8px' }}>新 API（推荐）</h3>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Button variant="Primary" startIcon={<ix-icon name="check" size="24" />}>
+            Save
+          </Button>
+          <Button variant="Secondary" startIcon={<ix-icon name="add" size="24" />}>
+            Add
+          </Button>
+        </div>
+      </div>
     </div>
   ),
 };

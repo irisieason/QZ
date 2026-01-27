@@ -37,7 +37,7 @@ export const CategoryFilter = forwardRef<HTMLInputElement, CategoryFilterProps>(
     showplaceholder = DEFAULTS.SHOW_PLACEHOLDER,
     searchIcon = DEFAULTS.SEARCH_ICON,
     
-    // 状态属性
+    // 状态属性（互斥：disabled 优先）
     disabled = false,
     readOnly = false,
     
@@ -47,6 +47,9 @@ export const CategoryFilter = forwardRef<HTMLInputElement, CategoryFilterProps>(
     id,
     'aria-label': ariaLabel,
   } = props;
+  
+  // 确保 disabled 和 readOnly 互斥（disabled 优先）
+  const actualReadOnly = disabled ? false : readOnly;
   
   // 使用自定义 Hook 管理业务逻辑
   const {
@@ -64,15 +67,16 @@ export const CategoryFilter = forwardRef<HTMLInputElement, CategoryFilterProps>(
   const containerClasses = useMemo(() => cn(
     CLASSES.ROOT,
     disabled && `${CLASSES.ROOT}--${STATE_MODIFIERS.DISABLED}`,
-    readOnly && `${CLASSES.ROOT}--${STATE_MODIFIERS.READONLY}`,
+    actualReadOnly && `${CLASSES.ROOT}--${STATE_MODIFIERS.READONLY}`,
     isFocused && `${CLASSES.ROOT}--${STATE_MODIFIERS.FOCUSED}`,
     inputValue && `${CLASSES.ROOT}--${STATE_MODIFIERS.FILLED}`,
     searchIcon && `${CLASSES.ROOT}--${STATE_MODIFIERS.HAS_SEARCH_ICON}`,
     className
-  ), [disabled, readOnly, isFocused, inputValue, searchIcon, className]);
+  ), [disabled, actualReadOnly, isFocused, inputValue, searchIcon, className]);
   
-  // 计算实际的 placeholder（只有 showplaceholder 为 true 时才显示）
-  const actualPlaceholder = showplaceholder ? placeholderText : '';
+  // 计算实际的 placeholder
+  // 规则：只有在 showplaceholder=true 且非禁用且非只读时才显示
+  const actualPlaceholder = (showplaceholder && !disabled && !actualReadOnly) ? placeholderText : '';
   
   // 使用 useMemo 优化输入框属性
   const inputProps = useMemo(() => ({
@@ -83,7 +87,7 @@ export const CategoryFilter = forwardRef<HTMLInputElement, CategoryFilterProps>(
     value: inputValue,
     placeholder: actualPlaceholder,
     disabled,
-    readOnly,
+    readOnly: actualReadOnly,
     'aria-label': ariaLabel || placeholderText,
     onChange: handleChange,
     onFocus: handleFocus,
@@ -91,7 +95,7 @@ export const CategoryFilter = forwardRef<HTMLInputElement, CategoryFilterProps>(
     onKeyDown: handleKeyDown,
   }), [
     ref, id, inputValue, actualPlaceholder, placeholderText,
-    disabled, readOnly, ariaLabel, 
+    disabled, actualReadOnly, ariaLabel, 
     handleChange, handleFocus, handleBlur, handleKeyDown
   ]);
   

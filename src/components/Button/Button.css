@@ -36,7 +36,28 @@
   flex-shrink: 0;
 }
 
+/* 图标样式（向后兼容） */
 .button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* React 最佳实践：前置图标 */
+.button__start-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* React 最佳实践：后置图标 */
+.button__end-icon {
   display: flex;
   align-items: center;
   justify-content: center;

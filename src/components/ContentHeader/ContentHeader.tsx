@@ -15,6 +15,9 @@ interface ContentHeaderVisualProps {
   /** 是否显示返回按钮 */
   hasBackButton?: boolean;
   
+  /** 是否显示操作按钮区域 */
+  buttonSlot?: boolean;
+  
   /** 变体类型 */
   variant?: 'Primary' | 'Secondary';
 }
@@ -25,7 +28,7 @@ interface ContentHeaderExtendedProps {
   onBackClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   
   /** 操作按钮插槽（Slot） */
-  actions?: React.ReactNode;
+  children?: React.ReactNode;
   
   /** 自定义 CSS 类名 */
   className?: string;
@@ -45,11 +48,12 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
   headerSubtitle = 'Subtitle',
   showHeaderSubtitle = true,
   hasBackButton = false,
+  buttonSlot = false,
   variant = 'Primary',
   
   // 扩展属性
   onBackClick,
-  actions,
+  children,
   className = '',
   style,
   'aria-label': ariaLabel,
@@ -79,7 +83,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
             aria-label="Go back"
             type="button"
           >
-            <ix-icon name="chevron-left" size="24" />
+            <ix-icon name="arrow-left" size="24" />
           </button>
         )}
         
@@ -99,9 +103,9 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
         </div>
         
         {/* 操作按钮区域 */}
-        {actions && (
+        {buttonSlot && children && (
           <div className="content-header__actions">
-            {actions}
+            {children}
           </div>
         )}
       </div>

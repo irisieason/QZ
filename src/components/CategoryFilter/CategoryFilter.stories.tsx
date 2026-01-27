@@ -19,30 +19,52 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    // ========== 可控制的属性（静态展示） ==========
-    placeholderText: {
-      control: 'text',
-      description: '占位符文本内容',
-    },
-    showplaceholder: {
-      control: 'boolean',
-      description: '是否显示占位符',
-    },
-    searchIcon: {
-      control: 'boolean',
-      description: '是否显示搜索图标',
-    },
+    // ========== 状态属性（互斥） ==========
     disabled: {
       control: 'boolean',
-      description: '是否禁用',
+      description: '是否禁用（与 readOnly 互斥，disabled 优先）',
+      table: {
+        category: '状态',
+      },
     },
     readOnly: {
       control: 'boolean',
-      description: '是否只读',
+      description: '是否只读（与 disabled 互斥，disabled 优先）',
+      table: {
+        category: '状态',
+      },
+    },
+    
+    // ========== 视觉属性 ==========
+    searchIcon: {
+      control: 'boolean',
+      description: '是否显示搜索图标',
+      table: {
+        category: '视觉属性',
+      },
     },
     clearable: {
       control: 'boolean',
       description: '是否显示清除按钮（输入内容后）',
+      table: {
+        category: '视觉属性',
+      },
+    },
+    
+    // ========== 占位符设置（仅在非禁用且非只读时显示） ==========
+    placeholderText: {
+      control: 'text',
+      description: '占位符文本内容\n\n⚠️ 当 disabled=true 或 readOnly=true 时，组件不会显示占位符',
+      table: {
+        category: '占位符设置',
+      },
+    },
+    showplaceholder: {
+      control: 'boolean',
+      description: '是否显示占位符\n\n⚠️ 当 disabled=true 或 readOnly=true 时，组件不会显示占位符',
+      table: {
+        category: '占位符设置',
+      },
     },
     
     // ========== 隐藏的属性（不在 Controls 显示） ==========
@@ -72,6 +94,8 @@ export const Default: Story = {
     showplaceholder: true,
     searchIcon: true,
     clearable: true,
+    disabled: false,
+    readOnly: false,
   },
   parameters: {
     docs: {
@@ -134,15 +158,14 @@ export const HiddenPlaceholder: Story = {
 
 export const ReadOnly: Story = {
   args: {
-    placeholderText: 'Search',
-    showplaceholder: true,
     searchIcon: true,
     readOnly: true,
+    disabled: false,
   },
   parameters: {
     docs: {
       description: {
-        story: '只读状态，只显示底部边框，无背景色，不可编辑。',
+        story: '只读状态，只显示底部边框，无背景色，不可编辑。占位符不会显示。\n\n⚠️ readOnly 和 disabled 互斥，disabled 优先。',
       },
     },
   },
@@ -150,15 +173,14 @@ export const ReadOnly: Story = {
 
 export const Disabled: Story = {
   args: {
-    placeholderText: 'Search',
-    showplaceholder: true,
     searchIcon: true,
     disabled: true,
+    readOnly: false,
   },
   parameters: {
     docs: {
       description: {
-        story: '禁用状态，使用弱色调显示，无法交互。',
+        story: '禁用状态，使用弱色调显示，无法交互。占位符不会显示。\n\n⚠️ disabled 和 readOnly 互斥，disabled 优先。',
       },
     },
   },

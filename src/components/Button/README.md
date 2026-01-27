@@ -1,209 +1,231 @@
 # Button 组件
 
-基于 Siemens iX 设计系统的按钮组件，支持多种变体、状态和配置选项。
+按钮组件，支持多种变体和状态。遵循 React 最佳实践，使用 children 作为按钮内容。
 
-## 功能特性
+## 基本用法
 
-- ✅ 10 种按钮变体（Primary、Secondary、Danger 及其变体）
-- ✅ 4 种状态（Default、Hover、Active、Loading）
-- ✅ 支持禁用状态
-- ✅ 支持前置和后置图标
-- ✅ 支持聚焦状态显示
-- ✅ 完整的 TypeScript 类型支持
-- ✅ 响应式设计
-- ✅ 无障碍访问支持
-
-## 安装
-
-```bash
-npm install design-system
-```
-
-## 基本使用
+### 使用 children（React 标准 ✅）
 
 ```tsx
-import { Button } from 'design-system';
+import { Button } from '@your-package/components';
 
-function App() {
-  return (
-    <div>
-      <Button variant="Primary">Primary Button</Button>
-      <Button variant="Primary outline">Secondary Button</Button>
-      <Button variant="Primary ghost">Tertiary Button</Button>
-    </div>
-  );
-}
-```
+// 简单文本
+<Button variant="Primary">Save</Button>
 
-## 变体类型
-
-### Primary 系列（主要操作）
-
-```tsx
-// Primary - UX 中的主要按钮
-<Button variant="Primary">Primary</Button>
-
-// Primary outline - UX 中的次要按钮
-<Button variant="Primary outline">Secondary</Button>
-
-// Primary ghost - UX 中的第三级按钮
-<Button variant="Primary ghost">Tertiary</Button>
-```
-
-### Secondary 系列（次要操作）
-
-```tsx
-// 用于特殊场景，当其他按钮类型过于突出时使用
-<Button variant="Secondary">Secondary</Button>
-<Button variant="Secondary outline">Secondary Outline</Button>
-<Button variant="Secondary ghost">Secondary Ghost</Button>
-```
-
-### Danger 系列（危险操作）
-
-```tsx
-// 用于删除、取消等危险操作
-<Button variant="Danger">Delete</Button>
-<Button variant="Danger outline">Cancel</Button>
-<Button variant="Danger ghost">Remove</Button>
-```
-
-### Content Action（内容操作）
-
-```tsx
-// 用于内容区域的操作按钮
-<Button variant="Content action">Learn More</Button>
-```
-
-## 状态
-
-```tsx
-// 默认状态
-<Button state="Default">Default</Button>
-
-// 悬停状态（通常由 CSS 自动处理）
-<Button state="Hover">Hover</Button>
-
-// 激活状态
-<Button state="Active">Active</Button>
-
-// 加载状态
-<Button state="Loading">Loading</Button>
-
-// 禁用状态
-<Button disabled>Disabled</Button>
-```
-
-## 图标
-
-```tsx
-import { Button } from 'design-system';
-
-const Icon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-    <path d="..." />
-  </svg>
-);
-
-// 前置图标
-<Button showIcon icon={<Icon />}>
-  With Icon
-</Button>
-
-// 后置图标
-<Button iconAfter afterIcon={<Icon />}>
-  With After Icon
-</Button>
-```
-
-## 聚焦状态
-
-```tsx
-// 显示聚焦边框
-<Button focused>Focused Button</Button>
-```
-
-## 事件处理
-
-```tsx
+// 带前置图标
 <Button 
-  variant="Primary"
-  onClick={(e) => {
-    console.log('Button clicked!', e);
-  }}
+  variant="Primary" 
+  startIcon={<ix-icon name="check" size="24" />}
 >
-  Click Me
+  Confirm
+</Button>
+
+// 带后置图标
+<Button 
+  variant="Primary" 
+  endIcon={<ix-icon name="arrow-right" size="24" />}
+>
+  Next
+</Button>
+
+// 同时使用前置和后置图标
+<Button 
+  variant="Primary" 
+  startIcon={<ix-icon name="upload" size="24" />}
+  endIcon={<ix-icon name="chevron-right" size="24" />}
+>
+  Upload File
+</Button>
+
+// 复杂内容
+<Button variant="Primary">
+  <div>
+    <span>Save Changes</span>
+    <span style={{ fontSize: '11px' }}>Ctrl+S</span>
+  </div>
 </Button>
 ```
 
-## Props
+### 向后兼容（旧 API）
 
-| 属性 | 类型 | 默认值 | 描述 |
+```tsx
+// 带图标（旧 API，仍然有效）
+<Button 
+  variant="Primary" 
+  showIcon 
+  icon="check"
+>
+  Confirm
+</Button>
+```
+
+## 属性
+
+### 视觉属性
+
+| 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `children` | `React.ReactNode` | `'Button'` | 按钮文本内容 |
 | `variant` | `ButtonVariant` | `'Primary'` | 按钮变体类型 |
 | `state` | `ButtonState` | `'Default'` | 按钮状态 |
 | `disabled` | `boolean` | `false` | 是否禁用 |
-| `showIcon` | `boolean` | `false` | 是否显示前置图标 |
-| `icon` | `React.ReactNode` | - | 前置图标 |
-| `iconAfter` | `boolean` | `false` | 是否显示后置图标 |
-| `afterIcon` | `React.ReactNode` | - | 后置图标 |
 | `focused` | `boolean` | `false` | 是否显示聚焦状态 |
+
+### React 最佳实践属性（推荐 ✅）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `children` | `React.ReactNode` | - | 按钮内容（优先级高于 label） |
+| `startIcon` | `React.ReactNode` | - | 前置图标 |
+| `endIcon` | `React.ReactNode` | - | 后置图标 |
+
+### 向后兼容属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `label` | `string` | `'Button'` | 按钮文本（如果提供了 children 则忽略） |
+| `showIcon` | `boolean` | `false` | 是否显示图标（已废弃，推荐使用 startIcon） |
+| `icon` | `string` | `'about'` | 图标名称（已废弃，推荐使用 startIcon） |
+
+### 扩展属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
 | `onClick` | `(event: MouseEvent) => void` | - | 点击事件处理 |
 | `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | 按钮类型 |
-| `className` | `string` | `''` | 自定义类名 |
+| `className` | `string` | - | 自定义 CSS 类名 |
+| `aria-label` | `string` | - | 可访问性标签 |
 
-## ButtonVariant 类型
+## 变体类型
 
-```typescript
-type ButtonVariant =
-  | 'Primary'
-  | 'Primary outline'
-  | 'Primary ghost'
-  | 'Secondary'
-  | 'Secondary outline'
-  | 'Secondary ghost'
-  | 'Danger'
-  | 'Danger outline'
-  | 'Danger ghost'
-  | 'Content action';
+- `Primary` - 主要按钮（UX 中的 Primary）
+- `Primary outline` - 主要轮廓按钮（UX 中的 Secondary）
+- `Primary ghost` - 主要幽灵按钮（UX 中的 Tertiary）
+- `Secondary` - 次要按钮
+- `Secondary outline` - 次要轮廓按钮
+- `Secondary ghost` - 次要幽灵按钮
+- `Danger` - 危险按钮
+- `Danger outline` - 危险轮廓按钮
+- `Danger ghost` - 危险幽灵按钮
+- `🔶 Content action` - 内容操作按钮
+
+## 状态
+
+- `Default` - 默认状态
+- `Hover` - 悬停状态（通常由 CSS 自动处理）
+- `Active` - 激活状态（通常由 CSS 自动处理）
+- `Disabled` - 禁用状态
+- `Loading` - 加载状态
+
+## 示例
+
+### 基础按钮
+
+```tsx
+<Button variant="Primary">Save</Button>
+<Button variant="Secondary">Cancel</Button>
+<Button variant="Danger">Delete</Button>
 ```
 
-## ButtonState 类型
+### 带图标的按钮
 
-```typescript
-type ButtonState = 'Default' | 'Hover' | 'Active' | 'Loading';
+```tsx
+<Button 
+  variant="Primary" 
+  startIcon={<ix-icon name="check" size="24" />}
+>
+  Confirm
+</Button>
+
+<Button 
+  variant="Secondary" 
+  startIcon={<ix-icon name="add" size="24" />}
+>
+  Add Item
+</Button>
+
+<Button 
+  variant="Danger" 
+  startIcon={<ix-icon name="trashcan" size="24" />}
+>
+  Delete
+</Button>
 ```
 
-## 设计规范
+### 加载状态
 
-### UX 映射关系
+```tsx
+<Button variant="Primary" state="Loading">
+  Saving...
+</Button>
+```
 
-- **UX Primary** = `variant="Primary"`
-- **UX Secondary** = `variant="Primary outline"`
-- **UX Tertiary** = `variant="Primary ghost"`
+### 禁用状态
 
-### 使用建议
+```tsx
+<Button variant="Primary" disabled>
+  Disabled
+</Button>
+```
 
-1. **Primary**: 用于页面中最重要的操作（如"保存"、"提交"）
-2. **Primary outline**: 用于次要但仍然重要的操作（如"取消"、"返回"）
-3. **Primary ghost**: 用于第三级操作（如"了解更多"、"查看详情"）
-4. **Secondary 系列**: 用于特殊场景，当其他按钮类型过于突出时
-5. **Danger 系列**: 用于危险操作，需要用户谨慎考虑
-6. **Content action**: 用于内容区域的操作按钮
+### 复杂内容
 
-### 无障碍访问
+```tsx
+<Button variant="Primary">
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <span>Save Changes</span>
+    <span style={{ fontSize: '11px' }}>Ctrl+S</span>
+  </div>
+</Button>
+```
 
-- 按钮使用语义化的 `<button>` 元素
-- 加载状态包含 `aria-label="Loading"` 属性
-- 禁用状态使用原生 `disabled` 属性
-- 支持键盘导航（Enter 和 Space 键）
+## 迁移指南
 
-## 参考文档
+### 从旧 API 迁移到新 API
 
-- [Siemens iX Button Documentation](https://ix.siemens.io/docs/controls/button)
-- [Figma 设计文件](https://figma.com/design/e6oyye9F4VSzvI5wvo1GL4/Test?node-id=225-5535)
+**旧 API（仍然有效）：**
+```tsx
+<Button 
+  variant="Primary" 
+  label="Save" 
+  showIcon 
+  icon="check" 
+/>
+```
 
-## 许可证
+**新 API（推荐）：**
+```tsx
+<Button 
+  variant="Primary" 
+  startIcon={<ix-icon name="check" size="24" />}
+>
+  Save
+</Button>
+```
 
-MIT License - Copyright (c) 2025 Siemens AG
+### 为什么使用新 API？
+
+1. **符合 React 标准** - 使用 children 是 React 的标准做法
+2. **更灵活** - 可以插入任意内容，不限于文本
+3. **更强大** - 支持前置和后置图标，支持自定义图标样式
+4. **类型安全** - TypeScript 类型检查更准确
+
+## 可访问性
+
+- 按钮自动支持键盘操作（Enter、Space）
+- 禁用状态会自动设置 `aria-disabled`
+- 加载状态会自动设置 `aria-busy`
+- 建议为纯图标按钮提供 `aria-label`
+
+```tsx
+<Button 
+  variant="Primary" 
+  aria-label="Save document"
+  startIcon={<ix-icon name="save" size="24" />}
+/>
+```
+
+## 参考
+
+- [Siemens iX Button 文档](https://ix.siemens.io/docs/controls/button)
+- [Material UI Button](https://mui.com/material-ui/react-button/)
+- [Ant Design Button](https://ant.design/components/button)

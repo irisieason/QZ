@@ -17,11 +17,8 @@ export type ButtonVariant =
 // Figma 定义的状态类型
 export type ButtonState = 'Default' | 'Hover' | 'Active' | 'Disabled' | 'Loading';
 
-// Figma 定义的属性（严格遵循 Figma 设计）
+// Figma 定义的属性（参考 Figma 设计）
 interface ButtonFigmaProps {
-  /** 按钮文本 */
-  label?: string;
-  
   /** 是否显示图标 */
   showIcon?: boolean;
   
@@ -38,8 +35,11 @@ interface ButtonFigmaProps {
   state?: ButtonState;
 }
 
-// 扩展属性（React 特定，非 Figma 定义）
-interface ButtonExtendedProps {
+// React 最佳实践属性
+interface ButtonReactProps {
+  /** 按钮内容（React 标准） */
+  children?: React.ReactNode;
+  
   /** 点击事件处理 */
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   
@@ -57,11 +57,13 @@ interface ButtonExtendedProps {
 }
 
 // 最终组件属性
-export interface ButtonProps extends ButtonFigmaProps, ButtonExtendedProps {}
+export interface ButtonProps extends ButtonFigmaProps, ButtonReactProps {}
 
 export const Button: React.FC<ButtonProps> = ({
+  // React 标准属性
+  children,
+  
   // Figma 属性
-  label = 'Button',
   showIcon = false,
   icon = 'about',
   focused = false,
@@ -79,6 +81,19 @@ export const Button: React.FC<ButtonProps> = ({
   const effectiveState = disabled ? 'Disabled' : state;
   const isDisabled = effectiveState === 'Disabled';
   const isLoading = effectiveState === 'Loading';
+  
+  // ✅ React 最佳实践：使用 children 作为按钮内容
+  const content = children || 'Button';
+  
+  // ✅ 图标渲染
+  const renderIcon = () => {
+    if (!showIcon || !icon) return null;
+    return (
+      <span className="button__icon">
+        <ix-icon name={icon} size="24" />
+      </span>
+    );
+  };
   
   // ✅ 性能优化：使用 useMemo 缓存类名计算
   const buttonClasses = useMemo(() => {
@@ -111,17 +126,7 @@ export const Button: React.FC<ButtonProps> = ({
     onClick?.(event);
   }, [onClick]);
 
-  // 渲染函数（不需要 useCallback，因为不传递给子组件）
-  const renderIcon = () => {
-    if (!showIcon || !icon) return null;
-    
-    return (
-      <span className="button__icon">
-        <ix-icon name={icon} size="24" />
-      </span>
-    );
-  };
-
+  // 渲染加载动画
   const renderSpinner = () => (
     <span className="button__spinner" aria-label="Loading">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -154,7 +159,7 @@ export const Button: React.FC<ButtonProps> = ({
       className={buttonClasses}
       onClick={handleClick}
       disabled={isDisabled || isLoading}
-      aria-label={ariaLabel || label}
+      aria-label={ariaLabel || (typeof content === 'string' ? content : undefined)}
       aria-busy={isLoading}
       aria-disabled={isDisabled}
       data-variant={variant}
@@ -162,8 +167,8 @@ export const Button: React.FC<ButtonProps> = ({
     >
       <span className="button__content">
         {isLoading && renderSpinner()}
-        {showIcon && renderIcon()}
-        <span className="button__label">{label}</span>
+        {renderIcon()}
+        <span className="button__label">{content}</span>
       </span>
       {focused && <span className="button__focus-outline" />}
     </button>

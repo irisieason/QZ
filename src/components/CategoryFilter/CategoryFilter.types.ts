@@ -19,10 +19,10 @@ export interface CategoryFilterProps {
   
   // ========== 状态属性 ==========
   
-  /** 是否禁用 @default false */
+  /** 是否禁用（与 readOnly 互斥，disabled 优先） @default false */
   disabled?: boolean;
   
-  /** 是否只读 @default false */
+  /** 是否只读（与 disabled 互斥） @default false */
   readOnly?: boolean;
   
   // ========== 数据属性（受控/非受控） ==========

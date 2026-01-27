@@ -14,9 +14,9 @@ figma.connect(
   "https://www.figma.com/design/AWJRWAHO9CrLLUQJzoN4xs/iX-Components---v3.0-Original?node-id=47750-30684",
   {
     props: {
-      appName: figma.string("appName"),
-      avatar: figma.boolean("avatar"),
-      appSwitch: figma.boolean("appSwitch"),
+      appName: figma.string("App name"),
+      avatar: figma.boolean("Avatar"),
+      appSwitch: figma.boolean("App Switch"),
       children: figma.children("Avatar"),
     },
     example: (props) => (

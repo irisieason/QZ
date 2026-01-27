@@ -52,6 +52,14 @@ const meta: Meta<typeof ContentHeader> = {
         defaultValue: { summary: false },
       },
     },
+    buttonSlot: {
+      control: 'boolean',
+      description: '是否显示操作按钮区域',
+      table: {
+        category: '视觉属性',
+        defaultValue: { summary: false },
+      },
+    },
     variant: {
       control: 'select',
       options: ['Primary', 'Secondary'],
@@ -63,13 +71,13 @@ const meta: Meta<typeof ContentHeader> = {
     },
     
     // ========== Slot 属性（显示在文档中，用于设计库绑定） ==========
-    actions: {
+    children: {
+      name: 'actionsSlot (children)',
       control: false,
-      description: '操作按钮区域插槽（Slot）\n\n用于插入操作按钮（如 Button 组件）\n用于设计库绑定',
+      description: '**操作按钮区域插槽**\n\n用于插入操作按钮（如 Button 组件）。\n\n使用方式：\n```tsx\n<ContentHeader buttonSlot={true}>\n  <Button label="Edit" />\n  <Button label="Save" />\n</ContentHeader>\n```\n\n💡 用于 Figma Code Connect 设计库绑定。',
       table: {
         category: 'Slots',
-        type: { summary: 'React.ReactNode' },
-        defaultValue: { summary: '<Button /> × N' },
+        type: { summary: 'Button 组件' },
       },
     },
     
@@ -91,6 +99,7 @@ export const Default: Story = {
     headerSubtitle: 'Subtitle',
     showHeaderSubtitle: true,
     hasBackButton: false,
+    buttonSlot: false,
     variant: 'Primary',
   },
 };
@@ -102,6 +111,7 @@ export const Primary: Story = {
     headerSubtitle: 'Overview of your system',
     showHeaderSubtitle: true,
     hasBackButton: false,
+    buttonSlot: false,
     variant: 'Primary',
   },
 };
@@ -113,6 +123,7 @@ export const Secondary: Story = {
     headerSubtitle: 'Device ID: 12345',
     showHeaderSubtitle: true,
     hasBackButton: false,
+    buttonSlot: false,
     variant: 'Secondary',
   },
 };
@@ -124,6 +135,7 @@ export const WithBackButton: Story = {
     headerSubtitle: 'Configure your preferences',
     showHeaderSubtitle: true,
     hasBackButton: true,
+    buttonSlot: false,
     variant: 'Primary',
   },
 };
@@ -134,6 +146,7 @@ export const WithoutSubtitle: Story = {
     headerTitle: 'Reports',
     showHeaderSubtitle: false,
     hasBackButton: false,
+    buttonSlot: false,
     variant: 'Primary',
   },
 };
@@ -145,19 +158,14 @@ export const WithActions: Story = {
     headerSubtitle: 'Manage your account',
     showHeaderSubtitle: true,
     hasBackButton: true,
+    buttonSlot: true,
     variant: 'Primary',
   },
   render: (args) => (
-    <ContentHeader
-      {...args}
-      actions={
-        <>
-          <Button label="Edit" variant="Secondary" showIcon={false} />
-          <Button label="Save" variant="Primary" showIcon={false} />
-        </>
-      }
-      onBackClick={() => console.log('Back clicked')}
-    />
+    <ContentHeader {...args} onBackClick={() => console.log('Back clicked')}>
+      <Button label="Edit" variant="Secondary" showIcon={false} />
+      <Button label="Save" variant="Primary" showIcon={false} />
+    </ContentHeader>
   ),
 };
 
@@ -168,20 +176,15 @@ export const FullExample: Story = {
     headerSubtitle: 'Active projects: 12',
     showHeaderSubtitle: true,
     hasBackButton: true,
+    buttonSlot: true,
     variant: 'Primary',
   },
   render: (args) => (
     <div style={{ padding: '24px', background: '#1a1a1a', minHeight: '200px' }}>
-      <ContentHeader
-        {...args}
-        actions={
-          <>
-            <Button label="Filter" variant="Secondary outline" showIcon={false} />
-            <Button label="New Project" variant="Primary" showIcon={false} />
-          </>
-        }
-        onBackClick={() => console.log('Back to home')}
-      />
+      <ContentHeader {...args} onBackClick={() => console.log('Back to home')}>
+        <Button label="Filter" variant="Secondary outline" showIcon={false} />
+        <Button label="New Project" variant="Primary" showIcon={false} />
+      </ContentHeader>
       <div style={{ marginTop: '24px', color: '#fff', opacity: 0.6 }}>
         Page content goes here...
       </div>
@@ -196,20 +199,15 @@ export const SecondaryWithActions: Story = {
     headerSubtitle: 'Last updated: 2 hours ago',
     showHeaderSubtitle: true,
     hasBackButton: true,
+    buttonSlot: true,
     variant: 'Secondary',
   },
   render: (args) => (
     <div style={{ padding: '24px', background: '#1a1a1a', minHeight: '200px' }}>
-      <ContentHeader
-        {...args}
-        actions={
-          <>
-            <Button label="Reset" variant="Danger outline" showIcon={false} />
-            <Button label="Apply" variant="Primary" showIcon={false} />
-          </>
-        }
-        onBackClick={() => console.log('Back to devices')}
-      />
+      <ContentHeader {...args} onBackClick={() => console.log('Back to devices')}>
+        <Button label="Reset" variant="Danger outline" showIcon={false} />
+        <Button label="Apply" variant="Primary" showIcon={false} />
+      </ContentHeader>
     </div>
   ),
 };

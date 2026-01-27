@@ -167,7 +167,7 @@
 /* 只读状态 */
 .category-filter--readonly .category-filter__container {
   border: none;
-  border-bottom: 1px solid var(--theme-color-std-bdr, rgba(211, 236, 248, 0.55));
+  border-bottom: 1px solid var(--theme-color-std-bdr, var(--color-std-bdr));
   border-radius: 0;
   background-color: transparent;
   padding-left: 8px;
@@ -175,17 +175,31 @@
 }
 
 .category-filter--readonly .category-filter__icon ix-icon {
-  color: var(--theme-color-std-text, rgba(245, 252, 255, 1));
+  color: var(--theme-color-std-text, var(--color-std-text));
+}
+
+.category-filter--readonly .category-filter__input {
+  color: var(--theme-color-std-text, var(--color-std-text));
 }
 
 .category-filter--readonly .category-filter__shadow {
   display: none;
 }
 
+/* 只读状态不应该有 hover 效果 */
+.category-filter--readonly .category-filter__container:hover {
+  border-color: var(--theme-color-std-bdr, var(--color-std-bdr));
+  background-color: transparent;
+}
+
+.category-filter--readonly .category-filter__container:hover .category-filter__icon ix-icon {
+  color: var(--theme-color-std-text, var(--color-std-text));
+}
+
 /* 禁用状态 */
 .category-filter--disabled .category-filter__container {
   border: none;
-  border-bottom: 1px solid var(--theme-color-weak-bdr, rgba(224, 245, 255, 0.25));
+  border-bottom: 1px solid var(--theme-color-weak-bdr, var(--color-weak-bdr));
   border-radius: 0;
   background-color: transparent;
   padding-left: 8px;
@@ -195,16 +209,16 @@
 }
 
 .category-filter--disabled .category-filter__icon ix-icon {
-  color: var(--theme-color-weak-text, rgba(219, 244, 255, 1));
+  color: var(--theme-color-weak-text, var(--color-weak-text));
 }
 
 .category-filter--disabled .category-filter__input {
-  color: var(--theme-color-weak-text, rgba(219, 244, 255, 1));
+  color: var(--theme-color-weak-text, var(--color-weak-text));
   cursor: not-allowed;
 }
 
 .category-filter--disabled .category-filter__input::placeholder {
-  color: var(--theme-color-weak-text, rgba(219, 244, 255, 1));
+  color: var(--theme-color-weak-text, var(--color-weak-text));
 }
 
 .category-filter--disabled .category-filter__shadow {

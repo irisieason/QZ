@@ -4,7 +4,7 @@ import { Button } from '../Button/Button';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
-// 注册所有图标
+// 注册所有图�?
 addIcons(allIcons);
 
 const meta: Meta<typeof Slot> = {
@@ -14,16 +14,16 @@ const meta: Meta<typeof Slot> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Slot 是一个通用的插槽容器组件，可以作为任何组件的 children 使用。尺寸由父组件决定，自动适应父容器。',
+        component: 'Slot 是一个通用的插槽容器组件，可以作为任何组件�?children 使用。尺寸由父组件决定，自动适应父容器�?,
       },
     },
   },
   argTypes: {
-    // ========== Slot 属性（显示在文档中，用于设计库绑定） ==========
+    // ========== Slot 属性（显示在文档中，用于设计库绑定�?==========
     children: {
       name: 'slot (children)',
       control: false,
-      description: '**子组件插槽**\n\n可以包含任意组件。\n\n使用方式：\n```tsx\n<Slot>\n  <Button label="Action" />\n  <AnyComponent />\n</Slot>\n```\n\n💡 用于 Figma Code Connect 设计库绑定。',
+      description: '**子组件插�?*\n\n可以包含任意组件。\n\n使用方式：\n```tsx\n<Slot>\n  <Button  >Action</Button>\n  <AnyComponent />\n</Slot>\n```\n\n💡 用于 Figma Code Connect 设计库绑定�?,
       table: {
         category: 'Slots',
         type: { summary: 'React.ReactNode' },
@@ -40,13 +40,13 @@ const meta: Meta<typeof Slot> = {
 export default meta;
 type Story = StoryObj<typeof Slot>;
 
-// 默认故事 - 带两个按钮
+// 默认故事 - 带两个按�?
 export const Default: Story = {
   render: () => (
     <div style={{ width: '300px', height: '50px', border: '1px dashed #666', padding: '8px' }}>
       <Slot>
-        <Button label="Edit" variant="Secondary" showIcon={false} />
-        <Button label="Save" variant="Primary" showIcon={false} />
+        <Button  variant="Secondary" showIcon={false} >Edit</Button>
+        <Button  variant="Primary" showIcon={false} >Save</Button>
       </Slot>
     </div>
   ),
@@ -57,7 +57,7 @@ export const SingleButton: Story = {
   render: () => (
     <div style={{ width: '200px', height: '50px', border: '1px dashed #666', padding: '8px' }}>
       <Slot>
-        <Button label="Save" variant="Primary" showIcon={false} />
+        <Button  variant="Primary" showIcon={false} >Save</Button>
       </Slot>
     </div>
   ),
@@ -68,9 +68,9 @@ export const MultipleButtons: Story = {
   render: () => (
     <div style={{ width: '400px', height: '50px', border: '1px dashed #666', padding: '8px' }}>
       <Slot>
-        <Button label="Cancel" variant="Secondary ghost" showIcon={false} />
-        <Button label="Reset" variant="Danger outline" showIcon={false} />
-        <Button label="Apply" variant="Primary" showIcon={false} />
+        <Button  variant="Secondary ghost" showIcon={false} >Cancel</Button>
+        <Button  variant="Danger outline" showIcon={false} >Reset</Button>
+        <Button  variant="Primary" showIcon={false} >Apply</Button>
       </Slot>
     </div>
   ),
@@ -81,14 +81,14 @@ export const WithIcons: Story = {
   render: () => (
     <div style={{ width: '300px', height: '50px', border: '1px dashed #666', padding: '8px' }}>
       <Slot>
-        <Button label="Edit" variant="Secondary" showIcon={true} icon="edit" />
-        <Button label="Save" variant="Primary" showIcon={true} icon="save" />
+        <Button  variant="Secondary" showIcon={true} icon="edit" >Edit</Button>
+        <Button  variant="Primary" showIcon={true} icon="save" >Save</Button>
       </Slot>
     </div>
   ),
 };
 
-// 在 ContentHeader 中使用
+// �?ContentHeader 中使�?
 export const InContentHeader: Story = {
   render: () => {
     const { ContentHeader } = require('../ContentHeader');
@@ -104,8 +104,8 @@ export const InContentHeader: Story = {
           variant="Primary"
         >
           <Slot>
-            <Button label="Cancel" variant="Secondary ghost" showIcon={false} />
-            <Button label="Save Changes" variant="Primary" showIcon={false} />
+            <Button  variant="Secondary ghost" showIcon={false} >Cancel</Button>
+            <Button  variant="Primary" showIcon={false} >Save Changes</Button>
           </Slot>
         </ContentHeader>
       </div>
@@ -118,10 +118,10 @@ export const DifferentSizes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <p style={{ color: '#fff', marginBottom: '8px' }}>小容器 (200x40)</p>
+        <p style={{ color: '#fff', marginBottom: '8px' }}>小容�?(200x40)</p>
         <div style={{ width: '200px', height: '40px', border: '1px dashed #666', padding: '4px' }}>
           <Slot>
-            <Button label="Save" variant="Primary" showIcon={false} />
+            <Button  variant="Primary" showIcon={false} >Save</Button>
           </Slot>
         </div>
       </div>
@@ -130,19 +130,19 @@ export const DifferentSizes: Story = {
         <p style={{ color: '#fff', marginBottom: '8px' }}>中等容器 (300x50)</p>
         <div style={{ width: '300px', height: '50px', border: '1px dashed #666', padding: '8px' }}>
           <Slot>
-            <Button label="Edit" variant="Secondary" showIcon={false} />
-            <Button label="Save" variant="Primary" showIcon={false} />
+            <Button  variant="Secondary" showIcon={false} >Edit</Button>
+            <Button  variant="Primary" showIcon={false} >Save</Button>
           </Slot>
         </div>
       </div>
       
       <div>
-        <p style={{ color: '#fff', marginBottom: '8px' }}>大容器 (500x60)</p>
+        <p style={{ color: '#fff', marginBottom: '8px' }}>大容�?(500x60)</p>
         <div style={{ width: '500px', height: '60px', border: '1px dashed #666', padding: '12px' }}>
           <Slot>
-            <Button label="Delete" variant="Danger" showIcon={false} />
-            <Button label="Edit" variant="Secondary outline" showIcon={false} />
-            <Button label="Save" variant="Primary" showIcon={false} />
+            <Button  variant="Danger" showIcon={false} >Delete</Button>
+            <Button  variant="Secondary outline" showIcon={false} >Edit</Button>
+            <Button  variant="Primary" showIcon={false} >Save</Button>
           </Slot>
         </div>
       </div>
@@ -150,7 +150,7 @@ export const DifferentSizes: Story = {
   ),
 };
 
-// 自定义样式
+// 自定义样�?
 export const CustomStyle: Story = {
   render: () => (
     <div style={{ width: '400px', height: '60px', border: '1px dashed #666', padding: '8px' }}>
@@ -161,8 +161,8 @@ export const CustomStyle: Story = {
           padding: '0 16px'
         }}
       >
-        <Button label="Action 1" variant="Primary" showIcon={false} />
-        <Button label="Action 2" variant="Secondary" showIcon={false} />
+        <Button  variant="Primary" showIcon={false} >Action 1</Button>
+        <Button  variant="Secondary" showIcon={false} >Action 2</Button>
       </Slot>
     </div>
   ),

@@ -55,64 +55,64 @@ export const ButtonWithIconsExample: React.FC = () => {
       <section>
         <h3>Icon Before Text</h3>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <Button variant="Primary" showIcon icon="check" label="Confirm" />
+          <Button variant="Primary" showIcon icon="check"  >Confirm</Button>
           
-          <Button variant="Secondary" showIcon icon="add" label="Add Item" />
+          <Button variant="Secondary" showIcon icon="add"  >Add Item</Button>
           
-          <Button variant="Danger" showIcon icon="trashcan" label="Delete" />
+          <Button variant="Danger" showIcon icon="trashcan"  >Delete</Button>
 
-          <Button variant="Primary outline" showIcon icon="refresh" label="Refresh" />
+          <Button variant="Primary outline" showIcon icon="refresh"  >Refresh</Button>
         </div>
       </section>
 
       <section>
         <h3>Icon After Text</h3>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <Button variant="Primary" showIcon icon="download" label="Download" />
+          <Button variant="Primary" showIcon icon="download"  >Download</Button>
           
-          <Button variant="Secondary" showIcon icon="upload" label="Upload" />
+          <Button variant="Secondary" showIcon icon="upload"  >Upload</Button>
           
-          <Button variant="Primary outline" showIcon icon="chevron-right" label="Next" />
+          <Button variant="Primary outline" showIcon icon="chevron-right"  >Next</Button>
 
-          <Button variant="Secondary outline" showIcon icon="chevron-left" label="Back" />
+          <Button variant="Secondary outline" showIcon icon="chevron-left"  >Back</Button>
         </div>
       </section>
 
       <section>
         <h3>Icon Only (Content Action)</h3>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <Button variant="🔶 Content action" showIcon icon="search" label="" />
-          <Button variant="🔶 Content action" showIcon icon="edit-document" label="" />
-          <Button variant="🔶 Content action" showIcon icon="refresh" label="" />
+          <Button variant="🔶 Content action" showIcon icon="search"  ></Button>
+          <Button variant="🔶 Content action" showIcon icon="edit-document"  ></Button>
+          <Button variant="🔶 Content action" showIcon icon="refresh"  ></Button>
         </div>
       </section>
 
       <section>
         <h3>Ghost Buttons with Icons</h3>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <Button variant="Primary ghost" showIcon icon="edit-document" label="Edit" />
+          <Button variant="Primary ghost" showIcon icon="edit-document"  >Edit</Button>
           
-          <Button variant="Secondary ghost" showIcon icon="refresh" label="Refresh" />
+          <Button variant="Secondary ghost" showIcon icon="refresh"  >Refresh</Button>
           
-          <Button variant="Danger ghost" showIcon icon="close" label="Remove" />
+          <Button variant="Danger ghost" showIcon icon="close"  >Remove</Button>
         </div>
       </section>
 
       <section>
         <h3>Disabled State with Icons</h3>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <Button variant="Primary" showIcon icon="check" label="Disabled" state="Disabled" />
+          <Button variant="Primary" showIcon icon="check"  state="Disabled" >Disabled</Button>
           
-          <Button variant="Secondary" showIcon icon="download" label="Disabled" state="Disabled" />
+          <Button variant="Secondary" showIcon icon="download"  state="Disabled" >Disabled</Button>
         </div>
       </section>
 
       <section>
         <h3>Loading State with Icons</h3>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <Button variant="Primary" showIcon icon="refresh" label="Saving" state="Loading" />
+          <Button variant="Primary" showIcon icon="refresh"  state="Loading" >Saving</Button>
           
-          <Button variant="Secondary" showIcon icon="upload" label="Uploading" state="Loading" />
+          <Button variant="Secondary" showIcon icon="upload"  state="Loading" >Uploading</Button>
         </div>
       </section>
 

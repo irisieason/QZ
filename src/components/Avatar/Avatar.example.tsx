@@ -3,7 +3,7 @@ import { Avatar } from './Avatar';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
-// 注册所有图标
+// 注册所有图�?
 addIcons(allIcons);
 
 export const AvatarExample: React.FC = () => {
@@ -24,7 +24,7 @@ export const AvatarExample: React.FC = () => {
     <div style={{ padding: '40px', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
       <h1 style={{ marginBottom: '32px' }}>Avatar Component Examples</h1>
 
-      {/* 交互式演示 */}
+      {/* 交互式演�?*/}
       <div style={{ marginBottom: '48px', padding: '24px', backgroundColor: 'white', borderRadius: '8px' }}>
         <h2 style={{ marginTop: 0, marginBottom: '24px' }}>Interactive Demo</h2>
         
@@ -81,7 +81,6 @@ export const AvatarExample: React.FC = () => {
             <p style={{ color: 'white', marginBottom: '16px', fontSize: '14px' }}>Preview:</p>
             <Avatar
               text={initials}
-              image={selectedMode === 'image'}
               initials={selectedMode === 'initials'}
               src={selectedMode === 'image' ? imageUrl : undefined}
             />
@@ -108,7 +107,6 @@ export const AvatarExample: React.FC = () => {
             >
               <Avatar
                 text={user.initials || 'U'}
-                image={!!user.image}
                 initials={!user.image && !!user.initials}
                 src={user.image || undefined}
                 alt={user.name}

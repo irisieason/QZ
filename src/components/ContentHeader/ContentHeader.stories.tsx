@@ -4,7 +4,7 @@ import { Button } from '../Button/Button';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
-// 注册所有图标
+// 注册所有图�?
 addIcons(allIcons);
 
 const meta: Meta<typeof ContentHeader> = {
@@ -14,7 +14,7 @@ const meta: Meta<typeof ContentHeader> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: '页面头部组件，用于显示页面标题、副标题和操作按钮。支持 Primary 和 Secondary 两种变体。',
+        component: '页面头部组件，用于显示页面标题、副标题和操作按钮。支�?Primary �?Secondary 两种变体�?,
       },
     },
   },
@@ -24,23 +24,23 @@ const meta: Meta<typeof ContentHeader> = {
       control: 'text',
       description: '标题文本',
       table: {
-        category: '视觉属性',
+        category: '视觉属�?,
         defaultValue: { summary: 'Content header' },
       },
     },
     headerSubtitle: {
       control: 'text',
-      description: '副标题文本',
+      description: '副标题文�?,
       table: {
-        category: '视觉属性',
+        category: '视觉属�?,
         defaultValue: { summary: 'Subtitle' },
       },
     },
     showHeaderSubtitle: {
       control: 'boolean',
-      description: '是否显示副标题',
+      description: '是否显示副标�?,
       table: {
-        category: '视觉属性',
+        category: '视觉属�?,
         defaultValue: { summary: true },
       },
     },
@@ -48,7 +48,7 @@ const meta: Meta<typeof ContentHeader> = {
       control: 'boolean',
       description: '是否显示返回按钮',
       table: {
-        category: '视觉属性',
+        category: '视觉属�?,
         defaultValue: { summary: false },
       },
     },
@@ -56,7 +56,7 @@ const meta: Meta<typeof ContentHeader> = {
       control: 'boolean',
       description: '是否显示操作按钮区域',
       table: {
-        category: '视觉属性',
+        category: '视觉属�?,
         defaultValue: { summary: false },
       },
     },
@@ -65,16 +65,16 @@ const meta: Meta<typeof ContentHeader> = {
       options: ['Primary', 'Secondary'],
       description: '变体类型：Primary 用于主要内容，Secondary 用于次要内容',
       table: {
-        category: '视觉属性',
+        category: '视觉属�?,
         defaultValue: { summary: 'Primary' },
       },
     },
     
-    // ========== Slot 属性（显示在文档中，用于设计库绑定） ==========
+    // ========== Slot 属性（显示在文档中，用于设计库绑定�?==========
     children: {
       name: 'actionsSlot (children)',
       control: false,
-      description: '**操作按钮区域插槽**\n\n用于插入操作按钮（如 Button 组件）。\n\n使用方式：\n```tsx\n<ContentHeader buttonSlot={true}>\n  <Button label="Edit" />\n  <Button label="Save" />\n</ContentHeader>\n```\n\n💡 用于 Figma Code Connect 设计库绑定。',
+      description: '**操作按钮区域插槽**\n\n用于插入操作按钮（如 Button 组件）。\n\n使用方式：\n```tsx\n<ContentHeader buttonSlot={true}>\n  <Button  >Edit</Button>\n  <Button  >Save</Button>\n</ContentHeader>\n```\n\n💡 用于 Figma Code Connect 设计库绑定�?,
       table: {
         category: 'Slots',
         type: { summary: 'Button 组件' },
@@ -128,7 +128,7 @@ export const Secondary: Story = {
   },
 };
 
-// 带返回按钮
+// 带返回按�?
 export const WithBackButton: Story = {
   args: {
     headerTitle: 'Settings',
@@ -151,7 +151,7 @@ export const WithoutSubtitle: Story = {
   },
 };
 
-// 带操作按钮
+// 带操作按�?
 export const WithActions: Story = {
   args: {
     headerTitle: 'User Profile',
@@ -163,8 +163,8 @@ export const WithActions: Story = {
   },
   render: (args) => (
     <ContentHeader {...args} onBackClick={() => console.log('Back clicked')}>
-      <Button label="Edit" variant="Secondary" showIcon={false} />
-      <Button label="Save" variant="Primary" showIcon={false} />
+      <Button  variant="Secondary" showIcon={false} >Edit</Button>
+      <Button  variant="Primary" showIcon={false} >Save</Button>
     </ContentHeader>
   ),
 };
@@ -182,8 +182,8 @@ export const FullExample: Story = {
   render: (args) => (
     <div style={{ padding: '24px', background: '#1a1a1a', minHeight: '200px' }}>
       <ContentHeader {...args} onBackClick={() => console.log('Back to home')}>
-        <Button label="Filter" variant="Secondary outline" showIcon={false} />
-        <Button label="New Project" variant="Primary" showIcon={false} />
+        <Button  variant="Secondary outline" showIcon={false} >Filter</Button>
+        <Button  variant="Primary" showIcon={false} >New Project</Button>
       </ContentHeader>
       <div style={{ marginTop: '24px', color: '#fff', opacity: 0.6 }}>
         Page content goes here...
@@ -192,7 +192,7 @@ export const FullExample: Story = {
   ),
 };
 
-// Secondary 带操作按钮
+// Secondary 带操作按�?
 export const SecondaryWithActions: Story = {
   args: {
     headerTitle: 'Device Configuration',
@@ -205,8 +205,8 @@ export const SecondaryWithActions: Story = {
   render: (args) => (
     <div style={{ padding: '24px', background: '#1a1a1a', minHeight: '200px' }}>
       <ContentHeader {...args} onBackClick={() => console.log('Back to devices')}>
-        <Button label="Reset" variant="Danger outline" showIcon={false} />
-        <Button label="Apply" variant="Primary" showIcon={false} />
+        <Button  variant="Danger outline" showIcon={false} >Reset</Button>
+        <Button  variant="Primary" showIcon={false} >Apply</Button>
       </ContentHeader>
     </div>
   ),

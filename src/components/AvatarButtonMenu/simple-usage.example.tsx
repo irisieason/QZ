@@ -3,26 +3,26 @@ import { AvatarButtonMenu } from './AvatarButtonMenu';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
-// 注册所有图标
+// 注册所有图�?
 addIcons(allIcons);
 
 /**
- * 简单使用示例
+ * 简单使用示�?
  * 
  * 组件会自动响应用户交互：
- * - 鼠标悬停 → 显示 hover 样式
- * - 点击 → 展开/关闭下拉菜单
- * - 点击外部 → 自动关闭菜单
+ * - 鼠标悬停 �?显示 hover 样式
+ * - 点击 �?展开/关闭下拉菜单
+ * - 点击外部 �?自动关闭菜单
  */
 export const SimpleUsageExample: React.FC = () => {
   const handleProfileClick = () => {
-    console.log('用户点击了"用户资料"');
-    alert('跳转到用户资料页面');
+    console.log('用户点击�?用户资料"');
+    alert('跳转到用户资料页�?);
   };
 
   const handleLogoutClick = () => {
-    console.log('用户点击了"登出"');
-    alert('用户已登出');
+    console.log('用户点击�?登出"');
+    alert('用户已登�?);
   };
 
   return (
@@ -32,7 +32,7 @@ export const SimpleUsageExample: React.FC = () => {
       minHeight: '100vh',
     }}>
       <h1 style={{ color: 'white', marginBottom: '24px' }}>
-        AvatarButtonMenu 简单使用示例
+        AvatarButtonMenu 简单使用示�?
       </h1>
       
       <div style={{ marginBottom: '32px' }}>
@@ -43,11 +43,11 @@ export const SimpleUsageExample: React.FC = () => {
           直接使用组件，它会自动响应鼠标交互：
         </p>
         <ul style={{ color: '#9d9d96', marginBottom: '16px', paddingLeft: '20px' }}>
-          <li>鼠标悬停 → 显示 hover 样式（半透明背景）</li>
-          <li>点击组件 → 展开下拉菜单</li>
-          <li>再次点击 → 关闭下拉菜单</li>
-          <li>点击外部区域 → 自动关闭菜单</li>
-          <li>点击菜单项 → 触发回调并关闭菜单</li>
+          <li>鼠标悬停 �?显示 hover 样式（半透明背景�?/li>
+          <li>点击组件 �?展开下拉菜单</li>
+          <li>再次点击 �?关闭下拉菜单</li>
+          <li>点击外部区域 �?自动关闭菜单</li>
+          <li>点击菜单�?�?触发回调并关闭菜�?/li>
         </ul>
         
         <AvatarButtonMenu
@@ -65,7 +65,6 @@ export const SimpleUsageExample: React.FC = () => {
         <AvatarButtonMenu
           email="jane.smith@company.com"
           role="Developer"
-          avatarInitials={true}
           avatarText="JS"
           onProfileClick={handleProfileClick}
           onLogoutClick={handleLogoutClick}
@@ -74,12 +73,11 @@ export const SimpleUsageExample: React.FC = () => {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ color: 'white', marginBottom: '16px' }}>
-          带图片头像
+          带图片头�?
         </h2>
         <AvatarButtonMenu
           email="alice.johnson@company.com"
           role="Designer"
-          avatarImage={true}
           avatarSrc="https://i.pravatar.cc/150?img=1"
           onProfileClick={handleProfileClick}
           onLogoutClick={handleLogoutClick}
@@ -99,9 +97,9 @@ export const SimpleUsageExample: React.FC = () => {
           组件已经内置了所有交互逻辑，你只需要：
         </p>
         <ol style={{ color: '#9d9d96', marginTop: '8px', paddingLeft: '20px' }}>
-          <li>传入用户信息（email、role）</li>
-          <li>提供回调函数（onProfileClick、onLogoutClick）</li>
-          <li>就可以直接使用了！</li>
+          <li>传入用户信息（email、role�?/li>
+          <li>提供回调函数（onProfileClick、onLogoutClick�?/li>
+          <li>就可以直接使用了�?/li>
         </ol>
       </div>
     </div>

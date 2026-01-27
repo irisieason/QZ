@@ -4,8 +4,8 @@ import { Button } from './Button';
 /**
  * Button 组件使用示例
  * 
- * 注意：Button 组件严格遵循 Figma 设计规范
- * - 使用 label 属性而不是 children
+ * 注意：Button 组件遵循 React 最佳实践
+ * - 使用 children 而不是 label 属性
  * - 使用 showIcon + icon 属性控制图标
  * - 使用 state="Disabled" 而不是 disabled 属性
  * - icon 是字符串（图标名称），来自 ix-icons
@@ -23,9 +23,9 @@ export const ButtonExamples: React.FC = () => {
       <section style={{ marginBottom: '32px' }}>
         <h2 style={{ color: '#00cccc', marginBottom: '16px' }}>Primary 系列</h2>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <Button variant="Primary" label="Primary" onClick={handleClick} />
-          <Button variant="Primary outline" label="Primary Outline" onClick={handleClick} />
-          <Button variant="Primary ghost" label="Primary Ghost" onClick={handleClick} />
+          <Button variant="Primary" onClick={handleClick}>Primary</Button>
+          <Button variant="Primary outline" onClick={handleClick}>Primary Outline</Button>
+          <Button variant="Primary ghost" onClick={handleClick}>Primary Ghost</Button>
         </div>
       </section>
 
@@ -33,9 +33,9 @@ export const ButtonExamples: React.FC = () => {
       <section style={{ marginBottom: '32px' }}>
         <h2 style={{ color: '#00cccc', marginBottom: '16px' }}>Secondary 系列</h2>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <Button variant="Secondary" label="Secondary" />
-          <Button variant="Secondary outline" label="Secondary Outline" />
-          <Button variant="Secondary ghost" label="Secondary Ghost" />
+          <Button variant="Secondary">Secondary</Button>
+          <Button variant="Secondary outline">Secondary Outline</Button>
+          <Button variant="Secondary ghost">Secondary Ghost</Button>
         </div>
       </section>
 
@@ -43,9 +43,9 @@ export const ButtonExamples: React.FC = () => {
       <section style={{ marginBottom: '32px' }}>
         <h2 style={{ color: '#ff2640', marginBottom: '16px' }}>Danger 系列</h2>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <Button variant="Danger" label="Delete" />
-          <Button variant="Danger outline" label="Cancel" />
-          <Button variant="Danger ghost" label="Remove" />
+          <Button variant="Danger">Delete</Button>
+          <Button variant="Danger outline">Cancel</Button>
+          <Button variant="Danger ghost">Remove</Button>
         </div>
       </section>
 
@@ -53,11 +53,11 @@ export const ButtonExamples: React.FC = () => {
       <section style={{ marginBottom: '32px' }}>
         <h2 style={{ color: '#00cccc', marginBottom: '16px' }}>带图标</h2>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <Button variant="Primary" label="Confirm" showIcon icon="check" />
-          <Button variant="Primary outline" label="Add Item" showIcon icon="add" />
-          <Button variant="Secondary" label="Download" showIcon icon="download" />
-          <Button variant="Danger" label="Delete" showIcon icon="trashcan" />
-          <Button variant="🔶 Content action" label="" showIcon icon="search" />
+          <Button variant="Primary" showIcon icon="check">Confirm</Button>
+          <Button variant="Primary outline" showIcon icon="add">Add Item</Button>
+          <Button variant="Secondary" showIcon icon="download">Download</Button>
+          <Button variant="Danger" showIcon icon="trashcan">Delete</Button>
+          <Button variant="🔶 Content action" showIcon icon="search"></Button>
         </div>
       </section>
 
@@ -65,11 +65,11 @@ export const ButtonExamples: React.FC = () => {
       <section style={{ marginBottom: '32px' }}>
         <h2 style={{ color: '#00cccc', marginBottom: '16px' }}>状态</h2>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <Button variant="Primary" label="Default" state="Default" />
-          <Button variant="Primary" label="Hover" state="Hover" />
-          <Button variant="Primary" label="Active" state="Active" />
-          <Button variant="Primary" label="Loading" state="Loading" />
-          <Button variant="Primary" label="Disabled" state="Disabled" />
+          <Button variant="Primary" state="Default">Default</Button>
+          <Button variant="Primary" state="Hover">Hover</Button>
+          <Button variant="Primary" state="Active">Active</Button>
+          <Button variant="Primary" state="Loading">Loading</Button>
+          <Button variant="Primary" state="Disabled">Disabled</Button>
         </div>
       </section>
 
@@ -77,9 +77,9 @@ export const ButtonExamples: React.FC = () => {
       <section style={{ marginBottom: '32px' }}>
         <h2 style={{ color: '#00cccc', marginBottom: '16px' }}>聚焦状态</h2>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <Button variant="Primary" label="Focused" focused />
-          <Button variant="Primary outline" label="Focused" focused />
-          <Button variant="Primary ghost" label="Focused" focused />
+          <Button variant="Primary" focused>Focused</Button>
+          <Button variant="Primary outline" focused>Focused</Button>
+          <Button variant="Primary ghost" focused>Focused</Button>
         </div>
       </section>
 
@@ -93,14 +93,15 @@ export const ButtonExamples: React.FC = () => {
           }}
           style={{ display: 'flex', gap: '16px' }}
         >
-          <Button type="submit" variant="Primary" label="Submit" />
-          <Button type="reset" variant="Secondary outline" label="Reset" />
+          <Button type="submit" variant="Primary">Submit</Button>
+          <Button type="reset" variant="Secondary outline">Reset</Button>
           <Button 
             type="button" 
             variant="Primary ghost" 
-            label="Cancel" 
             onClick={() => alert('Cancelled')} 
-          />
+          >
+            Cancel
+          </Button>
         </form>
       </section>
     </div>

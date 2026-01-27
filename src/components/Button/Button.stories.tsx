@@ -21,10 +21,10 @@ const meta: Meta<typeof Button> = {
         component: `
 按钮组件支持多种变体和状态：
 
-**变体类型：**
-- **Primary**: 主要按钮（UX 中的 Primary）
-- **Primary outline**: 主要轮廓按钮（UX 中的 Secondary）
-- **Primary ghost**: 主要幽灵按钮（UX 中的 Tertiary）
+**变体类型�?*
+- **Primary**: 主要按钮（UX 中的 Primary�?
+- **Primary outline**: 主要轮廓按钮（UX 中的 Secondary�?
+- **Primary ghost**: 主要幽灵按钮（UX 中的 Tertiary�?
 - **Secondary**: 次要按钮
 - **Secondary outline**: 次要轮廓按钮
 - **Secondary ghost**: 次要幽灵按钮
@@ -34,18 +34,18 @@ const meta: Meta<typeof Button> = {
 - **Content action**: 内容操作按钮
 
 **状态：**
-- Default: 默认状态
-- Hover: 悬停状态
-- Active: 激活状态
-- Loading: 加载状态
+- Default: 默认状�?
+- Hover: 悬停状�?
+- Active: 激活状�?
+- Loading: 加载状�?
 
-**图标：**
-- 使用 \`showIcon\` 属性控制图标显示
-- 使用 \`icon\` 属性指定图标名称
+**图标�?*
+- 使用 \`showIcon\` 属性控制图标显�?
+- 使用 \`icon\` 属性指定图标名�?
 - 图标来自 @irisieason/ix-icons
 - 支持的图标：check, close, add, edit-document, trashcan, download, upload, search, refresh, chevron-*
 
-**文档：** [Siemens iX Button](https://ix.siemens.io/docs/controls/button)
+**文档�?* [Siemens iX Button](https://ix.siemens.io/docs/controls/button)
         `,
       },
     },
@@ -69,52 +69,52 @@ const meta: Meta<typeof Button> = {
       ],
       description: '按钮变体类型',
       table: {
-        category: 'Figma 属性',
+        category: 'Figma 属�?,
       },
     },
     state: {
       control: 'select',
       options: ['Default', 'Hover', 'Active', 'Disabled', 'Loading'],
-      description: '按钮状态',
+      description: '按钮状�?,
       table: {
-        category: 'Figma 属性',
+        category: 'Figma 属�?,
       },
     },
     disabled: {
       control: 'boolean',
-      description: '是否禁用按钮（便捷属性，会自动设置 state="Disabled"）',
+      description: '是否禁用按钮（便捷属性，会自动设�?state="Disabled"�?,
       table: {
-        category: 'Figma 属性',
+        category: 'Figma 属�?,
       },
     },
     showIcon: {
       control: 'boolean',
       description: '是否显示图标',
       table: {
-        category: 'Figma 属性',
+        category: 'Figma 属�?,
       },
     },
     icon: {
       control: 'select',
       options: availableIcons,
-      description: '图标名称（ix-icon name）',
+      description: '图标名称（ix-icon name�?,
       table: {
-        category: 'Figma 属性',
+        category: 'Figma 属�?,
       },
     },
     focused: {
       control: 'boolean',
-      description: '是否显示聚焦状态',
+      description: '是否显示聚焦状�?,
       table: {
-        category: 'Figma 属性',
+        category: 'Figma 属�?,
       },
     },
     
-    // ========== Slot 属性 ==========
+    // ========== Slot 属�?==========
     children: {
       name: 'defaultSlot (children)',
       control: 'text',
-      description: '**按钮内容插槽（defaultSlot）**\n\n按钮上显示的文本或任意 React 元素。\n\n使用方式：\n```tsx\n<Button variant="Primary">Save</Button>\n```\n\n💡 这是 React 标准做法。',
+      description: '**按钮内容插槽（defaultSlot�?*\n\n按钮上显示的文本或任�?React 元素。\n\n使用方式：\n```tsx\n<Button variant="Primary">Save</Button>\n```\n\n💡 这是 React 标准做法�?,
       table: {
         category: 'Slots',
         type: { summary: 'React.ReactNode' },
@@ -127,9 +127,6 @@ const meta: Meta<typeof Button> = {
     type: { table: { disable: true } },
     className: { table: { disable: true } },
     'aria-label': { table: { disable: true } },
-    
-    // ========== 隐藏误识别的内部属性 ==========
-    label: { table: { disable: true } },  // CSS 类名，不是属性
   },
 };
 
@@ -260,7 +257,7 @@ export const IconExamples: Story = {
   ),
 };
 
-// 状态示例
+// 状态示�?
 export const LoadingState: Story = {
   args: {
     children: 'Loading',
@@ -285,7 +282,7 @@ export const FocusedState: Story = {
   },
 };
 
-// 所有变体展示
+// 所有变体展�?
 export const AllVariants: Story = {
   render: () => (
     <div style={{ 
@@ -358,7 +355,7 @@ export const AllVariants: Story = {
   ),
 };
 
-// ========== React 最佳实践示例 ==========
+// ========== React 最佳实践示�?==========
 
 // 使用 children（推荐）
 export const WithChildren: Story = {
@@ -376,7 +373,7 @@ export const WithChildren: Story = {
   ),
 };
 
-// 使用 showIcon + icon（Figma 标准）
+// 使用 showIcon + icon（Figma 标准�?
 export const WithIconFromFigma: Story = {
   render: () => (
     <div style={{ 
@@ -421,7 +418,7 @@ export const WithComplexContent: Story = {
 };
 
 
-// 向后兼容示例（旧 API 仍然有效）
+// 向后兼容示例（旧 API 仍然有效�?
 export const BackwardCompatible: Story = {
   render: () => (
     <div style={{ 
@@ -432,7 +429,7 @@ export const BackwardCompatible: Story = {
       background: '#0f1619'
     }}>
       <div>
-        <h3 style={{ color: '#fff', marginBottom: '8px' }}>旧 API（仍然有效）</h3>
+        <h3 style={{ color: '#fff', marginBottom: '8px' }}>�?API（仍然有效）</h3>
         <div style={{ display: 'flex', gap: '8px' }}>
           <Button variant="Primary" showIcon icon="check">Save</Button>
           <Button variant="Secondary" showIcon icon="add">Add</Button>
@@ -440,7 +437,7 @@ export const BackwardCompatible: Story = {
       </div>
       
       <div>
-        <h3 style={{ color: '#fff', marginBottom: '8px' }}>新 API（推荐）</h3>
+        <h3 style={{ color: '#fff', marginBottom: '8px' }}>�?API（推荐）</h3>
         <div style={{ display: 'flex', gap: '8px' }}>
           <Button variant="Primary" startIcon={<ix-icon name="check" size="24" />}>
             Save

@@ -3,7 +3,7 @@ import { AvatarButtonMenu } from './AvatarButtonMenu';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
-// 注册所有图标
+// 注册所有图�?
 addIcons(allIcons);
 
 export const AvatarButtonMenuExample: React.FC = () => {
@@ -98,8 +98,6 @@ export const AvatarButtonMenuExample: React.FC = () => {
             <AvatarButtonMenu
               email="john.doe@company.com"
               role="Administrator"
-              avatarImage={false}
-              avatarInitials={false}
             />
           </div>
           
@@ -110,7 +108,6 @@ export const AvatarButtonMenuExample: React.FC = () => {
             <AvatarButtonMenu
               email="jane.smith@company.com"
               role="Developer"
-              avatarInitials={true}
               avatarText="JS"
             />
           </div>
@@ -122,7 +119,6 @@ export const AvatarButtonMenuExample: React.FC = () => {
             <AvatarButtonMenu
               email="alice.johnson@company.com"
               role="Designer"
-              avatarImage={true}
               avatarSrc="https://i.pravatar.cc/150?img=1"
             />
           </div>

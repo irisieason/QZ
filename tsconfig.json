@@ -18,7 +18,7 @@
     "declaration": true,
     "declarationDir": "./dist",
     "outDir": "./dist",
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["src", "vitest.setup.ts"],
   "exclude": ["**/*.stories.tsx", "**/*.example.tsx", "**/*.test.tsx"],

@@ -10,7 +10,7 @@ const meta = {
   title: 'Components/StatusHistoryChart',
   component: StatusHistoryChart,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen', // 改为 fullscreen，让组件填充整个浏览器窗口
   },
   tags: ['autodocs'],
   argTypes: {

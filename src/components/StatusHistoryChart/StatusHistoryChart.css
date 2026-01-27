@@ -6,7 +6,8 @@
   flex-direction: column;
   gap: 16px;
   padding: 16px;
-  width: 674px;
+  width: 100%; /* 改为 100% 以适应父容器 */
+  min-width: 400px; /* 设置最小宽度避免过小 */
   height: 332px;
   border-radius: 4px;
   box-sizing: border-box;
@@ -85,26 +86,31 @@
 .status-history-chart__grid-line {
   stroke: var(--chart-grid-lines, rgba(255, 255, 255, 0.1));
   stroke-width: 1;
+  vector-effect: non-scaling-stroke; /* 保持线条宽度不随 SVG 缩放 */
 }
 
 .status-history-chart__grid-line--bold {
   stroke: var(--chart-axes, rgba(255, 255, 255, 0.3));
+  vector-effect: non-scaling-stroke;
 }
 
 /* Y轴刻度标记 */
 .status-history-chart__y-tick-mark {
   fill: var(--chart-ticks, rgba(255, 255, 255, 0.35));
+  vector-effect: non-scaling-stroke;
 }
 
 /* X轴刻度标记 */
 .status-history-chart__x-tick-mark {
   fill: var(--chart-ticks, rgba(255, 255, 255, 0.35));
+  vector-effect: non-scaling-stroke;
 }
 
 /* 数据线 */
 .status-history-chart__line {
   stroke-width: 2;
   fill: none;
+  vector-effect: non-scaling-stroke; /* 保持线条宽度不随 SVG 缩放 */
 }
 
 .status-history-chart__line--maintenance {
@@ -141,7 +147,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 32px;
+  padding-left: 32px; /* 与 Y 轴宽度 + gap 对齐 */
   width: 100%;
   box-sizing: border-box;
 }

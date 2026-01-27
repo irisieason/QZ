@@ -207,14 +207,14 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
         <div className="status-history-chart__title">{chartTitle}</div>
         <div className="status-history-chart__buttons">
           <IconButton
-            icon="chevron-left-small"
+            icon="chevron-left"
             type="Primary ghost"
             size="24"
             onClick={handlePrevClick}
             aria-label="Previous"
           />
           <IconButton
-            icon="chevron-right-small"
+            icon="chevron-right"
             type="Primary ghost"
             size="24"
             onClick={handleNextClick}

@@ -6,7 +6,7 @@ const meta: Meta<typeof ContentHeader> = {
   title: 'Components/ContentHeader',
   component: ContentHeader,
   parameters: {
-    layout: 'fullscreen',
+    layout: 'fullscreen', // ContentHeader 是页面级组件，需要 fullscreen
     backgrounds: {
       default: 'dark',
     },

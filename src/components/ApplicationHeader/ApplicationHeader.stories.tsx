@@ -11,7 +11,7 @@ const meta: Meta<typeof ApplicationHeader> = {
   title: 'Components/ApplicationHeader',
   component: ApplicationHeader,
   parameters: {
-    layout: 'fullscreen',
+    layout: 'fullscreen', // Header 组件确实需要 fullscreen，因为它是页面级组件
     docs: {
       description: {
         component: '应用头部组件，用于显示应用名称、Logo、导航控制和用户头像。',

@@ -6,8 +6,8 @@
   flex-direction: column;
   gap: 16px;
   padding: 16px;
-  width: 100%; /* 改为 100% 以适应父容器 */
-  min-width: 400px; /* 设置最小宽度避免过小 */
+  width: 100%;
+  min-width: 300px; /* 降低最小宽度，提高响应性 */
   height: 332px;
   border-radius: 4px;
   box-sizing: border-box;

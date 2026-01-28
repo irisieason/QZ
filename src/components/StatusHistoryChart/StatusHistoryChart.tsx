@@ -141,9 +141,9 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
     };
   }, [dataSeries, yMin, yMax, yTickCount]);
   
-  // 图表尺寸
-  const chartWidth = 609;
-  const chartHeight = 187;
+  // 图表尺寸 - 使用相对单位，让 SVG 自动缩放
+  const chartWidth = 100;  // 使用相对单位
+  const chartHeight = 100; // 使用相对单位
   
   // ✅ 性能优化：使用 useCallback 缓存坐标转换函数
   const dataToSvg = useCallback((point: DataPoint, maxTimestamp: number): { x: number; y: number } => {
@@ -239,7 +239,7 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
           <svg
             className="status-history-chart__svg"
             viewBox={`-4 0 ${chartWidth + 4} ${chartHeight + 4}`}
-            preserveAspectRatio="none"
+            preserveAspectRatio="xMidYMid meet"
           >
             {/* 垂直网格线 */}
             <g className="status-history-chart__grid-lines-vertical">

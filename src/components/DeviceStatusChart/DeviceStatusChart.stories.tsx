@@ -11,13 +11,20 @@ const meta = {
   title: 'Components/DeviceStatusChart',
   component: DeviceStatusChart,
   parameters: {
-    layout: 'fullscreen', // 改为 fullscreen，让组件填充整个浏览器窗口
+    layout: 'padded', // 使用 padded 布局，模拟真实使用场景
     docs: {
       description: {
         component: 'Device status chart component showing horizontal bar chart with device status distribution across IP ranges.',
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   argTypes: {
     // Figma 属性

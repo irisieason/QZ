@@ -12,7 +12,7 @@ const meta: Meta<typeof EventItemContent> = {
   title: 'Components/EventItemContent',
   component: EventItemContent,
   parameters: {
-    layout: 'fullscreen',
+    layout: 'padded', // EventItemContent 是内容组件，应该用 padded 模拟真实场景
     docs: {
       description: {
         component: `

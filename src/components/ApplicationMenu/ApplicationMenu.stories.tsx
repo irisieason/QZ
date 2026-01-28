@@ -15,7 +15,7 @@ const meta: Meta<typeof ApplicationMenu> = {
   title: 'Components/ApplicationMenu',
   component: ApplicationMenu,
   parameters: {
-    layout: 'fullscreen',
+    layout: 'fullscreen', // Menu 组件确实需要 fullscreen，因为它是侧边栏组件
   },
   tags: ['autodocs'],
   argTypes: {

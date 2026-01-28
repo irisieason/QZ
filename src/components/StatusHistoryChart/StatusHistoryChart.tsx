@@ -207,14 +207,14 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
         <div className="status-history-chart__title">{chartTitle}</div>
         <div className="status-history-chart__buttons">
           <IconButton
-            icon="chevron-left"
+            icon="chevron-left-small"
             type="Primary ghost"
             size="24"
             onClick={handlePrevClick}
             aria-label="Previous"
           />
           <IconButton
-            icon="chevron-right"
+            icon="chevron-right-small"
             type="Primary ghost"
             size="24"
             onClick={handleNextClick}
@@ -239,7 +239,7 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
           <svg
             className="status-history-chart__svg"
             viewBox={`-4 0 ${chartWidth + 4} ${chartHeight + 4}`}
-            preserveAspectRatio="xMidYMid meet"
+            preserveAspectRatio="none"
           >
             {/* 垂直网格线 */}
             <g className="status-history-chart__grid-lines-vertical">

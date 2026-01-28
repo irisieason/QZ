@@ -2,11 +2,10 @@
 @import '../../tokens/tokens.css';
 
 .cardcontainer {
-  display: inline-flex;  /* ✅ 改为 inline-flex，更好地适应内容 */
+  display: inline-flex;  /* inline-flex 让卡片根据内容自动调整宽度 */
   flex-direction: column;
   align-items: stretch;
   position: relative;
-  /* ✅ 移除 fit-content，让 flex 自然撑开 */
   min-width: 120px;  /* 最小宽度 */
   min-height: 80px;  /* 最小高度 */
   padding: 1px;

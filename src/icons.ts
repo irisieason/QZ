@@ -20,6 +20,7 @@ import { addIcons } from '@irisieason/ix-icons';
 import {
   iconSearch,
   iconClose,
+  iconClear,
   iconChevronRightSmall,
   iconArrowLeft,
   iconDoubleChevronLeft,
@@ -34,6 +35,7 @@ defineCustomElements();
 addIcons({
   search: iconSearch,
   close: iconClose,
+  clear: iconClear,
   'chevron-right-small': iconChevronRightSmall,
   'arrow-left': iconArrowLeft,
   'double-chevron-left': iconDoubleChevronLeft,

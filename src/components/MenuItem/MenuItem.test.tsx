@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MenuItem } from './MenuItem';
 import { addIcons } from '@irisieason/ix-icons';
@@ -109,15 +109,18 @@ describe('MenuItem', () => {
   });
 
   describe('Tooltip', () => {
-    it('shows tooltip when collapsed and hovered', () => {
+    it('shows tooltip when collapsed and hovered', async () => {
       const { container } = render(<MenuItem expanded={false} label="Dashboard" />);
       const menuItem = container.querySelector('.menu-item');
       
       // Simulate mouse enter
       fireEvent.mouseEnter(menuItem!);
       
-      const tooltip = container.querySelector('.menu-item__tooltip-wrapper');
-      expect(tooltip).toBeInTheDocument();
+      // Tooltip 使用 Portal 渲染到 document.body，所以需要在 document.body 中查找
+      await waitFor(() => {
+        const tooltip = document.body.querySelector('.menu-item__tooltip-portal');
+        expect(tooltip).toBeInTheDocument();
+      });
     });
 
     it('hides tooltip when expanded', () => {

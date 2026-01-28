@@ -62,12 +62,12 @@ describe('Tooltip', () => {
   });
 
   it('does not render when visible is false', () => {
-    const { container } = render(<Tooltip visible={false} />);
+    const { container } = render(<Tooltip open={false} />);
     expect(container.firstChild).toBeNull();
   });
 
   it('renders when visible is true', () => {
-    render(<Tooltip visible={true} />);
+    render(<Tooltip open={true} />);
     expect(screen.getByText('My tooltip')).toBeInTheDocument();
   });
 

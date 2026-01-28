@@ -1,29 +1,82 @@
-# Design System
+# @irisieason/qz-react
 
-React 组件设计系统
+React 组件设计系统 - 基于 Figma 设计的企业级组件库
 
-## 安装
+---
 
-```bash
-npm install @irisieason/qz-react
-# 或
-pnpm install @irisieason/qz-react
+## 🚨 新手必读：避免白屏问题
+
+**如果你是小白用户，只需要记住一句话：**
+
+> 在 `main.tsx` 文件的第一行添加：`import '@irisieason/qz-react/dist/style.css'`
+
+**给 AI 的完整防错提示语（直接复制）：**
+
+```
+使用 @irisieason/qz-react@1.0.5 组件库开发。
+
+========== 必须遵守的规则（防止出错）==========
+
+1. 【防止白屏】在 main.tsx 第一行添加：
+   import '@irisieason/qz-react/dist/style.css'
+
+2. 【防止图标不显示】在 main.tsx 注册图标：
+   import { addIcons } from '@irisieason/ix-icons';
+   import * as allIcons from '@irisieason/ix-icons/icons';
+   addIcons(allIcons);
+
+3. 【防止导入错误】组件导入方式：
+   import { Button, Avatar } from '@irisieason/qz-react';
+
+4. 【防止图标错误】使用存在的图标名称：
+   home, settings, user, search, close, menu, add, delete
+
+5. 【防止属性错误】参考 TypeScript 类型定义
+
+6. 【防止交互问题】为交互组件提供事件处理器
+
+========== 请创建 ==========
+[你想要的功能]
 ```
 
-## 快速开始
+📖 **详细指南：**
+- [防止所有常见问题](PREVENT_COMMON_ISSUES.md) ⭐ 推荐
+- [新手快速开始](QUICK_START_FOR_BEGINNERS.md)
+- [AI 提示语模板](AI_PROMPT_TEMPLATE.txt) - 直接复制使用
 
-### 1. 导入样式（重要！）
+---
 
-在应用入口文件（如 `main.tsx` 或 `App.tsx`）的**最顶部**导入样式：
+## 📦 安装
+
+```bash
+# 使用 npm
+npm install @irisieason/qz-react
+
+# 使用 pnpm
+pnpm add @irisieason/qz-react
+
+# 使用 yarn
+yarn add @irisieason/qz-react
+```
+
+## 🚀 快速开始
+
+### 第一步：导入 CSS 样式（必需！）
+
+**⚠️ 重要：必须在应用入口文件中导入 CSS，否则组件不会显示样式！**
+
+在你的应用入口文件（通常是 `main.tsx`、`index.tsx` 或 `App.tsx`）的**最顶部**添加：
 
 ```tsx
-// ⚠️ 必须在最顶部导入样式
-import '@irisieason/qz-react';
+// ⭐ 第一步：导入 CSS（必需！）
+import '@irisieason/qz-react/dist/style.css';
 
+// 第二步：导入 React 和其他依赖
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
+// 第三步：渲染应用
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
@@ -31,104 +84,288 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 );
 ```
 
-**为什么要导入？**
-- 组件的样式（包括 Tooltip、MenuItem 等）需要被加载
-- 设计令牌（颜色、字体等）需要被注册
-- 只需要导入一次，所有组件的样式都会生效
+### 第二步：注册图标（必需！）
 
-### 2. 注册图标
-
-在应用入口文件中注册你需要的图标：
+在应用入口文件中注册图标：
 
 ```tsx
-import '@irisieason/qz-react';  // 先导入样式
-import { addIcons } from '@irisieason/qz-react';
-import { iconHome, iconSettings, iconUser } from '@irisieason/ix-icons/icons';
+// 导入 CSS
+import '@irisieason/qz-react/dist/style.css';
 
-// 注册图标
-addIcons({
-  home: iconHome,
-  settings: iconSettings,
-  user: iconUser,
-});
+// 导入图标注册函数
+import { addIcons } from '@irisieason/ix-icons';
+import * as allIcons from '@irisieason/ix-icons/icons';
+
+// 注册所有图标
+addIcons(allIcons);
 ```
 
-### 3. 使用组件
+### 第三步：使用组件
+
+在其他文件中，直接导入和使用组件：
 
 ```tsx
-import { Button, MenuItem, CategoryFilter, ApplicationMenu } from '@irisieason/qz-react';
+// 在任何组件文件中（不需要再导入 CSS）
+import { Button, Avatar, MenuItem } from '@irisieason/qz-react';
 
-function App() {
+function MyComponent() {
   return (
     <div>
-      {/* 组件内部图标自动工作 */}
-      <CategoryFilter searchIcon={true} clearable={true} />
-      
-      {/* 用户传入的图标需要先注册 */}
-      <Button icon="home" showIcon={true}>Home</Button>
-      <MenuItem icon="settings" label="Settings" />
-      
-      {/* ApplicationMenu 中的 MenuItem tooltip 会正常显示 */}
-      <ApplicationMenu>
-        <MenuItem icon="home" label="Home" />
-        <MenuItem icon="settings" label="Settings" />
-      </ApplicationMenu>
+      <Button 
+        label="点击我" 
+        variant="Primary" 
+        onClick={() => alert('Hello!')}
+      />
+      <Avatar text="张三" />
+      <MenuItem icon="home" label="首页" />
     </div>
   );
 }
 ```
 
-## 完整示例
+## 📝 完整示例
+
+### Vite + React 项目
+
+**文件：`src/main.tsx`**
 
 ```tsx
-// main.tsx 或 App.tsx
-import '@irisieason/qz-react';  // ⚠️ 第一步：导入样式
-import { addIcons } from '@irisieason/qz-react';
-import * as allIcons from '@irisieason/ix-icons/icons';
+// ========== 第一步：导入 CSS（必需！）==========
+import '@irisieason/qz-react/dist/style.css';
 
-// 注册所有图标（或只注册需要的图标）
+// ========== 第二步：注册图标 ==========
+import { addIcons } from '@irisieason/ix-icons';
+import * as allIcons from '@irisieason/ix-icons/icons';
 addIcons(allIcons);
 
-// 然后使用组件
-import { ApplicationMenu, MenuItem } from '@irisieason/qz-react';
+// ========== 第三步：导入 React ==========
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+// ========== 第四步：渲染应用 ==========
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+**文件：`src/App.tsx`**
+
+```tsx
+// 在其他文件中，只需要导入组件
+import { 
+  Button, 
+  Avatar, 
+  ApplicationMenu, 
+  MenuItem,
+  ApplicationHeader 
+} from '@irisieason/qz-react';
 
 function App() {
   return (
-    <ApplicationMenu>
-      <MenuItem icon="home" label="Home" />
-      <MenuItem icon="dashboard" label="Dashboard" />
-      <MenuItem icon="settings" label="Settings" />
-    </ApplicationMenu>
+    <div className="app">
+      <ApplicationHeader>
+        <h1>我的应用</h1>
+      </ApplicationHeader>
+      
+      <ApplicationMenu>
+        <MenuItem icon="home" label="首页" />
+        <MenuItem icon="dashboard" label="仪表盘" />
+        <MenuItem icon="settings" label="设置" />
+      </ApplicationMenu>
+      
+      <main>
+        <Button 
+          label="主要按钮" 
+          variant="Primary" 
+          onClick={() => console.log('点击了')}
+        />
+        <Avatar text="用户" />
+      </main>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Next.js 项目
+
+**文件：`pages/_app.tsx`**
+
+```tsx
+// ========== 在 _app.tsx 中导入 CSS 和注册图标 ==========
+import '@irisieason/qz-react/dist/style.css';
+import { addIcons } from '@irisieason/ix-icons';
+import * as allIcons from '@irisieason/ix-icons/icons';
+import type { AppProps } from 'next/app';
+
+// 注册图标
+addIcons(allIcons);
+
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+```
+
+**文件：`pages/index.tsx`**
+
+```tsx
+// 在页面中直接使用组件
+import { Button, Avatar, MenuItem } from '@irisieason/qz-react';
+
+export default function Home() {
+  return (
+    <div>
+      <h1>首页</h1>
+      <Button label="点击我" variant="Primary" />
+      <Avatar text="用户" />
+    </div>
   );
 }
 ```
 
-📖 **详细说明：** [图标注册指南](docs/ICON_REGISTRATION_GUIDE.md)
+## 🎯 可用组件
 
-## 常见问题
+### 基础组件
+- **Button** - 按钮组件（支持多种变体：Primary、Secondary、Danger 等）
+- **IconButton** - 图标按钮
+- **Avatar** - 头像组件
+- **Tooltip** - 工具提示
+- **ToggleButton** - 切换按钮
 
-### Q: MenuItem 的 tooltip 不显示？
+### 导航组件
+- **ApplicationHeader** - 应用头部
+- **ApplicationMenu** - 应用菜单
+- **MenuItem** - 菜单项
+- **MenuItemList** - 菜单项列表
 
-**A:** 确保在应用入口文件的最顶部导入了样式：
+### 输入组件
+- **CategoryFilter** - 分类筛选器（带搜索功能）
 
-```tsx
-import '@irisieason/qz-react';  // ⚠️ 必须导入
+### 布局组件
+- **ContentHeader** - 内容头部
+- **Cardcontainer** - 卡片容器
+- **Slot** - 插槽组件
+
+### 数据展示组件
+- **EventListItem** - 事件列表项
+- **EventItemContent** - 事件项内容
+- **DeviceStatusChart** - 设备状态图表
+- **StatusHistoryChart** - 状态历史图表
+
+### 复合组件
+- **AvatarButtonMenu** - 头像按钮菜单（头像 + 下拉菜单）
+
+## 🤖 AI 辅助开发
+
+如果你使用 AI IDE（如 Cursor、GitHub Copilot、Kiro 等），可以使用以下提示语：
+
+### 快速开始提示语
+
+```
+使用 @irisieason/qz-react@1.0.5 组件库创建页面。
+
+重要提醒：
+1. 必须在入口文件导入 CSS：import '@irisieason/qz-react/dist/style.css'
+2. 必须注册图标：import { addIcons } from '@irisieason/ix-icons'; addIcons(allIcons);
+3. 所有组件从 @irisieason/qz-react 导入
+4. 图标使用 <ix-icon name="图标名" size="24" />
+
+可用组件：Button, Avatar, MenuItem, ApplicationMenu, IconButton, CategoryFilter, 
+AvatarButtonMenu, Tooltip, ToggleButton, EventListItem, ApplicationHeader, 
+ContentHeader, Cardcontainer, DeviceStatusChart, StatusHistoryChart, 
+EventItemContent, MenuItemList, Slot
+
+请帮我创建 [描述你想要的页面/功能]
 ```
 
-### Q: 组件样式不正确？
+### 修复白屏问题提示语
 
-**A:** 同样需要导入样式。所有组件的样式都包含在主入口中。
+```
+我的页面使用了 @irisieason/qz-react 组件但是白屏。
 
-### Q: 如何只导入需要的组件？
-
-**A:** 可以按需导入组件，但样式必须全部导入：
-
-```tsx
-import '@irisieason/qz-react';  // 样式必须全部导入
-import { Button, MenuItem } from '@irisieason/qz-react';  // 组件可以按需导入
+请检查并修复：
+1. 是否在入口文件（main.tsx 或 App.tsx）导入了 CSS：
+   import '@irisieason/qz-react/dist/style.css'
+2. 是否注册了图标：
+   import { addIcons } from '@irisieason/ix-icons';
+   import * as allIcons from '@irisieason/ix-icons/icons';
+   addIcons(allIcons);
+3. 组件导入是否正确：
+   import { Button, Avatar } from '@irisieason/qz-react'
 ```
 
-## 开发
+📖 **更多 AI 提示语模板：** [AI 使用指南](AI_USAGE_GUIDE.md)
+
+## ❓ 常见问题
+
+### Q1: 组件显示但没有样式（白屏）？
+
+**A:** 确保在入口文件导入了 CSS：
+
+```tsx
+// ⚠️ 必须在入口文件（main.tsx 或 App.tsx）添加这一行
+import '@irisieason/qz-react/dist/style.css';
+```
+
+### Q2: 图标不显示？
+
+**A:** 确保注册了图标：
+
+```tsx
+import { addIcons } from '@irisieason/ix-icons';
+import * as allIcons from '@irisieason/ix-icons/icons';
+
+// 注册所有图标
+addIcons(allIcons);
+```
+
+### Q3: 需要在每个文件中都导入 CSS 吗？
+
+**A:** 不需要！只需要在入口文件（`main.tsx` 或 `App.tsx`）导入一次即可。
+
+```tsx
+// ✅ 正确：在入口文件导入一次
+// main.tsx
+import '@irisieason/qz-react/dist/style.css';
+
+// ❌ 错误：不需要在每个文件中导入
+// MyComponent.tsx
+import '@irisieason/qz-react/dist/style.css';  // 不需要！
+```
+
+### Q4: 为什么要手动导入 CSS？
+
+**A:** 这是 Vite 库模式的标准做法，与 Material UI、Ant Design 等主流组件库一致。这样做的好处：
+- CSS 可以被浏览器单独缓存
+- 构建产物更小
+- 性能更好
+
+### Q5: 如何只导入需要的组件？
+
+**A:** 可以按需导入组件，但 CSS 必须全部导入：
+
+```tsx
+// CSS 必须全部导入
+import '@irisieason/qz-react/dist/style.css';
+
+// 组件可以按需导入
+import { Button, Avatar } from '@irisieason/qz-react';
+```
+
+
+## 📚 文档
+
+- **[快速开始](README.md#-快速开始)** - 5 分钟上手指南
+- **[AI 使用指南](AI_USAGE_GUIDE.md)** - AI IDE 提示语模板和完整示例
+- **[组件文档](docs/)** - 详细的组件 API 文档
+- **[图标使用指南](docs/ICON_USAGE_GUIDE.md)** - 图标注册和使用说明
+- **[故障排除](docs/TROUBLESHOOTING.md)** - 常见问题解决方案
+
+## 🛠️ 开发
 
 启动 Storybook 开发服务器：
 
@@ -142,7 +379,7 @@ npm run storybook
 npm run dev
 ```
 
-## 构建
+## 📦 构建
 
 构建组件库：
 
@@ -156,7 +393,7 @@ npm run build
 npm run build-storybook
 ```
 
-## 项目结构
+## 📁 项目结构
 
 ```
 src/
@@ -166,14 +403,37 @@ src/
 │   ├── spacing.ts
 │   └── shadows.ts
 ├── components/      # React 组件
-└── index.ts         # 入口文件（包含样式导入）
+│   ├── Button/
+│   ├── Avatar/
+│   ├── MenuItem/
+│   └── ...
+├── icons.ts         # 图标自动注册
+└── index.ts         # 入口文件
 ```
 
-## 设计令牌
+## 🎨 设计令牌
 
 设计系统包含以下设计令牌：
 
-- **colors**: 颜色系统（主色、辅助色、中性色、状态色）
-- **typography**: 字体系统（字体族、大小、粗细、行高）
-- **spacing**: 间距系统
-- **shadows**: 阴影系统
+- **colors** - 颜色系统（主色、辅助色、中性色、状态色）
+- **typography** - 字体系统（字体族、大小、粗细、行高）
+- **spacing** - 间距系统
+- **shadows** - 阴影系统
+- **borders** - 边框系统
+
+## 📄 许可证
+
+MIT License
+
+## 🤝 贡献
+
+欢迎贡献！请查看 [贡献指南](CONTRIBUTING.md)。
+
+## 📞 支持
+
+如果遇到问题，请：
+
+1. 查看 [常见问题](#-常见问题)
+2. 查看 [故障排除文档](docs/TROUBLESHOOTING.md)
+3. 查看 [AI 使用指南](AI_USAGE_GUIDE.md)
+4. 提交 [Issue](https://github.com/irisieason/QZ/issues)

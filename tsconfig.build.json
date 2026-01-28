@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": true,
+    "outDir": "./dist"
+  },
+  "include": ["src"],
+  "exclude": [
+    "**/*.stories.tsx",
+    "**/*.example.tsx",
+    "**/*.test.tsx",
+    "**/*.spec.tsx",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "vitest.setup.ts",
+    "vitest.config.ts"
+  ]
+}

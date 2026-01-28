@@ -40,9 +40,8 @@ React 组件设计系统 - 基于 Figma 设计的企业级组件库
 ```
 
 📖 **详细指南：**
-- [防止所有常见问题](PREVENT_COMMON_ISSUES.md) ⭐ 推荐
-- [新手快速开始](QUICK_START_FOR_BEGINNERS.md)
-- [AI 提示语模板](AI_PROMPT_TEMPLATE.txt) - 直接复制使用
+- 查看下方的快速开始和常见问题章节
+- [组件文档](docs/components/) - 各组件的详细说明
 
 ---
 
@@ -359,11 +358,14 @@ import { Button, Avatar } from '@irisieason/qz-react';
 
 ## 📚 文档
 
-- **[快速开始](README.md#-快速开始)** - 5 分钟上手指南
-- **[AI 使用指南](AI_USAGE_GUIDE.md)** - AI IDE 提示语模板和完整示例
-- **[组件文档](docs/)** - 详细的组件 API 文档
+- **[快速开始](#-快速开始)** - 5 分钟上手指南
+- **[AI 辅助开发](#-ai-辅助开发)** - AI IDE 提示语模板和完整示例
+- **[常见问题](#-常见问题)** - 常见问题解决方案
+- **[组件列表](#-可用组件)** - 所有可用组件
+- **[组件详细文档](docs/components/)** - 各组件的详细 API 文档
 - **[图标使用指南](docs/ICON_USAGE_GUIDE.md)** - 图标注册和使用说明
-- **[故障排除](docs/TROUBLESHOOTING.md)** - 常见问题解决方案
+- **[发布指南](docs/PUBLISH_GUIDE.md)** - 开发者发布流程
+- **[项目结构](docs/PROJECT_STRUCTURE.md)** - 项目目录结构说明
 
 ## 🛠️ 开发
 
@@ -433,7 +435,6 @@ MIT License
 
 如果遇到问题，请：
 
-1. 查看 [常见问题](#-常见问题)
-2. 查看 [故障排除文档](docs/TROUBLESHOOTING.md)
-3. 查看 [AI 使用指南](AI_USAGE_GUIDE.md)
-4. 提交 [Issue](https://github.com/irisieason/QZ/issues)
+1. 查看 [常见问题](#-常见问题) 章节
+2. 查看 [组件文档](docs/components/)
+3. 提交 [Issue](https://github.com/irisieason/QZ/issues)

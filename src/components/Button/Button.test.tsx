@@ -1,4 +1,3 @@
-// @ts-expect-error - Button import for future test implementation
 import { Button } from './Button';
 
 /**
@@ -7,6 +6,10 @@ import { Button } from './Button';
  * 注意：这是一个基础的测试模板。
  * 在实际项目中，你需要安装测试库（如 @testing-library/react）来运行这些测试。
  */
+
+// 类型检查：确保 Button 组件存在
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _typeCheck: typeof Button = Button;
 
 describe('Button Component', () => {
   describe('Rendering', () => {

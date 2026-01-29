@@ -260,7 +260,7 @@ export const WithInteraction: Story = {
       },
     },
   },
-  render: (args) => {
+  render: function InteractivePaginationStory(args) {
     const [currentPage, setCurrentPage] = React.useState(0);
     
     const pages = [

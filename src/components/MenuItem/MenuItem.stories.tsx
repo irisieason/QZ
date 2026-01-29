@@ -223,7 +223,7 @@ export const CollapsedWithNotification: Story = {
 
 // 菜单列表示例
 export const MenuList: Story = {
-  render: () => {
+  render: function MenuListStory() {
     const [selectedItem, setSelectedItem] = React.useState<string>('dashboard');
     const menuRef = React.useRef<HTMLDivElement>(null);
 
@@ -299,7 +299,7 @@ export const MenuList: Story = {
 
 // 折叠菜单列表示例
 export const CollapsedMenuList: Story = {
-  render: () => {
+  render: function CollapsedMenuListStory() {
     const [selectedItem, setSelectedItem] = React.useState<string>('dashboard');
     const menuRef = React.useRef<HTMLDivElement>(null);
 
@@ -375,7 +375,7 @@ export const CollapsedMenuList: Story = {
 
 // 交互式菜单示例（点击选中，点击外部取消选中）
 export const InteractiveMenu: Story = {
-  render: () => {
+  render: function InteractiveMenuStory() {
     const [selectedItem, setSelectedItem] = React.useState<string>('dashboard');
     const [expanded, setExpanded] = React.useState<boolean>(true);
     const menuRef = React.useRef<HTMLDivElement>(null);

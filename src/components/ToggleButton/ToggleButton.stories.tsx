@@ -219,7 +219,7 @@ export const Interactive: Story = {
     showIcon: true,
     icon: 'checkmark',
   },
-  render: (args) => {
+  render: function InteractiveStory(args) {
     const [toggled, setToggled] = React.useState(false);
     
     return (

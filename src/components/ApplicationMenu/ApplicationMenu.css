@@ -2,25 +2,29 @@
 @import '../../tokens/tokens.css';
 
 .application-menu {
-  position: fixed; /* 浮动定位，覆盖在内容上层 */
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   height: 100vh; /* 自适应浏览器高度 */
   background-color: var(--color-2);
-  transition: width 0.1s ease;
+  transition: width 0.1s ease, box-shadow 0.1s ease, position 0s;
   overflow: visible; /* 允许 tooltip 溢出 */
-  z-index: 1000; /* 确保在内容上层 */
-  box-shadow: 4px 0 8px 0 rgba(0, 0, 0, 0.6); /* 右侧阴影 */
+  position: relative; /* 默认相对定位 */
+  box-shadow: none; /* 默认无阴影 */
 }
 
 .application-menu--expanded {
+  position: fixed !important; /* 展开时浮动，覆盖在内容上层 */
+  top: 0;
+  left: 0;
   width: 256px;
+  z-index: 1000; /* 确保在内容上层 */
+  box-shadow: 4px 0 8px 0 rgba(0, 0, 0, 0.6); /* 展开时显示阴影 */
 }
 
 .application-menu--collapsed {
+  position: relative !important; /* 收起时正常文档流，不遮盖内容 */
   width: 52px;
+  box-shadow: none; /* 收起时不显示阴影 */
 }
 
 .application-menu__container {

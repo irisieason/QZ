@@ -95,7 +95,7 @@ export const Default: Story = {
  * 带关闭按钮的提示框（受控模式示例）
  */
 export const WithCloseButton: Story = {
-  render: (args) => {
+  render: function WithCloseButtonStory(args) {
     const [open, setOpen] = React.useState(true);
     
     return (

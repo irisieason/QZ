@@ -198,7 +198,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
 
   // 渲染 Tooltip（使用 Portal 渲染到 body，避免被父容器的 overflow 裁剪）
   const renderTooltip = () => {
-    if (!expanded && !selected && showTooltip) {
+    if (!expanded && !selected && showTooltip && label) {
       return createPortal(
         <div 
           className="menu-item__tooltip-portal"
@@ -207,12 +207,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             top: `${tooltipPosition.top}px`,
             left: `${tooltipPosition.left}px`,
             transform: 'translateY(-50%)',
-            zIndex: 10000,
+            zIndex: 99999, // 提高 z-index，确保在最上层
             pointerEvents: 'none',
           }}
         >
           <Tooltip
-            open={showTooltip}
+            open={true} // 明确设置为 true
             header={label}
             textlabel=""
             closable={false}

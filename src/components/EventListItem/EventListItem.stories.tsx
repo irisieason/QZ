@@ -222,7 +222,7 @@ export const Success: Story = {
 
 // 事件列表示例
 export const EventList: Story = {
-  render: () => {
+  render: function EventListStory() {
     const [selectedId, setSelectedId] = React.useState<string>('event-1');
 
     const events = [

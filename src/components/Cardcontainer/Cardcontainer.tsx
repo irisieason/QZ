@@ -133,7 +133,7 @@ export const Cardcontainer: React.FC<CardcontainerProps> = ({
         setInternalSelected(!internalSelected);
       }
       
-      onClick?.(event as any);
+      onClick?.(event as React.MouseEvent<HTMLDivElement>);
     }
   }, [isSelectedControlled, internalSelected, onClick]);
 

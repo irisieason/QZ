@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { useState, useCallback, createContext, useContext } from 'react';
 import './MenuItemList.css';
 
@@ -122,7 +123,7 @@ export const MenuItemList: React.FC<MenuItemListProps> = ({
               ...child.props,
               selected: isSelected,
               onClick: handleChildClick,
-            } as any);
+            });
 
             return (
               <li key={index} className="menu-item-list__item" data-index={index}>

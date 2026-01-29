@@ -51,8 +51,8 @@ export const ApplicationMenu: React.FC<ApplicationMenuProps> = ({
   style,
   'aria-label': ariaLabel,
 }) => {
-  // 内部状态管理
-  const [internalExpanded, setInternalExpanded] = useState(true);
+  // 内部状态管理（默认收起）
+  const [internalExpanded, setInternalExpanded] = useState(false);
   
   // 使用受控或内部状态
   const expanded = controlledExpanded !== undefined ? controlledExpanded : internalExpanded;

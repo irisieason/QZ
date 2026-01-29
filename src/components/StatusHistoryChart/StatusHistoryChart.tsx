@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+﻿import React, { useMemo, useCallback } from 'react';
 import { IconButton } from '../IconButton';
 import './StatusHistoryChart.css';
 

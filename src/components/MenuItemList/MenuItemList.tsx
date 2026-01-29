@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+﻿/* eslint-disable react-refresh/only-export-components */
 import React, { useState, useCallback, createContext, useContext } from 'react';
 import './MenuItemList.css';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import './ApplicationHeader.css';
 
 // Figma 定义的属性（严格遵循 Figma 设计）

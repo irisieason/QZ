@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+﻿import React, { forwardRef, useMemo } from 'react';
 import { IconButton } from '../IconButton';
 import { cn } from '../../utils/classnames';
 import { useCategoryFilter } from './CategoryFilter.hooks';

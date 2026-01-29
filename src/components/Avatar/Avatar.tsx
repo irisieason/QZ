@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import './Avatar.css';
 
 // Figma 定义的视觉属性

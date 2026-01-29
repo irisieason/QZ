@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useMemo } from 'react';
+﻿import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useApplicationMenuContext } from '../ApplicationMenu/ApplicationMenuContext';
 import './AvatarButtonMenu.css';

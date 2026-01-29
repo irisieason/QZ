@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import './Slot.css';
 
 // ========== 视觉属性（来自 Figma） ==========

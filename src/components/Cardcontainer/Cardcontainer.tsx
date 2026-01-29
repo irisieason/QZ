@@ -133,9 +133,10 @@ export const Cardcontainer: React.FC<CardcontainerProps> = ({
         setInternalSelected(!internalSelected);
       }
       
-      onClick?.(event as React.MouseEvent<HTMLDivElement>);
+      // 键盘事件不调用 onClick，因为类型不兼容
+      // onClick 期望 MouseEvent，这里是 KeyboardEvent
     }
-  }, [isSelectedControlled, internalSelected, onClick]);
+  }, [isSelectedControlled, internalSelected]);
 
   return (
     <div

@@ -256,7 +256,7 @@ export const StatusHistoryChart: React.FC<StatusHistoryChartProps> = ({
 
           {/* 水平网格线 */}
           <div className="status-history-chart__grid-lines-horizontal">
-            {yAxisTicks.map((tick, index) => (
+            {yAxisTicks.map((tick) => (
               <div key={tick} className="status-history-chart__grid-line-horizontal">
                 {/* Y轴刻度标记 */}
                 <div className="status-history-chart__y-tick-mark" />

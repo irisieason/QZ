@@ -1,6 +1,6 @@
 {
   "name": "@irisieason/qz-react",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "React Design System - 使用前必须导入 CSS: import '@irisieason/qz-react/dist/style.css'",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",

@@ -1,5 +1,36 @@
 # 更新日志
 
+## [1.1.3] - 2025-01-29
+
+### ✨ 新增功能
+
+#### AppFrame 组件
+- 🎨 创建了 AppFrame 复合组件（容器组件）
+- 📦 使用插槽模式接收 ApplicationHeader 和 ApplicationMenu 子组件
+- 🔧 提供完整的应用框架布局
+- 📝 包含完整的 Storybook 示例和测试
+
+### 🐛 问题修复
+
+#### ApplicationMenu 组件
+- 🔧 修复了展开/收起时的定位问题
+- 🎯 统一了收起和展开状态的纵向位置（固定在 top: 44px）
+- 🚀 移除了展开/收起的过渡动画，改为立即切换
+- 💡 修复了展开时收起按钮消失的问题
+- 🎨 优化了菜单覆盖行为（展开时覆盖内容，收起时不遮挡）
+
+#### AppFrame Stories
+- ✅ 为所有 stories 添加了正确的 `expand` 和 `expanded` 属性传递
+- 🔄 添加了交互状态管理（useState）
+
+#### 测试
+- 🧪 修复了 AppFrame.test.tsx 的 TypeScript 类型问题
+- ✅ 添加了 `@testing-library/jest-dom/vitest` 导入
+
+### 📚 文档更新
+- 📝 更新了 AppFrame 组件文档
+- 📖 添加了使用示例和 API 说明
+
 ## [1.0.0] - 2025-01-16
 
 ### ✨ 新增功能

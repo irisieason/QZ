@@ -36,11 +36,13 @@ MenuItem 组件用于导航菜单中的菜单项，支持展开/折叠、选中�
 
 ```tsx
 import { MenuItem } from '@your-org/component-library';
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
-// 注册图标
-addIcons(allIcons);
+// 注册图标（两步）
+defineCustomElements(); // 1. 注册 Web Component
+addIcons(allIcons);     // 2. 加载图标数据
 
 function App() {
   return (
@@ -159,12 +161,17 @@ function NavigationMenu() {
 
 ## 图标使用
 
-MenuItem 组件使用 `@irisieason/ix-icons` 包提供的图标。使用前需要注册图标：
+MenuItem 组件使用 `@irisieason/ix-icons` 包提供的图标。使用前需要完整注册图标（两步）：
 
 ```tsx
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
+// 1. 注册 Web Component（必需！）
+defineCustomElements();
+
+// 2. 加载图标数据（必需！）
 addIcons(allIcons);
 ```
 

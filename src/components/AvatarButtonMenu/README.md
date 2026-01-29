@@ -166,12 +166,17 @@ function App() {
 - `user` - 用户资料图标
 - `log-out` - 登出图标
 
-在使用前需要注册图标：
+在使用前需要完整注册图标（两步）：
 
 ```tsx
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
+// 1. 注册 Web Component（必需！）
+defineCustomElements();
+
+// 2. 加载图标数据（必需！）
 addIcons(allIcons);
 ```
 

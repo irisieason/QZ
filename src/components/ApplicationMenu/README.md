@@ -185,12 +185,17 @@ ApplicationMenu 是一个容器组件，提供以下布局结构：
 - `double-chevron-left` - 折叠图标
 - `double-chevron-right` - 展开图标
 
-在使用前需要注册图标：
+在使用前需要完整注册图标（两步）：
 
 ```tsx
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
+// 1. 注册 Web Component（必需！）
+defineCustomElements();
+
+// 2. 加载图标数据（必需！）
 addIcons(allIcons);
 ```
 

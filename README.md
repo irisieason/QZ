@@ -92,10 +92,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 import '@irisieason/qz-react/dist/style.css';
 
 // 导入图标注册函数
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
-// 注册所有图标
+// 1. 注册 Web Component（必需！）
+defineCustomElements();
+
+// 2. 加载图标数据（必需！）
 addIcons(allIcons);
 ```
 
@@ -133,8 +137,13 @@ function MyComponent() {
 import '@irisieason/qz-react/dist/style.css';
 
 // ========== 第二步：注册图标 ==========
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
+
+// 注册 Web Component
+defineCustomElements();
+// 加载图标数据
 addIcons(allIcons);
 
 // ========== 第三步：导入 React ==========
@@ -197,11 +206,14 @@ export default App;
 ```tsx
 // ========== 在 _app.tsx 中导入 CSS 和注册图标 ==========
 import '@irisieason/qz-react/dist/style.css';
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 import type { AppProps } from 'next/app';
 
-// 注册图标
+// 注册 Web Component
+defineCustomElements();
+// 加载图标数据
 addIcons(allIcons);
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -269,7 +281,9 @@ export default function Home() {
 
 重要提醒：
 1. 必须在入口文件导入 CSS：import '@irisieason/qz-react/dist/style.css'
-2. 必须注册图标：import { addIcons } from '@irisieason/ix-icons'; addIcons(allIcons);
+2. 必须注册图标（两步）：
+   - defineCustomElements() // 注册 Web Component
+   - addIcons(allIcons) // 加载图标数据
 3. 所有组件从 @irisieason/qz-react 导入
 4. 图标使用 <ix-icon name="图标名" size="24" />
 
@@ -289,10 +303,12 @@ EventItemContent, MenuItemList, Slot
 请检查并修复：
 1. 是否在入口文件（main.tsx 或 App.tsx）导入了 CSS：
    import '@irisieason/qz-react/dist/style.css'
-2. 是否注册了图标：
+2. 是否完整注册了图标（两步）：
+   import { defineCustomElements } from '@irisieason/ix-icons/loader';
    import { addIcons } from '@irisieason/ix-icons';
    import * as allIcons from '@irisieason/ix-icons/icons';
-   addIcons(allIcons);
+   defineCustomElements(); // 第一步：注册 Web Component
+   addIcons(allIcons); // 第二步：加载图标数据
 3. 组件导入是否正确：
    import { Button, Avatar } from '@irisieason/qz-react'
 ```
@@ -312,13 +328,16 @@ import '@irisieason/qz-react/dist/style.css';
 
 ### Q2: 图标不显示？
 
-**A:** 确保注册了图标：
+**A:** 确保完整注册了图标（需要两步）：
 
 ```tsx
+// 第一步：注册 Web Component
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
+defineCustomElements();
+
+// 第二步：加载图标数据
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
-
-// 注册所有图标
 addIcons(allIcons);
 ```
 

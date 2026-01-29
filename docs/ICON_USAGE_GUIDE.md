@@ -30,14 +30,18 @@ addIcons(allIcons);
 
 ## 生产环境中使用
 
-### ⚠️ 重要：按需加载
+### ⚠️ 重要：完整的图标注册步骤
 
-在生产环境中，**不要加载所有图标**，应该只注册需要的图标以优化包体积。
+在生产环境中使用图标需要两个步骤：
+
+1. **注册 Web Component**（必需）- 使用 `defineCustomElements()`
+2. **加载图标数据**（按需）- 使用 `addIcons()`
 
 ### 方式 1：在应用入口注册（推荐）
 
 ```typescript
 // src/main.tsx 或 src/App.tsx
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import { 
   iconCheck,
@@ -47,7 +51,10 @@ import {
   iconSettings
 } from '@irisieason/ix-icons/icons';
 
-// 注册应用中使用的图标
+// 1. 注册 Web Component（必需！）
+defineCustomElements();
+
+// 2. 注册应用中使用的图标
 addIcons({
   iconCheck,
   iconClose,
@@ -62,13 +69,17 @@ addIcons({
 ```typescript
 // MyComponent.tsx
 import { useEffect } from 'react';
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import { iconStar, iconHeart } from '@irisieason/ix-icons/icons';
 import { Button } from './components/Button';
 
 function MyComponent() {
   useEffect(() => {
-    // 注册本组件需要的图标
+    // 1. 注册 Web Component（只需一次）
+    defineCustomElements();
+    
+    // 2. 注册本组件需要的图标
     addIcons({ iconStar, iconHeart });
   }, []);
 
@@ -81,10 +92,13 @@ function MyComponent() {
 }
 ```
 
+**注意：** `defineCustomElements()` 只需要调用一次，建议在应用入口调用。
+
 ### 方式 3：使用集中的图标配置
 
 ```typescript
 // src/icons-config.ts
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import { 
   iconCheck,
@@ -104,6 +118,10 @@ import {
 
 // 导出注册函数
 export function registerAppIcons() {
+  // 1. 注册 Web Component
+  defineCustomElements();
+  
+  // 2. 加载图标数据
   addIcons({
     iconCheck,
     iconClose,
@@ -253,17 +271,24 @@ addIcons({ iconCheck, iconClose, ... });
 
 **症状**: `<ix-icon>` 显示为空白
 
-**原因**: 图标未注册
+**原因**: 可能有两个原因
+1. Web Component 未注册
+2. 图标数据未加载
 
 **解决**:
 ```typescript
-// 1. 确认已导入图标
+// 1. 确认已注册 Web Component
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
+defineCustomElements();
+
+// 2. 确认已导入图标
 import { iconStar } from '@irisieason/ix-icons/icons';
 
-// 2. 确认已注册图标
+// 3. 确认已注册图标
+import { addIcons } from '@irisieason/ix-icons';
 addIcons({ iconStar });
 
-// 3. 确认图标名称正确（使用 kebab-case）
+// 4. 确认图标名称正确（使用 kebab-case）
 <Button icon="star" showIcon />  // ✅ 正确
 <Button icon="iconStar" showIcon />  // ❌ 错误
 ```
@@ -301,6 +326,7 @@ import { iconCheck, iconClose } from '@irisieason/ix-icons/icons';
 ## 总结
 
 - **Storybook**: 所有 1415 个图标已自动加载，可直接使用
-- **生产环境**: 只注册需要的图标，优化包体积
+- **生产环境**: 需要两步：1) `defineCustomElements()` 注册 Web Component，2) `addIcons()` 加载图标数据
+- **按需加载**: 只注册需要的图标，优化包体积
 - **命名规则**: TypeScript 用 `iconCamelCase`，Button 用 `kebab-case`
-- **注册方式**: 使用 `addIcons()` 在应用启动时或组件中注册
+- **注册位置**: 建议在应用入口文件（main.tsx）统一注册

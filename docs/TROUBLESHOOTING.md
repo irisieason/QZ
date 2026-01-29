@@ -82,12 +82,16 @@ import '@irisieason/qz-react';
    npm install @irisieason/ix-icons
    ```
 
-2. **注册图标：**
+2. **注册图标（两步）：**
    ```tsx
-   import { addIcons } from '@irisieason/qz-react';
+   import { defineCustomElements } from '@irisieason/ix-icons/loader';
+   import { addIcons } from '@irisieason/ix-icons';
    import * as allIcons from '@irisieason/ix-icons/icons';
    
-   // 注册所有图标
+   // 1. 注册 Web Component（必需！）
+   defineCustomElements();
+   
+   // 2. 加载图标数据（必需！）
    addIcons(allIcons);
    
    // 或只注册需要的图标

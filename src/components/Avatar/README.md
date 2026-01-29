@@ -31,11 +31,13 @@ Avatar 组件用于显示用户头像，支持占位符图标、用户首字母�
 
 ```tsx
 import { Avatar } from '@your-org/component-library';
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
-// 注册图标
-addIcons(allIcons);
+// 注册图标（两步）
+defineCustomElements(); // 1. 注册 Web Component
+addIcons(allIcons);     // 2. 加载图标数据
 
 function App() {
   return (
@@ -158,12 +160,17 @@ function UserList() {
 
 ## 图标使用
 
-Avatar 组件使用 `@irisieason/ix-icons` 包提供的 `user` 图标作为占位符。使用前需要注册图标：
+Avatar 组件使用 `@irisieason/ix-icons` 包提供的 `user` 图标作为占位符。使用前需要完整注册图标（两步）：
 
 ```tsx
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
 import { addIcons } from '@irisieason/ix-icons';
 import * as allIcons from '@irisieason/ix-icons/icons';
 
+// 1. 注册 Web Component（必需！）
+defineCustomElements();
+
+// 2. 加载图标数据（必需！）
 addIcons(allIcons);
 ```
 

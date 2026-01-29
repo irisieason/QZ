@@ -19,13 +19,14 @@ npm install @irisieason/qz-react
 pnpm install @irisieason/qz-react
 ```
 
-### 第二步：在应用入口注册图标
+### 第二步：在应用入口注册图标（两步）
 
-在你的应用入口文件（通常是 `main.tsx`、`App.tsx` 或 `index.tsx`）中注册图标：
+在你的应用入口文件（通常是 `main.tsx`、`App.tsx` 或 `index.tsx`）中完整注册图标：
 
 ```tsx
 // main.tsx 或 App.tsx
-import { addIcons } from '@irisieason/qz-react';
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
+import { addIcons } from '@irisieason/ix-icons';
 import { 
   iconHome,
   iconSettings,
@@ -34,7 +35,10 @@ import {
   iconNotification,
 } from '@irisieason/ix-icons/icons';
 
-// 注册你需要使用的图标
+// 1. 注册 Web Component（必需！只需调用一次）
+defineCustomElements();
+
+// 2. 注册你需要使用的图标
 addIcons({
   home: iconHome,
   settings: iconSettings,
@@ -73,8 +77,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-// 1. 导入 addIcons 函数
-import { addIcons } from '@irisieason/qz-react';
+// 1. 导入图标注册函数
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
+import { addIcons } from '@irisieason/ix-icons';
 
 // 2. 导入需要的图标
 import { 
@@ -89,7 +94,10 @@ import {
   iconDelete,
 } from '@irisieason/ix-icons/icons';
 
-// 3. 注册图标（在渲染应用之前）
+// 3. 注册 Web Component（必需！在渲染应用之前）
+defineCustomElements();
+
+// 4. 注册图标数据
 addIcons({
   home: iconHome,
   settings: iconSettings,
@@ -102,7 +110,7 @@ addIcons({
   delete: iconDelete,
 });
 
-// 4. 渲染应用
+// 5. 渲染应用
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
@@ -147,7 +155,8 @@ export default App;
 'use client'; // Next.js 13+ App Router
 
 import { useEffect } from 'react';
-import { addIcons } from '@irisieason/qz-react';
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
+import { addIcons } from '@irisieason/ix-icons';
 import { 
   iconHome,
   iconSettings,
@@ -160,8 +169,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    // 在客户端注册图标
-    addIcons({
+    // 在客户端注册图标（两步）
+    defineCustomElements(); // 1. 注册 Web Component
+    addIcons({               // 2. 加载图标数据
       home: iconHome,
       settings: iconSettings,
       user: iconUser,
@@ -180,18 +190,20 @@ export default function RootLayout({
 
 ### Q1: 图标不显示，显示为空白或图标名称
 
-**原因：** 图标没有注册
+**原因：** 图标没有完整注册（缺少两步中的任一步）
 
 **解决方法：**
 ```tsx
-// 1. 检查是否导入了 addIcons
-import { addIcons } from '@irisieason/qz-react';
+// 1. 检查是否导入了注册函数
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
+import { addIcons } from '@irisieason/ix-icons';
 
 // 2. 检查是否导入了图标
 import { iconHome } from '@irisieason/ix-icons/icons';
 
-// 3. 检查是否注册了图标
-addIcons({
+// 3. 检查是否完成了两步注册
+defineCustomElements(); // 第一步：注册 Web Component
+addIcons({              // 第二步：加载图标数据
   home: iconHome,  // 注意：key 是 'home'，不是 'iconHome'
 });
 
@@ -331,7 +343,8 @@ import { iconHome } from '@irisieason/ix-icons/icons';
 
 ```tsx
 // src/utils/icons.ts
-import { addIcons } from '@irisieason/qz-react';
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
+import { addIcons } from '@irisieason/ix-icons';
 import { 
   iconHome,
   iconSettings,
@@ -341,6 +354,10 @@ import {
 } from '@irisieason/ix-icons/icons';
 
 export function registerIcons() {
+  // 1. 注册 Web Component
+  defineCustomElements();
+  
+  // 2. 加载图标数据
   addIcons({
     home: iconHome,
     settings: iconSettings,
@@ -364,7 +381,8 @@ registerIcons();
 
 ```tsx
 // src/utils/icons.ts
-import { addIcons } from '@irisieason/qz-react';
+import { defineCustomElements } from '@irisieason/ix-icons/loader';
+import { addIcons } from '@irisieason/ix-icons';
 import { 
   // 导航图标
   iconHome,
@@ -384,6 +402,10 @@ import {
 } from '@irisieason/ix-icons/icons';
 
 export function registerIcons() {
+  // 1. 注册 Web Component
+  defineCustomElements();
+  
+  // 2. 加载图标数据（按模块分组）
   addIcons({
     // 导航
     home: iconHome,

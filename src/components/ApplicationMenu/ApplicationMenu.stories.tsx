@@ -87,7 +87,7 @@ export const Expanded: Story = {
     const [expanded, setExpanded] = React.useState(true);
 
     return (
-      <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#000028' }}>
+      <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000028' }}>
         <ApplicationMenu
           expanded={expanded}
           avatar={args.avatar}
@@ -108,6 +108,15 @@ export const Expanded: Story = {
             </MenuItemList>
           }
         />
+        <div style={{ marginLeft: '52px', padding: '40px', minHeight: '100vh' }}>
+          <h1 style={{ color: 'white', marginBottom: '16px' }}>展开状态示例</h1>
+          <p style={{ color: '#9d9d96' }}>
+            点击左上角按钮可以切换菜单的展开/收起状态。
+          </p>
+          <p style={{ color: '#9d9d96', marginTop: '12px' }}>
+            展开时，菜单会覆盖在内容上方（固定定位 + 阴影效果）。
+          </p>
+        </div>
       </div>
     );
   },
@@ -162,7 +171,8 @@ export const LayoutValidation: Story = {
     const [expanded, setExpanded] = React.useState(false); // 默认收起
 
     return (
-      <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#000028' }}>
+      <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000028' }}>
+        {/* ApplicationMenu 组件 */}
         <ApplicationMenu
           expanded={expanded}
           avatar={args.avatar}
@@ -184,14 +194,78 @@ export const LayoutValidation: Story = {
           }
         />
         
-        {/* 色块区域 - 用于验证布局 */}
+        {/* 内容区域 - 用于验证布局 */}
+        {/* 收起时：菜单占据 52px（position: relative），内容区域需要 marginLeft: 52px */}
+        {/* 展开时：菜单浮动（position: fixed），内容区域仍然 marginLeft: 52px（因为菜单脱离文档流） */}
         <div style={{ 
-          flex: 1, 
+          marginLeft: '52px', // 始终留出收起菜单的宽度
           padding: '40px', 
           backgroundColor: '#1a1a3e',
           color: 'white',
-          minWidth: 0, // 防止 flex 子元素溢出
+          minHeight: '100vh',
         }}>
+          {/* 顶部测试按钮 */}
+          <div style={{
+            marginBottom: '32px',
+            padding: '24px',
+            backgroundColor: 'rgba(0, 204, 204, 0.15)',
+            borderRadius: '8px',
+            border: '2px solid #0cc',
+          }}>
+            <h2 style={{ margin: '0 0 16px 0', color: '#0cc', fontSize: '24px' }}>
+              🎯 布局测试控制台
+            </h2>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '20px',
+              marginBottom: '16px',
+            }}>
+              <button
+                onClick={() => setExpanded(!expanded)}
+                style={{
+                  padding: '12px 24px',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  backgroundColor: expanded ? '#ff6b6b' : '#4ecdc4',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.4)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+                }}
+              >
+                {expanded ? '🔽 点击收起菜单' : '🔼 点击展开菜单'}
+              </button>
+              <div style={{
+                padding: '12px 20px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '6px',
+                fontSize: '16px',
+              }}>
+                当前状态: <strong style={{ 
+                  color: expanded ? '#ff6b6b' : '#4ecdc4',
+                  fontSize: '18px',
+                }}>
+                  {expanded ? '展开 (256px)' : '收起 (52px)'}
+                </strong>
+              </div>
+            </div>
+            <p style={{ margin: 0, color: '#9d9d96', fontSize: '14px' }}>
+              💡 点击上方按钮或菜单左上角的按钮来切换菜单状态
+            </p>
+          </div>
+
+          {/* 验证色块区域 */}
           <div style={{
             padding: '24px',
             backgroundColor: '#ff6b6b',
@@ -212,7 +286,7 @@ export const LayoutValidation: Story = {
           }}>
             <h2 style={{ margin: '0 0 16px 0', color: 'white' }}>🟢 青色验证区域</h2>
             <p style={{ margin: 0, color: 'white', fontSize: '14px' }}>
-              当前菜单状态: <strong>{expanded ? '展开 (256px)' : '收起 (52px)'}</strong>
+              观察这个区域在菜单展开/收起时的位置变化
             </p>
           </div>
 
@@ -226,8 +300,8 @@ export const LayoutValidation: Story = {
             <div style={{ color: '#000', fontSize: '14px' }}>
               <p style={{ margin: '0 0 12px 0' }}><strong>预期行为：</strong></p>
               <ul style={{ margin: 0, paddingLeft: '20px' }}>
-                <li><strong>收起时 (默认)</strong>: 菜单占据 52px，色块区域在右侧正常显示，不被遮挡</li>
-                <li><strong>展开时</strong>: 菜单浮动覆盖，占据 256px，色块区域被部分遮挡（这是正确的）</li>
+                <li><strong>收起时</strong>: 菜单占据 52px，色块区域在右侧正常显示，不被遮挡 ✓</li>
+                <li><strong>展开时</strong>: 菜单浮动覆盖 256px，色块区域被部分遮挡（这是正确的）✓</li>
               </ul>
             </div>
           </div>
@@ -236,6 +310,7 @@ export const LayoutValidation: Story = {
             padding: '24px',
             backgroundColor: '#a29bfe',
             borderRadius: '8px',
+            marginBottom: '24px',
           }}>
             <h2 style={{ margin: '0 0 16px 0', color: 'white' }}>🟣 紫色验证区域</h2>
             <div style={{ color: 'white', fontSize: '14px' }}>
@@ -257,19 +332,21 @@ export const LayoutValidation: Story = {
           }}>
             <h3 style={{ margin: '0 0 12px 0', color: '#0cc' }}>💡 布局说明</h3>
             <p style={{ margin: '0 0 8px 0', color: '#9d9d96', fontSize: '14px' }}>
-              <strong style={{ color: 'white' }}>收起状态 (position: relative)</strong>
+              <strong style={{ color: 'white' }}>收起状态 (position: absolute)</strong>
             </p>
             <p style={{ margin: '0 0 16px 0', color: '#9d9d96', fontSize: '13px', paddingLeft: '16px' }}>
-              • 菜单在正常文档流中，占据 52px 宽度<br/>
-              • 内容区域自动排列在菜单右侧<br/>
-              • 不遮挡任何内容
+              • 菜单绝对定位，占据 52px 宽度<br/>
+              • 内容区域从左侧 52px 开始<br/>
+              • <strong style={{ color: '#4ecdc4' }}>无阴影，不遮挡内容</strong><br/>
+              • z-index: 999
             </p>
             <p style={{ margin: '0 0 8px 0', color: '#9d9d96', fontSize: '14px' }}>
               <strong style={{ color: 'white' }}>展开状态 (position: fixed)</strong>
             </p>
             <p style={{ margin: 0, color: '#9d9d96', fontSize: '13px', paddingLeft: '16px' }}>
-              • 菜单浮动定位，固定在左侧<br/>
-              • 占据 256px 宽度，覆盖在内容上层<br/>
+              • 菜单固定定位，占据 256px 宽度<br/>
+              • 覆盖在内容上层（内容仍从 52px 开始）<br/>
+              • <strong style={{ color: '#ff6b6b' }}>有阴影，可以遮挡内容</strong><br/>
               • z-index: 1000，确保在最上层
             </p>
           </div>
@@ -284,16 +361,20 @@ export const LayoutValidation: Story = {
 布局验证示例，用于测试 ApplicationMenu 的展开/收起行为：
 
 **收起状态 (默认)**：
-- 菜单使用 \`position: relative\`，在正常文档流中
+- 菜单使用 \`position: absolute\`，绝对定位
 - 占据 52px 宽度
-- 右侧色块区域完全可见，不被遮挡
+- 无阴影 (\`box-shadow: none\`)
+- 内容区域从左侧 52px 开始，不被遮挡
+- z-index: 999
 
 **展开状态**：
-- 菜单使用 \`position: fixed\`，浮动定位
+- 菜单使用 \`position: fixed\`，固定定位
 - 占据 256px 宽度，覆盖在内容上层
-- 右侧色块区域被部分遮挡（这是预期行为）
+- 有阴影 (\`box-shadow: 4px 0 8px 0 rgba(0, 0, 0, 0.6)\`)
+- 内容区域被部分遮挡（这是预期行为）
+- z-index: 1000
 
-点击左上角的展开/收起按钮来测试布局行为。
+点击顶部的测试按钮或菜单左上角的按钮来切换状态。
         `,
       },
     },

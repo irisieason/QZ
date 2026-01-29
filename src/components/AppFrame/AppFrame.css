@@ -1,0 +1,76 @@
+/* ========================================
+   AppFrame Component Styles
+   ======================================== */
+
+.app-frame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--background-color-1, #000028);
+}
+
+/* ========== Header Section ========== */
+.app-frame__header {
+  flex-shrink: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+/* ========== Body Section ========== */
+.app-frame__body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+/* ========== Menu Section ========== */
+.app-frame__menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 50;
+}
+
+/* ========== Content Section ========== */
+.app-frame__content {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  overflow: auto;
+  background-color: var(--background-color-1, #000028);
+  padding: 24px;
+  padding-left: 76px; /* 52px (collapsed menu) + 24px (padding) */
+}
+
+/* ========== 响应式设计 ========== */
+
+/* 平板设备 */
+@media (max-width: 1024px) {
+  .app-frame__content {
+    padding: 16px;
+    padding-left: 68px; /* 52px + 16px */
+  }
+}
+
+/* 移动设备 */
+@media (max-width: 768px) {
+  .app-frame__content {
+    padding: 12px;
+    padding-left: 64px; /* 52px + 12px */
+  }
+}
+
+/* ========== 打印样式 ========== */
+@media print {
+  .app-frame__menu {
+    display: none;
+  }
+  
+  .app-frame__content {
+    padding: 0;
+    padding-left: 0;
+  }
+}
